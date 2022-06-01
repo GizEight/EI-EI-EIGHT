@@ -7,13 +7,20 @@ yarn
 yarn dev
 ```
 
----
-
 ## Git
 
 ### デフォルトブランチ
 
 `develop`
+
+### PR（プルリクエスト）
+
+- コードの一貫性を保つため、`PR` を出す前に必ず以下を実行する
+
+```shell
+  yarn format
+  yarn lint
+```
 
 ### Git flow
 
@@ -21,7 +28,7 @@ yarn dev
 
 1. `develop` ブランチから `feature/ブランチ名` で切る
 2. 作業後、`feature/ブランチ名` ブランチをリモートリポジトリにプッシュ
-3. `develop` に対して `feature/ブランチ名` で `PR(プルリクエスト)` を作成する
+3. `develop` に対して `feature/ブランチ名` で `PR` を作成する
 4. レビュー後、レビュワーが `develop` にマージする。
 
 ### Commit
@@ -48,4 +55,18 @@ yarn dev
 [ refactor ] google auth api
 ```
 
----
+## eslint prettier
+
+### lint & lintfix
+
+`yarn lint`
+
+### format
+
+`yarn format`
+
+### config
+
+`.eslintrc.json`
+`.prettierrc`
+`.prettierignore`
