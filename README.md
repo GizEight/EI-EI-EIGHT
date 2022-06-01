@@ -55,4 +55,18 @@ yarn dev
 [ refactor ] google auth api
 ```
 
----
+## eslint prettier
+
+### lint & lintfix
+
+`yarn lint`
+
+### format
+
+`yarn format`
+
+### config
+
+`.eslintrc.json`
+`.prettierrc`
+`.prettierignore`
