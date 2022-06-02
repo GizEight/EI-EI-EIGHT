@@ -10,6 +10,7 @@
     "format": "prettier --write src/**/*"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "firebase": "^9.8.2",
     "normalize.css": "^8.0.1",
     "react": "^18.0.0",
