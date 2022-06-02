@@ -10,4 +10,4 @@ export const FIREBASE_MEASUREMENT_ID = import.meta.env
   .VITE_FIREBASE_MEASUREMENT_ID
 
 export const MICROCMS_BASE_URL = import.meta.env.VITE_MICROCMS_BASE_URL
-export const X_MICROCMS_APIKEY = import.meta.env.VITE_X_MICROCMS_APIKEY
+export const X_MICROCMS_API_KEY = import.meta.env.VITE_X_MICROCMS_API_KEY
