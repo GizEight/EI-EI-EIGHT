@@ -12,13 +12,29 @@ export const ERROR_CODES: ErrorCodes = {
   /*
    * Responseがカラの時
    */
-  CONTENTS_EMPTY: {
+  EMPTY_CONTENTS: {
     errCode: 2000,
     errMsg: 'コンテンツが存在しません。条件を変更して再度お試しください。',
   },
 
   /*
-   * catch句で受け取る
+   * バリデーション: Email
+   */
+  VALIDATE_EMAIL: {
+    errCode: 3000,
+    errMsg: '正しい形式で入力してください。',
+  },
+
+  /*
+   * 必須入力項目
+   */
+  REQUIRED_TEXT: {
+    errCode: 4000,
+    errMsg: '必須入力項目が未入力のままです。',
+  },
+
+  /*
+   * catch
    */
   INTERNAL_SERVER_ERROR: {
     errCode: 5000,
