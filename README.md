@@ -27,10 +27,10 @@ yarn dev
 [フィーチャー ブランチ](https://www.atlassian.com/ja/git/tutorials/comparing-workflows/gitflow-workflow#:~:text=develop%0A%C2%A0main-,%E3%83%95%E3%82%A3%E3%83%BC%E3%83%81%E3%83%A3%E3%83%BC%20%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81,-%E3%81%9D%E3%82%8C%E3%81%9E%E3%82%8C%E3%81%AE%E3%83%96%E3%83%A9%E3%83%B3%E3%83%81)
 
 1. `develop` ブランチを `git pull` して最新の状態にする
-1. `develop` ブランチから `feature/ブランチ名` で切る
-1. 作業後、`feature/ブランチ名` に最新の `develop` ブランチをマージしコンフリクトを解消したのち、リモートリポジトリにプッシュ
-1. `develop` に対して `feature/ブランチ名` で `PR` を作成する
-1. レビュー後、レビュワーが `develop` にマージする。
+2. `develop` ブランチから `feature/ブランチ名` で切る
+3. 作業後、`feature/ブランチ名` に最新の `develop` ブランチをマージしコンフリクトを解消したのち、リモートリポジトリにプッシュ
+4. `develop` に対して `feature/ブランチ名` で `PR` を作成する
+5. レビュー後、レビュワーが `develop` にマージする。
 
 ### Commit
 
