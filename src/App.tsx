@@ -1,6 +1,14 @@
-import './App.css'
+import { FC, useEffect } from 'react'
 
-function App() {
+import './App.css'
+import { test } from './scripts/lib/api'
+
+const App: FC = () => {
+  // * test
+  useEffect(() => {
+    test()
+  }, [])
+
   return <div className="App">EI-EI-EIGHT</div>
 }
 
