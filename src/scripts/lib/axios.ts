@@ -2,6 +2,7 @@ import axios from 'axios'
 
 import { MICROCMS_BASE_URL, X_MICROCMS_API_KEY } from '../utils/const'
 
+// eslint-disable-next-line no-console
 console.log('baseURL ===> ', MICROCMS_BASE_URL)
 
 const apiInstance = axios.create({
