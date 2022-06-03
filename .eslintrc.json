@@ -31,6 +31,7 @@
     "react/function-component-definition": "off",
     "import/prefer-default-export": "off",
     "jsx-quotes": "off",
+    "prefer-destructuring": "off",
     "import/order": [
       "error",
       {

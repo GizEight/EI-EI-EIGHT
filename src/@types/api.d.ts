@@ -12,28 +12,9 @@ interface MicroCmsRequest {
 /*
  * Auth
  */
-// TODO: Google認証型
-
-// Login
-export interface AuthEmailLoginRequest {
-  email: string
-  password: string
+export interface AuthGoogleLoginResponse extends ErrorResponse {
+  userId: string
 }
-// TODO: Response
-export interface AuthEmailLoginResponse extends ErrorResponse {}
-
-// Reset
-export interface SendResetPassword {
-  email: string
-}
-
-// Register
-export interface AuthRegisterUser {
-  email: string
-  password: string
-}
-// TODO: Response
-interface AuthRegisterUserResponse extends ErrorResponse {}
 
 /*
  * Article
