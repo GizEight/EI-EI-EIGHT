@@ -11,7 +11,19 @@ import { ERROR_CODES } from './error'
 import { errorHandler } from './responseErrorHandler'
 
 /*
- * GET 記事取得
+? microCMS限定でcatch時に返す
+ */
+const CATCH_RESPONSE = {
+  contents: [],
+  totalCount: 0,
+  offset: 0,
+  limit: 0,
+  errCode: ERROR_CODES.INTERNAL_SERVER_ERROR.errCode,
+  errMsg: ERROR_CODES.INTERNAL_SERVER_ERROR.errMsg,
+}
+
+/*
+ * GET 記事
  */
 export const fetchArticles = async (
   params?: GetArticlesRequest
@@ -30,6 +42,9 @@ export const fetchArticles = async (
       errMsg: ERROR_CODES.NORMAL_NOOP.errMsg,
     }
   } catch (e) {
+    return CATCH_RESPONSE
+  }
+}
     return {
       contents: [],
       totalCount: 0,
