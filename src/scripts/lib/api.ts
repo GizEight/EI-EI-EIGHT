@@ -1,8 +1,6 @@
 import { isNil, omit } from 'lodash'
 
 import {
-  MicroCmsResponse,
-  GetArticlesResponse,
   GetMicroCmsResponse,
   GetArticlesRequest,
   ExceptingGetMicroCmsResponse,
@@ -25,9 +23,9 @@ import { ERROR_CODES } from './error'
 import { errorHandler } from './responseErrorHandler'
 
 /*
-? microCMS限定でcatch時に返す
+? catch時に返す
  */
-const CATCH_RESPONSE = {
+const CATCH_RESPONSE_GET = {
   contents: [],
   totalCount: 0,
   offset: 0,
@@ -42,15 +40,18 @@ const CATCH_RESPONSE_EXCEPTING_GET = {
 }
 
 /*
- * GET 記事
+ * 記事取得
  */
 export const fetchArticles = async (
   params?: GetArticlesRequest
 ): Promise<GetArticlesResponse> => {
   try {
-    const res = await apiInstance.get<MicroCmsResponse<Article>>('articles', {
-      params,
-    })
+    const res = await apiInstance.get<GetMicroCmsResponse<Article>>(
+      'articles',
+      {
+        params,
+      }
+    )
     const validated = errorHandler(res)
     if (!isNil(validated)) {
       return validated
@@ -61,13 +62,11 @@ export const fetchArticles = async (
       errMsg: ERROR_CODES.NORMAL_NOOP.errMsg,
     }
   } catch (e) {
-    return CATCH_RESPONSE
+    return CATCH_RESPONSE_GET
   }
 }
 
 /*
-GET ユーザー
-*/
  * 記事投稿
  */
 export const postArticle = async (
@@ -109,11 +108,15 @@ export const updateArticle = async (
     return CATCH_RESPONSE_EXCEPTING_GET
   }
 }
+
+/*
+ * ユーザー取得
+ */
 export const fetchUsers = async (
   params?: GetUsersRequest
 ): Promise<GetUsersResponse> => {
   try {
-    const res = await apiInstance.get<MicroCmsResponse<User>>('users', {
+    const res = await apiInstance.get<GetMicroCmsResponse<User>>('users', {
       params,
     })
     const validated = errorHandler(res)
@@ -126,7 +129,10 @@ export const fetchUsers = async (
       errMsg: ERROR_CODES.NORMAL_NOOP.errMsg,
     }
   } catch (e) {
-    return CATCH_RESPONSE
+    return CATCH_RESPONSE_GET
+  }
+}
+
 /*
  * ユーザー作成
  */

@@ -2,30 +2,33 @@ import { Article } from './article'
 import { ErrorResponse } from './error'
 import { User } from './user'
 
-interface MicroCmsRequest {
+interface GetMicroCmsRequest {
   offset: number
   limit: number
   filters: string
   fields: string
 }
-export interface MicroCmsResponse<T> {
+export interface GetMicroCmsResponse<T> {
   contents: T[]
   totalCount: number
   offset: number
   limit: number
 }
+export interface ExceptingGetMicroCmsResponse {
+  id: string
+}
 
 /*
- * Auth
+ * Googleログイン
  */
 export interface AuthGoogleLoginResponse extends ErrorResponse {
   userId: string
 }
 
 /*
- * Article
+ * 記事取得
  */
-export interface GetArticlesRequest extends Partial<MicroCmsRequest> {}
+export interface GetArticlesRequest extends Partial<GetMicroCmsRequest> {}
 export interface GetArticlesResponse extends ErrorResponse {
   contents: Article[]
   totalCount: number
@@ -56,8 +59,11 @@ export interface UpdateArticleRequest extends Partial<CreateArticleRequest> {
 export interface UpdateArticleResponse extends ErrorResponse {
   id: string
 }
+
+/*
+ * ユーザー取得
  */
-export interface GetUsersRequest extends Partial<MicroCmsRequest> {}
+export interface GetUsersRequest extends Partial<GetMicroCmsRequest> {}
 export interface GetUsersResponse extends ErrorResponse {
   contents: User[]
   totalCount: number
