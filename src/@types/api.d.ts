@@ -8,6 +8,12 @@ interface MicroCmsRequest {
   filters: string
   fields: string
 }
+export interface MicroCmsResponse<T> {
+  contents: T[]
+  totalCount: number
+  offset: number
+  limit: number
+}
 
 /*
  * Auth

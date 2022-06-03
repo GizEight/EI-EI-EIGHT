@@ -3,8 +3,6 @@ export interface ErrorResponse {
   errMsg: string
 }
 
-export type ErrorCodes = Record<string, ErrorResponse>
-
 export interface FirebaseError {
   code: string
   message: string
