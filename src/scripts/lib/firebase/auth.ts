@@ -24,3 +24,18 @@ export const authRegisterUser = async (params: AuthRegisterUserRequest) => {
     return e
   }
 }
+
+export const authEmailLogin = async (params: AuthRegisterUserRequest) => {
+  const { email, password } = params
+  try {
+    const userCredential: UserCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    )
+    const user = userCredential.user
+    return user.uid
+  } catch (e) {
+    return e
+  }
+}
