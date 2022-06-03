@@ -1,12 +1,15 @@
 import { FC, useEffect } from 'react'
 
 import { AuthTest } from './components/test/AuthTest'
-import { test } from './scripts/lib/api'
+import { fetchUsers } from './scripts/lib/api'
 
 const App: FC = () => {
   // * test
   useEffect(() => {
-    test()
+    fetchUsers({ limit: 1 }).then((res) => {
+      // eslint-disable-next-line no-console
+      console.log('res', res)
+    })
   }, [])
 
   return (

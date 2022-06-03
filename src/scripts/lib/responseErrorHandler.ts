@@ -1,10 +1,10 @@
 import { AxiosResponse } from 'axios'
 import { isEmpty } from 'lodash'
 
-import { MicroCmsResponse } from '../../@types/api'
+import { GetMicroCmsResponse } from '../../@types/api'
 import { ERROR_CODES } from './error'
 
-export const errorHandler = <T>(res: AxiosResponse<MicroCmsResponse<T>>) => {
+export const errorHandler = <T>(res: AxiosResponse<GetMicroCmsResponse<T>>) => {
   if (isEmpty(res.data.contents)) {
     return {
       ...res.data,
