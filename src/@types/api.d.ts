@@ -16,29 +16,6 @@ export interface AuthGoogleLoginResponse extends ErrorResponse {
   userId: string
 }
 
-// Login
-export interface AuthEmailLoginRequest {
-  email: string
-  password: string
-}
-export interface AuthEmailLoginResponse extends ErrorResponse {
-  userId: string
-}
-
-// Reset
-export interface SendResetPassword {
-  email: string
-}
-
-// Register
-export interface AuthRegisterUserRequest {
-  email: string
-  password: string
-}
-interface AuthRegisterUserResponse extends ErrorResponse {
-  userId: string
-}
-
 /*
  * Article
  */
