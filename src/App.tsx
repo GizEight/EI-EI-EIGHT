@@ -14,8 +14,9 @@ const App: FC = () => {
   ? ログイン状況監視
   */
   useEffect(() => {
-    const unSubscribe = () => {
-      onAuthStateChanged(auth, (user: FirebaseUser | null) => {
+    const unSubscribe = onAuthStateChanged(
+      auth,
+      (user: FirebaseUser | null) => {
         if (isNil(user)) {
           dispatch(logout())
           return
@@ -57,11 +58,12 @@ const App: FC = () => {
               })
             )
           }
-          unSubscribe()
         })
-      })
+      }
+    )
+    return () => {
+      unSubscribe()
     }
-    return () => unSubscribe()
   }, [])
 
   return (
