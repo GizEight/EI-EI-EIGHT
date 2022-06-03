@@ -4,3 +4,9 @@ export interface ErrorResponse {
 }
 
 export type ErrorCodes = Record<string, ErrorResponse>
+
+export interface FirebaseError {
+  code: string
+  message: string
+  name: string
+}
