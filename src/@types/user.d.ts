@@ -1,7 +1,7 @@
 export interface User {
   id: string
   name: string
-  imageUrl: string
+  photoUrl: string
   description?: string
   twitterUrl?: string
   facebookUrl?: string
