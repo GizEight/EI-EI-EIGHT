@@ -32,6 +32,7 @@
     "import/prefer-default-export": "off",
     "jsx-quotes": "off",
     "prefer-destructuring": "off",
+    "import/no-cycle": "off",
     "no-param-reassign": ["error", { "props": false }],
     "import/order": [
       "error",
