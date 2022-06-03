@@ -1,6 +1,5 @@
 import { FC, useEffect } from 'react'
 
-import './App.css'
 import { test } from './scripts/lib/api'
 
 const App: FC = () => {
