@@ -19,8 +19,9 @@ export interface AuthEmailLoginRequest {
   email: string
   password: string
 }
-// TODO: Response
-export interface AuthEmailLoginResponse extends ErrorResponse {}
+export interface AuthEmailLoginResponse extends ErrorResponse {
+  userId: string
+}
 
 // Reset
 export interface SendResetPassword {
@@ -28,12 +29,13 @@ export interface SendResetPassword {
 }
 
 // Register
-export interface AuthRegisterUser {
+export interface AuthRegisterUserRequest {
   email: string
   password: string
 }
-// TODO: Response
-interface AuthRegisterUserResponse extends ErrorResponse {}
+interface AuthRegisterUserResponse extends ErrorResponse {
+  userId: string
+}
 
 /*
  * Article
