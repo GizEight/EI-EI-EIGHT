@@ -10,11 +10,11 @@ interface InitialState {
 const initialState: InitialState = {
   user: {
     name: '',
-    photoUrl: '',
+    photoURL: '',
     description: '',
     twitterUrl: '',
     facebookUrl: '',
-    firebaseId: '',
+    userId: '',
   },
 }
 
