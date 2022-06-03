@@ -16,7 +16,7 @@ export const authGoogleLogin = async (): Promise<AuthGoogleLoginResponse> => {
       googleAuthProvider
     )
     return {
-      userId: userCredential.user.uid,
+      user: userCredential.user,
       errCode: ERROR_CODES.NORMAL_NOOP.errCode,
       errMsg: ERROR_CODES.NORMAL_NOOP.errMsg,
     }
@@ -27,13 +27,13 @@ export const authGoogleLogin = async (): Promise<AuthGoogleLoginResponse> => {
       error.code === 'auth/account-exists-with-different-credential'
     ) {
       return {
-        userId: '',
+        user: {} as UserCredential['user'],
         errCode: toNumber(error.code),
         errMsg: error.message,
       }
     }
     return {
-      userId: '',
+      user: {} as UserCredential['user'],
       errCode: ERROR_CODES.INTERNAL_SERVER_ERROR.errCode,
       errMsg: ERROR_CODES.INTERNAL_SERVER_ERROR.errMsg,
     }
