@@ -1,6 +1,4 @@
-import { ErrorCodes } from '../../@types/error'
-
-export const ERROR_CODES: ErrorCodes = {
+export const ERROR_CODES = {
   /*
    * Response status 200番台
    */
