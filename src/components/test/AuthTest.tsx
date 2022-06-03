@@ -1,6 +1,9 @@
 import { FC, useState, useCallback, ChangeEvent, FormEvent } from 'react'
 
-import { authRegisterUser } from '../../scripts/lib/firebase/auth'
+import {
+  authRegisterUser,
+  authGoogleLogin,
+} from '../../scripts/lib/firebase/auth'
 
 export const AuthTest: FC = () => {
   const [user, setUser] = useState({
@@ -15,12 +18,18 @@ export const AuthTest: FC = () => {
     [user, setUser]
   )
 
-  const onSubmitForm = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmitForm = useCallback(async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const res = await authRegisterUser(user)
     // eslint-disable-next-line no-console
     console.log('res', res)
-  }
+  }, [])
+
+  const onClickGoogleLogin = useCallback(async () => {
+    const res = await authGoogleLogin()
+    // eslint-disable-next-line no-console
+    console.log('res', res)
+  }, [])
 
   return (
     <div>
@@ -39,6 +48,9 @@ export const AuthTest: FC = () => {
         />
         <button type="submit">ユーザー登録</button>
       </form>
+      <button type="button" onClick={onClickGoogleLogin}>
+        Googleログイン
+      </button>
     </div>
   )
 }
