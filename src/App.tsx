@@ -1,15 +1,20 @@
 import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth'
 import { isNil, isEmpty } from 'lodash'
-import { FC, useEffect } from 'react'
+import { FC, useEffect, useCallback } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
-import { useAppDispatch } from './app/hooks'
+import { useAppDispatch, useAppSelector } from './app/hooks'
+import { selectToast, closeToast, setToast } from './app/slices/toastSlice'
 import { login, logout } from './app/slices/userSlice'
 import { PrimaryButton } from './components/atoms/PrimaryButton'
 import { Toast } from './components/atoms/Toast'
 import { AuthTest } from './components/test/AuthTest'
 import { auth } from './firebase'
 import { fetchUsers, createUser } from './scripts/lib/api'
+import {
+  LOGIN_SUCCESS_MESSAGE,
+  TOAST_DURATION_TIME,
+} from './scripts/utils/const'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -75,15 +80,25 @@ const App: FC = () => {
     <QueryClientProvider client={queryClient}>
       <div className="App">
         EI-EI-EIGHT
-        <div style={{ marginTop: '30px' }} />
-        <input type="text" />
+        <button
+          onClick={() => {
+            dispatch(logout())
+            resetToast()
+          }}
+          type="button"
+        >
+          ログアウト
+        </button>
         <AuthTest />
         <PrimaryButton onClick={() => console.log('button')}>
           ボタン
         </PrimaryButton>
-        {/* eslint-disable-next-line react/jsx-boolean-value */}
-        <Toast type="success" isShow={true}>
-          Login Success!
+        <Toast
+          type={toast.type}
+          iconClose={onClickIconClose}
+          isShow={toast.isShow}
+        >
+          {toast.message}
         </Toast>
       </div>
     </QueryClientProvider>
