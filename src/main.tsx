@@ -4,7 +4,6 @@ import { Provider } from 'react-redux'
 
 import App from './App'
 import { store } from './app/store'
-import 'normalize.css'
 import './styles/index.scss'
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
