@@ -103,26 +103,7 @@ const App: FC = () => {
     <QueryClientProvider client={queryClient}>
       <div className="App">
         EI-EI-EIGHT
-        <button
-          onClick={() => {
-            dispatch(logout())
-            resetToast()
-          }}
-          type="button"
-        >
-          ログアウト
-        </button>
         <AuthTest />
-        <PrimaryButton onClick={() => console.log('button')}>
-          ボタン
-        </PrimaryButton>
-        <Toast
-          type={toast.type}
-          iconClose={onClickIconClose}
-          isShow={toast.isShow}
-        >
-          {toast.message}
-        </Toast>
       </div>
     </QueryClientProvider>
   )
