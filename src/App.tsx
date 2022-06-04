@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 
 import { useAppDispatch } from './app/hooks'
 import { login, logout } from './app/slices/userSlice'
+import { PrimaryButton } from './components/atoms/PrimaryButton'
+import { Toast } from './components/atoms/Toast'
 import { AuthTest } from './components/test/AuthTest'
 import { auth } from './firebase'
 import { fetchUsers, createUser } from './scripts/lib/api'
@@ -76,6 +78,13 @@ const App: FC = () => {
         <div style={{ marginTop: '30px' }} />
         <input type="text" />
         <AuthTest />
+        <PrimaryButton onClick={() => console.log('button')}>
+          ボタン
+        </PrimaryButton>
+        {/* eslint-disable-next-line react/jsx-boolean-value */}
+        <Toast type="success" isShow={true}>
+          Login successed!
+        </Toast>
       </div>
     </QueryClientProvider>
   )
