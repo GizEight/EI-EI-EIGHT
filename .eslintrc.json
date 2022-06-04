@@ -29,6 +29,8 @@
     "unused-imports/no-unused-imports": "error",
     "react/react-in-jsx-scope": "off",
     "react/function-component-definition": "off",
+    "react/require-default-props": "off",
+    "react/button-has-type": "off",
     "import/prefer-default-export": "off",
     "jsx-quotes": "off",
     "prefer-destructuring": "off",
