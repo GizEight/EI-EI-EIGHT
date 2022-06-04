@@ -1,12 +1,22 @@
 import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth'
 import { isNil, isEmpty } from 'lodash'
 import { FC, useEffect } from 'react'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 import { useAppDispatch } from './app/hooks'
 import { login, logout } from './app/slices/userSlice'
 import { AuthTest } from './components/test/AuthTest'
 import { auth } from './firebase'
 import { fetchUsers, createUser } from './scripts/lib/api'
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+})
 
 const App: FC = () => {
   const dispatch = useAppDispatch()
@@ -60,11 +70,14 @@ const App: FC = () => {
   }, [])
 
   return (
-    <div className="App">
-      EI-EI-EIGHT
-      <div style={{ marginTop: '30px' }} />
-      <AuthTest />
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className="App">
+        EI-EI-EIGHT
+        <div style={{ marginTop: '30px' }} />
+        <input type="text" />
+        <AuthTest />
+      </div>
+    </QueryClientProvider>
   )
 }
 
