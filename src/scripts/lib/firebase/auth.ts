@@ -2,10 +2,10 @@ import { signInWithPopup, UserCredential, signOut } from 'firebase/auth'
 import { toNumber } from 'lodash'
 
 import { AuthGoogleLoginResponse } from '../../../@types/api.d'
+import { ErrorResponse } from '../../../@types/error.d'
 import { auth, googleAuthProvider } from '../../../firebase'
 import { ERROR_CODES } from '../error'
 import { isFirebaseError } from './error'
-import { ErrorResponse } from '../../../@types/error.d'
 
 /*
  * Googleログイン
