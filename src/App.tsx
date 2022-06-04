@@ -1,6 +1,7 @@
 import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth'
 import { isNil, isEmpty } from 'lodash'
 import { FC, useEffect } from 'react'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 import { useAppDispatch } from './app/hooks'
 import { login, logout } from './app/slices/userSlice'
@@ -8,8 +9,18 @@ import { AuthTest } from './components/test/AuthTest'
 import { auth } from './firebase'
 import { fetchUsers, createUser } from './scripts/lib/api'
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+})
+
 const App: FC = () => {
   const dispatch = useAppDispatch()
+
   /*
   ? ログイン状況監視
   */
@@ -28,24 +39,16 @@ const App: FC = () => {
           filters: `userId[equals]${user.uid}`,
         }).then(async ({ contents }) => {
           if (isEmpty(contents)) {
-            await createUser({
+            const signInNewUser = {
               name: user.displayName || user.uid,
-              photoUrl: user.photoURL || '',
+              photoURL: user.photoURL || '',
               description: '',
               twitterUrl: '',
               facebookUrl: '',
               userId: user.uid,
-            })
-            dispatch(
-              login({
-                name: user.displayName || user.uid,
-                photoURL: user.photoURL || '',
-                description: '',
-                twitterUrl: '',
-                facebookUrl: '',
-                userId: user.uid,
-              })
-            )
+            }
+            await createUser(signInNewUser)
+            dispatch(login(signInNewUser))
           } else {
             dispatch(
               login({
@@ -67,11 +70,13 @@ const App: FC = () => {
   }, [])
 
   return (
-    <div className="App">
-      EI-EI-EIGHT
-      <div style={{ marginTop: '30px' }} />
-      <AuthTest />
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className="App">
+        EI-EI-EIGHT
+        <div style={{ marginTop: '30px' }} />
+        <AuthTest />
+      </div>
+    </QueryClientProvider>
   )
 }
 

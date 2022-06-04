@@ -78,7 +78,7 @@ export interface GetUsersResponse extends ErrorResponse {
  */
 export interface CreateUserRequest {
   name: string
-  photoUrl: string
+  photoURL: string
   description?: string
   twitterUrl?: string
   facebookUrl?: string
