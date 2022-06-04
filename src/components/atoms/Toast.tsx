@@ -10,6 +10,7 @@ type Props = {
   iconClose: () => void
 }
 
+// eslint-disable-next-line react/display-name
 export const Toast: FC<Props> = memo((props: Props) => {
   const { children, type, isShow, iconClose } = props
 

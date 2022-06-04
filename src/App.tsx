@@ -83,7 +83,7 @@ const App: FC = () => {
         </PrimaryButton>
         {/* eslint-disable-next-line react/jsx-boolean-value */}
         <Toast type="success" isShow={true}>
-          Login successed!
+          Login Success!
         </Toast>
       </div>
     </QueryClientProvider>
