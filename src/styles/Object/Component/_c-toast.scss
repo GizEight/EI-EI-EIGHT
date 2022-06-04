@@ -10,6 +10,7 @@
   margin: 0 auto;
   padding-left: 20px;
   position: relative;
+  animation: default-fade-animation 8s ease 0s 1 forwards;
 
   &_closebtn {
     padding: 2px 5px 3px;
@@ -40,7 +41,18 @@
   0% {
     opacity: 1;
   }
+  100% {
+    opacity: 0;
+  }
+}
 
+@keyframes default-fade-animation {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
   100% {
     opacity: 0;
   }

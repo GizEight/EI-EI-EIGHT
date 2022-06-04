@@ -1,84 +1,48 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { FC, ReactNode } from 'react'
+import { FC, ReactNode, useCallback, memo } from 'react'
+
+type ToastType = 'success' | 'warning' | 'error' | 'info'
 
 type Props = {
   children: ReactNode
-  type: 'success' | 'warning' | 'error' | 'info'
-  isShow?: boolean
+  type: ToastType
+  isShow: boolean
+  iconClose: () => void
 }
 
-export const Toast: FC<Props> = (props: Props) => {
-  const { children, type, isShow = false } = props
+// eslint-disable-next-line react/display-name
+export const Toast: FC<Props> = memo((props: Props) => {
+  const { children, type, isShow, iconClose } = props
 
-  const iconClose = () => {
-    console.log('close')
-  }
+  const changeIconBy = useCallback((toastType: ToastType) => {
+    switch (toastType) {
+      case 'success':
+        return 'circle-check'
+      case 'warning':
+        return 'circle-exclamation'
+      case 'error':
+        return 'circle-exclamation'
+      case 'info':
+        return 'circle-info'
+      default:
+        return 'circle-check'
+    }
+  }, [])
 
   // typeによって表示させるtoastを出し分ける
-  const switchToast = () => {
-    let toastType: ReactNode = null
-    switch (type) {
-      case 'success':
-        toastType = (
-          <div
-            className={isShow ? 'toast success' : 'toast success toast_fadeout'}
-          >
-            <FontAwesomeIcon
-              className="toast_icon"
-              icon={['fas', 'circle-check']}
-            />
-            <span className="iconwithtext">{children}</span>
-            <span className="toast_closebtn">
-              <FontAwesomeIcon onClick={iconClose} icon={['fas', 'xmark']} />
-            </span>
-          </div>
-        )
-        break
-
-      case 'error':
-        toastType = (
-          <div className="toast error">
-            <FontAwesomeIcon
-              className="toast_icon"
-              icon={['fas', 'circle-check']}
-            />
-            {children}
-          </div>
-        )
-        break
-
-      case 'warning':
-        toastType = (
-          <div className="toast warning">
-            <FontAwesomeIcon
-              className="toast_icon"
-              icon={['fas', 'circle-check']}
-            />
-            {children}
-          </div>
-        )
-        break
-
-      case 'info':
-        toastType = (
-          <div className="toast info">
-            <FontAwesomeIcon
-              className="toast_icon"
-              icon={['fas', 'circle-check']}
-            />
-            {children}
-          </div>
-        )
-        break
-
-      default:
-        toastType = null
-        break
-    }
-
-    return toastType
-  }
+  const switchToast = () => (
+    <div className={`toast ${type} ${!isShow ? 'toast_fadeout' : undefined}`}>
+      <FontAwesomeIcon
+        className="toast_icon"
+        icon={['fas', changeIconBy(type)]}
+      />
+      <span className="iconwithtext">{children}</span>
+      <span className="toast_closebtn">
+        <FontAwesomeIcon onClick={iconClose} icon={['fas', 'xmark']} />
+      </span>
+    </div>
+  )
 
   // バツボタンを押したらトーストがフェード
   return <>{switchToast()}</>
-}
+})
