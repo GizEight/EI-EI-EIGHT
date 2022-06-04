@@ -10,42 +10,75 @@ type Props = {
 export const Toast: FC<Props> = (props: Props) => {
   const { children, type, isShow = false } = props
 
+  const iconClose = () => {
+    console.log('close')
+  }
+
+  // typeによって表示させるtoastを出し分ける
   const switchToast = () => {
-    let toastType = null
+    let toastType: ReactNode = null
     switch (type) {
       case 'success':
         toastType = (
-          <div className="c-toast">
+          <div
+            className={isShow ? 'toast success' : 'toast success toast_fadeout'}
+          >
             <FontAwesomeIcon
-              className="c-toast_icon"
+              className="toast_icon"
               icon={['fas', 'circle-check']}
             />
-            {children}
+            <span className="iconwithtext">{children}</span>
+            <span className="toast_closebtn">
+              <FontAwesomeIcon onClick={iconClose} icon={['fas', 'xmark']} />
+            </span>
           </div>
         )
-        return toastType
+        break
+
       case 'error':
         toastType = (
-          <div className="c-toast error">
+          <div className="toast error">
             <FontAwesomeIcon
-              className="c-toast_icon"
+              className="toast_icon"
               icon={['fas', 'circle-check']}
             />
             {children}
           </div>
         )
-        return toastType
-      default:
-        toastType = (
-          <div>
-            <FontAwesomeIcon icon={['fas', 'circle-check']} />
+        break
 
+      case 'warning':
+        toastType = (
+          <div className="toast warning">
+            <FontAwesomeIcon
+              className="toast_icon"
+              icon={['fas', 'circle-check']}
+            />
             {children}
           </div>
         )
+        break
+
+      case 'info':
+        toastType = (
+          <div className="toast info">
+            <FontAwesomeIcon
+              className="toast_icon"
+              icon={['fas', 'circle-check']}
+            />
+            {children}
+          </div>
+        )
+        break
+
+      default:
+        toastType = null
+        break
     }
 
     return toastType
   }
+
+  // バツボタンを押したらトーストがフェード
   return <>{switchToast()}</>
 }

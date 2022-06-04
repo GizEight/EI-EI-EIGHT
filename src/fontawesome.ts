@@ -3,6 +3,7 @@ import {
   faCircleCheck,
   faCircleExclamation,
   faCircleInfo,
+  faXmark,
 } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faCircleCheck, faCircleExclamation, faCircleInfo)
+library.add(faCircleCheck, faCircleExclamation, faCircleInfo, faXmark)

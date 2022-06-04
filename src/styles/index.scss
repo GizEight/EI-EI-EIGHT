@@ -7,7 +7,14 @@
 /*
 * Object
 */
-@use './Object/_component.scss';
+@use './Object/Component/c-button';
+@use './Object/Component/c-toast';
+
+/*
+* Utility
+*/
+@use './Object/Utility/u-text';
+@use './Object/Utility/u-type';
 
 // font-family
 @import url('https://fonts.googleapis.com/css2?family=Nuosu+SIL&family=Zen+Antique&display=swap');

@@ -78,10 +78,13 @@ const App: FC = () => {
         <div style={{ marginTop: '30px' }} />
         <input type="text" />
         <AuthTest />
-        <PrimaryButton onClick={() => console.log('botann')}>
+        <PrimaryButton onClick={() => console.log('button')}>
           ボタン
         </PrimaryButton>
-        <Toast type="error">success</Toast>
+        {/* eslint-disable-next-line react/jsx-boolean-value */}
+        <Toast type="success" isShow={true}>
+          Login successed!
+        </Toast>
       </div>
     </QueryClientProvider>
   )

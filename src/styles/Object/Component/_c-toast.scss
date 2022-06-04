@@ -1,0 +1,47 @@
+@use '../../Foundation/' as va;
+
+.toast {
+  width: 250px;
+  height: 40px;
+  color: va.$Base;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  padding-left: 20px;
+  position: relative;
+
+  &_closebtn {
+    padding: 2px 5px 3px;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute;
+    top: 2px;
+    right: 10px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background-color: #1c5135;
+    }
+  }
+
+  &_fadeout {
+    animation: fadeout-toast 1.5s ease 0s 1 forwards;
+  }
+
+  &_icon {
+    color: va.$Base;
+    font-size: 20px;
+    margin-right: 20px;
+  }
+}
+
+@keyframes fadeout-toast {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
