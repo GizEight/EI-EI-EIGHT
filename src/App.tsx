@@ -1,20 +1,15 @@
 import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth'
 import { isNil, isEmpty } from 'lodash'
-import { FC, useEffect, useCallback } from 'react'
+import { FC, useEffect } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 
-import { useAppDispatch, useAppSelector } from './app/hooks'
-import { selectToast, closeToast, setToast } from './app/slices/toastSlice'
+import { useAppDispatch } from './app/hooks'
 import { login, logout } from './app/slices/userSlice'
-import { PrimaryButton } from './components/atoms/PrimaryButton'
 import { Toast } from './components/atoms/Toast'
 import { AuthTest } from './components/test/AuthTest'
 import { auth } from './firebase'
+import { useToast } from './scripts/hooks/useToast'
 import { fetchUsers, createUser } from './scripts/lib/api'
-import {
-  LOGIN_SUCCESS_MESSAGE,
-  TOAST_DURATION_TIME,
-} from './scripts/utils/const'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,19 +22,7 @@ const queryClient = new QueryClient({
 
 const App: FC = () => {
   const dispatch = useAppDispatch()
-  const { toast } = useAppSelector(selectToast)
-
-  const onClickIconClose = useCallback(() => dispatch(closeToast()), [])
-
-  const resetToast = useCallback(() => {
-    dispatch(
-      setToast({
-        type: 'success',
-        message: toast.message,
-        isShow: false,
-      })
-    )
-  }, [dispatch, setToast])
+  const { toast, resetToast, loginSuccessToast, onClickCloseToast } = useToast()
 
   /*
   ? ログイン状況監視
@@ -53,15 +36,7 @@ const App: FC = () => {
           resetToast()
           return
         }
-        dispatch(
-          setToast({
-            type: 'success',
-            message: LOGIN_SUCCESS_MESSAGE,
-            isShow: true,
-          })
-        )
-        setTimeout(() => resetToast, TOAST_DURATION_TIME)
-
+        loginSuccessToast()
         /*
         ? ユーザーが登録済か確認する
         */
@@ -105,6 +80,13 @@ const App: FC = () => {
         EI-EI-EIGHT
         <AuthTest />
       </div>
+      <Toast
+        type={toast.type}
+        iconClose={onClickCloseToast}
+        isShow={toast.isShow}
+      >
+        {toast.message}
+      </Toast>
     </QueryClientProvider>
   )
 }
