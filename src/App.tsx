@@ -10,6 +10,7 @@ import { fetchUsers, createUser } from './scripts/lib/api'
 
 const App: FC = () => {
   const dispatch = useAppDispatch()
+
   /*
   ? ログイン状況監視
   */
@@ -28,24 +29,16 @@ const App: FC = () => {
           filters: `userId[equals]${user.uid}`,
         }).then(async ({ contents }) => {
           if (isEmpty(contents)) {
-            await createUser({
+            const signInNewUser = {
               name: user.displayName || user.uid,
-              photoUrl: user.photoURL || '',
+              photoURL: user.photoURL || '',
               description: '',
               twitterUrl: '',
               facebookUrl: '',
               userId: user.uid,
-            })
-            dispatch(
-              login({
-                name: user.displayName || user.uid,
-                photoURL: user.photoURL || '',
-                description: '',
-                twitterUrl: '',
-                facebookUrl: '',
-                userId: user.uid,
-              })
-            )
+            }
+            await createUser(signInNewUser)
+            dispatch(login(signInNewUser))
           } else {
             dispatch(
               login({
