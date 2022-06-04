@@ -14,6 +14,7 @@ export const AuthTest: FC = () => {
     ;<div>まだ表示できないよ...</div>
   }
 
+  // eslint-disable-next-line no-console
   console.log('data', data)
 
   const onClickGoogleLogin = useCallback(async () => {
