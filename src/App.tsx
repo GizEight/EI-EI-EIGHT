@@ -74,6 +74,7 @@ const App: FC = () => {
       <div className="App">
         EI-EI-EIGHT
         <div style={{ marginTop: '30px' }} />
+        <input type="text" />
         <AuthTest />
       </div>
     </QueryClientProvider>
