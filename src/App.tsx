@@ -27,6 +27,19 @@ const queryClient = new QueryClient({
 
 const App: FC = () => {
   const dispatch = useAppDispatch()
+  const { toast } = useAppSelector(selectToast)
+
+  const onClickIconClose = useCallback(() => dispatch(closeToast()), [])
+
+  const resetToast = useCallback(() => {
+    dispatch(
+      setToast({
+        type: 'success',
+        message: toast.message,
+        isShow: false,
+      })
+    )
+  }, [dispatch, setToast])
 
   /*
   ? ログイン状況監視
@@ -37,8 +50,18 @@ const App: FC = () => {
       (user: FirebaseUser | null) => {
         if (isNil(user)) {
           dispatch(logout())
+          resetToast()
           return
         }
+        dispatch(
+          setToast({
+            type: 'success',
+            message: LOGIN_SUCCESS_MESSAGE,
+            isShow: true,
+          })
+        )
+        setTimeout(() => resetToast, TOAST_DURATION_TIME)
+
         /*
         ? ユーザーが登録済か確認する
         */

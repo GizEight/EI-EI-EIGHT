@@ -31,10 +31,13 @@ export const toastSlice = createSlice({
     resetToast: (state) => {
       state.toast = initialState.toast
     },
+    closeToast: (state) => {
+      state.toast.isShow = false
+    },
   },
 })
 
-export const { setToast, resetToast } = toastSlice.actions
+export const { setToast, resetToast, closeToast } = toastSlice.actions
 
 export const selectToast = (state: RootState) => state.toast
 
