@@ -5,10 +5,10 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 
 import { useAppDispatch } from './app/hooks'
 import { login, logout } from './app/slices/userSlice'
-import { PrimaryButton } from './components/atoms/PrimaryButton'
 import { Toast } from './components/atoms/Toast'
 import { AuthTest } from './components/test/AuthTest'
 import { auth } from './firebase'
+import { useToast } from './scripts/hooks/useToast'
 import { fetchUsers, createUser } from './scripts/lib/api'
 
 const queryClient = new QueryClient({
@@ -22,6 +22,7 @@ const queryClient = new QueryClient({
 
 const App: FC = () => {
   const dispatch = useAppDispatch()
+  const { toast, resetToast, loginSuccessToast, onClickCloseToast } = useToast()
 
   /*
   ? ログイン状況監視
@@ -32,8 +33,10 @@ const App: FC = () => {
       (user: FirebaseUser | null) => {
         if (isNil(user)) {
           dispatch(logout())
+          resetToast()
           return
         }
+        loginSuccessToast()
         /*
         ? ユーザーが登録済か確認する
         */
@@ -75,17 +78,15 @@ const App: FC = () => {
     <QueryClientProvider client={queryClient}>
       <div className="App">
         EI-EI-EIGHT
-        <div style={{ marginTop: '30px' }} />
-        <input type="text" />
         <AuthTest />
-        <PrimaryButton onClick={() => console.log('button')}>
-          ボタン
-        </PrimaryButton>
-        {/* eslint-disable-next-line react/jsx-boolean-value */}
-        <Toast type="success" isShow={true}>
-          Login Success!
-        </Toast>
       </div>
+      <Toast
+        type={toast.type}
+        iconClose={onClickCloseToast}
+        isShow={toast.isShow}
+      >
+        {toast.message}
+      </Toast>
     </QueryClientProvider>
   )
 }

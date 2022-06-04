@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FC, ReactNode, useCallback, memo } from 'react'
 
-type ToastType = 'success' | 'warning' | 'error' | 'info'
+import { ToastType } from '../../@types/view'
 
 type Props = {
   children: ReactNode
