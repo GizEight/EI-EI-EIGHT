@@ -1,12 +1,11 @@
+import { CmsResponseDefault } from './cms.d'
+
 export interface Article {
-  id: string
   imageUrl: string
   title: string
   userId: string
   content: string
   contentCount: number
-  createdAt: string // Date
-  updatedAt: string // Date
-  publishedAt: string // Date
-  revisedAt: string // Date
 }
+
+export interface ResponseArticle extends CmsResponseDefault, Article {}

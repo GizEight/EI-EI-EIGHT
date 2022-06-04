@@ -1,6 +1,8 @@
-import { Article } from './article'
+import { User as FirebaseUser } from 'firebase/auth'
+
+import { ResponseArticle } from './article'
 import { ErrorResponse } from './error'
-import { User } from './user'
+import { ResponseUser } from './user'
 
 interface GetMicroCmsRequest {
   offset: number
@@ -22,7 +24,7 @@ export interface ExceptingGetMicroCmsResponse {
  * Googleログイン
  */
 export interface AuthGoogleLoginResponse extends ErrorResponse {
-  userId: string
+  user: FirebaseUser
 }
 
 /*
@@ -30,7 +32,7 @@ export interface AuthGoogleLoginResponse extends ErrorResponse {
  */
 export interface GetArticlesRequest extends Partial<GetMicroCmsRequest> {}
 export interface GetArticlesResponse extends ErrorResponse {
-  contents: Article[]
+  contents: ResponseArticle[]
   totalCount: number
   offset: number
   limit: number
@@ -65,7 +67,7 @@ export interface UpdateArticleResponse extends ErrorResponse {
  */
 export interface GetUsersRequest extends Partial<GetMicroCmsRequest> {}
 export interface GetUsersResponse extends ErrorResponse {
-  contents: User[]
+  contents: ResponseUser[]
   totalCount: number
   offset: number
   limit: number
