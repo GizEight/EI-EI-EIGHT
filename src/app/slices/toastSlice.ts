@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
+import { ToastType } from '../../@types/view'
 import { RootState } from '../store'
 
 export interface Toast {
   isShow: boolean
-  type: 'success' | 'error' | 'warning' | 'info'
+  type: ToastType
   message: string
 }
 
