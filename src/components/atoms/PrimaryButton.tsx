@@ -5,12 +5,24 @@ type Props = {
   onClick: () => void
   type?: 'button' | 'submit' | 'reset'
   isDisabled?: boolean
+  isRounded?: boolean
 }
 
 export const PrimaryButton: FC<Props> = (props: Props) => {
-  const { children, onClick, isDisabled = false, type = 'button' } = props
+  const {
+    children,
+    onClick,
+    isDisabled = false,
+    type = 'button',
+    isRounded = false,
+  } = props
   return (
-    <button className="btn" type={type} onClick={onClick} disabled={isDisabled}>
+    <button
+      className={`btn ${isRounded ? 'btn-rounded' : undefined}`}
+      type={type}
+      onClick={onClick}
+      disabled={isDisabled}
+    >
       {children}
     </button>
   )
