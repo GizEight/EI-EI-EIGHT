@@ -15,20 +15,17 @@ export const Toast: FC<Props> = memo((props: Props) => {
 
   const changeIconBy = useCallback((toastType: ToastType) => {
     switch (toastType) {
-      case 'success':
-        return 'circle-check'
       case 'warning':
-        return 'circle-exclamation'
       case 'error':
         return 'circle-exclamation'
       case 'info':
         return 'circle-info'
+      case 'success':
       default:
         return 'circle-check'
     }
   }, [])
 
-  // typeによって表示させるtoastを出し分ける
   const switchToast = () => (
     <div className={`toast ${type} ${!isShow ? 'toast_fadeout' : undefined}`}>
       <FontAwesomeIcon
@@ -42,6 +39,5 @@ export const Toast: FC<Props> = memo((props: Props) => {
     </div>
   )
 
-  // バツボタンを押したらトーストがフェード
   return <>{switchToast()}</>
 })
