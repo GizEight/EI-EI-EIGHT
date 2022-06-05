@@ -5,7 +5,7 @@
   align-items: center;
 }
 
-.footer {
+.l-footer {
   height: 100px;
   padding: 30px;
 
@@ -33,9 +33,5 @@
     width: 50%;
     justify-content: space-evenly;
     margin-top: 20px;
-
-    // & > p {
-    //   margin-right: 40px;
-    // }
   }
 }
