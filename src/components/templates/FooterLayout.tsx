@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { APP_TITLE } from '../../scripts/utils/const'
 
 export const FooterLayout = () => {
-  const members = ['Kira Tanaka', 'Kazumaru Katou', 'Seiya Iwanabe']
+  const members: string[] = ['Kira Tanaka', 'Kazumaru Katou', 'Seiya Iwanabe']
 
   return (
     <footer className="l-footer">
@@ -15,9 +15,8 @@ export const FooterLayout = () => {
         </div>
         <span className="l-footer_horizon" />
         <div className="l-footer_friends">
-          {members.map((member, index) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <p key={index}>{member}</p>
+          {members.map((member) => (
+            <p key={member}>{member}</p>
           ))}
         </div>
       </div>
