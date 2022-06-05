@@ -5,6 +5,11 @@
 @use './Foundation/_variables.scss';
 
 /*
+* Layout
+*/
+@use './Layout/l-main.scss';
+
+/*
 * Object
 */
 @use './Object/Component/c-button';

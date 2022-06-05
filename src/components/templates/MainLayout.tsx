@@ -6,5 +6,5 @@ type Props = {
 
 export const MainLayout: FC<Props> = ({ children }: Props) => (
   // TODO: メインレイアウト
-  <main>{children}</main>
+  <main className="l-main">{children}</main>
 )
