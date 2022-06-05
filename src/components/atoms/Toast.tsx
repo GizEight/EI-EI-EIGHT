@@ -7,29 +7,25 @@ type Props = {
   children: ReactNode
   type: ToastType
   isShow: boolean
-  iconClose: () => void
+  onCLickCloseIcon: () => void
 }
 
-// eslint-disable-next-line react/display-name
 export const Toast: FC<Props> = memo((props: Props) => {
-  const { children, type, isShow, iconClose } = props
+  const { children, type, isShow, onCLickCloseIcon } = props
 
   const changeIconBy = useCallback((toastType: ToastType) => {
     switch (toastType) {
-      case 'success':
-        return 'circle-check'
       case 'warning':
-        return 'circle-exclamation'
       case 'error':
         return 'circle-exclamation'
       case 'info':
         return 'circle-info'
+      case 'success':
       default:
         return 'circle-check'
     }
   }, [])
 
-  // typeによって表示させるtoastを出し分ける
   const switchToast = () => (
     <div className={`toast ${type} ${!isShow ? 'toast_fadeout' : undefined}`}>
       <FontAwesomeIcon
@@ -38,11 +34,10 @@ export const Toast: FC<Props> = memo((props: Props) => {
       />
       <span className="iconwithtext">{children}</span>
       <span className="toast_closebtn">
-        <FontAwesomeIcon onClick={iconClose} icon={['fas', 'xmark']} />
+        <FontAwesomeIcon onClick={onCLickCloseIcon} icon={['fas', 'xmark']} />
       </span>
     </div>
   )
 
-  // バツボタンを押したらトーストがフェード
   return <>{switchToast()}</>
 })

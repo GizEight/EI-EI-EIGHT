@@ -5,31 +5,39 @@
   flex-direction: column;
 }
 
+.base-label-style {
+  display: inline-block;
+  font-size: va.$Sentence;
+  margin-left: 10px;
+}
+
+.base-form-style {
+  display: inline-block;
+  margin-top: 5px;
+  outline: none;
+  width: 500px;
+  background-color: va.$FormBackground;
+  padding: 8px 15px 8px 15px;
+  color: va.$Base;
+  font-size: va.$Sentence;
+
+  &:focus {
+    border: 1px solid va.$FocusForm;
+    box-shadow: 0 0 0 2.5px va.$FocusForm;
+  }
+}
+
 .textform {
   @extend .flex-column;
 
   & > label {
-    display: inline-block;
-    font-size: va.$Sentence;
-    margin-left: 10px;
+    @extend .base-label-style;
   }
 
   & > input {
-    display: inline-block;
-    margin-top: 5px;
-    outline: none;
-    width: 500px;
+    @extend .base-form-style;
     height: 30px;
-    background-color: va.$FormBackground;
-    padding: 8px 15px 8px 15px;
-    color: va.$Base;
     border-radius: 50px;
-    font-size: va.$Sentence;
-
-    &:focus {
-      border: 1px solid va.$FocusForm;
-      box-shadow: 0 0 0 2.5px va.$FocusForm;
-    }
   }
 }
 
@@ -37,27 +45,13 @@
   @extend .flex-column;
 
   & > label {
-    display: inline-block;
-    font-size: va.$Sentence;
-    margin-left: 10px;
+    @extend .base-label-style;
   }
 
   & > textarea {
-    display: inline-block;
-    margin-top: 5px;
-    outline: none;
-    width: 500px;
+    @extend .base-form-style;
     height: 100px;
-    background-color: va.$FormBackground;
-    padding: 8px 15px 8px 15px;
-    color: va.$Base;
     border-radius: 10px;
-    font-size: va.$Sentence;
     resize: none;
-
-    &:focus {
-      border: 1px solid va.$FocusForm;
-      box-shadow: 0 0 0 2.5px va.$FocusForm;
-    }
   }
 }

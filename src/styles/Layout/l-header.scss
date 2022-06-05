@@ -36,6 +36,7 @@
     &-menu {
       @extend .flex-center;
       gap: 2rem;
+      position: relative;
     }
   }
 }

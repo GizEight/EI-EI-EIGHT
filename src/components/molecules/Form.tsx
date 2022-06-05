@@ -1,5 +1,4 @@
-import React, { FC, memo, useCallback } from 'react'
-// eslint-disable-next-line import/no-extraneous-dependencies
+import { FC, memo, useCallback } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 
 type Props = {

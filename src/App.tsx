@@ -6,10 +6,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { useAppDispatch } from './app/hooks'
 import { login, logout } from './app/slices/userSlice'
-import { Form } from './components/atoms/Form'
 import { Toast } from './components/atoms/Toast'
 import { LayoutsWrapper } from './components/templates/LayoutsWrapper'
-import { AuthTest } from './components/test/AuthTest'
 import { auth } from './firebase'
 import { HOME_ROUTES } from './routes'
 import { useToast } from './scripts/hooks/useToast'
@@ -91,20 +89,14 @@ const App: FC = () => {
               />
             ))}
           </Routes>
-          <div className="App">
-            EI-EI-EIGHT
-            <AuthTest />
-          </div>
         </LayoutsWrapper>
         <Toast
           type={toast.type}
-          iconClose={onClickCloseToast}
+          onCLickCloseIcon={onClickCloseToast}
           isShow={toast.isShow}
         >
           {toast.message}
         </Toast>
-        <Form label="名前" type="text" />
-        <Form label="自己紹介" type="textarea" />
       </BrowserRouter>
     </QueryClientProvider>
   )
