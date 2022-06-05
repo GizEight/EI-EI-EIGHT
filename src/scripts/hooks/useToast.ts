@@ -32,5 +32,25 @@ export const useToast = () => {
     setTimeout(() => resetToast, TOAST_DURATION_TIME)
   }, [resetToast, dispatch, setToast])
 
-  return { toast, onClickCloseToast, resetToast, loginSuccessToast }
+  const showErrorToast = useCallback(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (res: any) => {
+      dispatch(
+        setToast({
+          isShow: true,
+          type: 'error',
+          message: `code: ${res.errCode} - ${res.errMsg}`,
+        })
+      )
+    },
+    [dispatch, setToast]
+  )
+
+  return {
+    toast,
+    onClickCloseToast,
+    resetToast,
+    loginSuccessToast,
+    showErrorToast,
+  }
 }
