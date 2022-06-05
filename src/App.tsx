@@ -1,7 +1,8 @@
 import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth'
-import { isNil, isEmpty } from 'lodash'
+import { isNil, isEmpty, map } from 'lodash'
 import { FC, useEffect } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { useAppDispatch } from './app/hooks'
 import { login, logout } from './app/slices/userSlice'
@@ -9,6 +10,7 @@ import { Toast } from './components/atoms/Toast'
 import { LayoutsWrapper } from './components/templates/LayoutsWrapper'
 import { AuthTest } from './components/test/AuthTest'
 import { auth } from './firebase'
+import { HOME_ROUTES } from './routes'
 import { useToast } from './scripts/hooks/useToast'
 import { fetchUsers, createUser } from './scripts/lib/api'
 
@@ -77,19 +79,30 @@ const App: FC = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <LayoutsWrapper>
-        <div className="App">
-          EI-EI-EIGHT
-          <AuthTest />
-        </div>
-      </LayoutsWrapper>
-      <Toast
-        type={toast.type}
-        iconClose={onClickCloseToast}
-        isShow={toast.isShow}
-      >
-        {toast.message}
-      </Toast>
+      <BrowserRouter>
+        <LayoutsWrapper>
+          <Routes>
+            {map(HOME_ROUTES, (route) => (
+              <Route
+                path={route.path}
+                element={route.element}
+                key={route.path}
+              />
+            ))}
+          </Routes>
+          <div className="App">
+            EI-EI-EIGHT
+            <AuthTest />
+          </div>
+        </LayoutsWrapper>
+        <Toast
+          type={toast.type}
+          iconClose={onClickCloseToast}
+          isShow={toast.isShow}
+        >
+          {toast.message}
+        </Toast>
+      </BrowserRouter>
     </QueryClientProvider>
   )
 }
