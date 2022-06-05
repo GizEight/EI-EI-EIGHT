@@ -1,0 +1,37 @@
+@use '../Foundation/' as va;
+
+.flex-row {
+  display: flex;
+  align-items: center;
+}
+
+.l-footer {
+  height: 100px;
+  padding: 30px;
+
+  &_inner {
+    @extend .flex-row;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &_title-with-icon {
+    & > span {
+      font-size: 1.5rem;
+    }
+  }
+
+  &_horizon {
+    background-color: va.$Horizon;
+    width: 400px;
+    height: 2px;
+    margin-top: 20px;
+  }
+
+  &_friends {
+    @extend .flex-row;
+    width: 50%;
+    justify-content: space-evenly;
+    margin-top: 20px;
+  }
+}
