@@ -1,0 +1,9 @@
+@use '../../Foundation/' as va;
+
+.c-avatar {
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid va.$Main;
+  display: block;
+  height: 42px;
+}
