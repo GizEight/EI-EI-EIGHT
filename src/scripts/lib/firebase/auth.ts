@@ -44,7 +44,7 @@ export const authGoogleLogin = async (): Promise<AuthGoogleLoginResponse> => {
 /*
  * Google ログアウト
  */
-export const logout = async (): Promise<ErrorResponse> => {
+export const googleLogout = async (): Promise<ErrorResponse> => {
   try {
     await signOut(auth)
     return {

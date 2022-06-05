@@ -5,10 +5,17 @@
 @use './Foundation/_variables.scss';
 
 /*
+* Layout
+*/
+@use './Layout/l-header.scss';
+@use './Layout/l-main.scss';
+
+/*
 * Object
 */
 @use './Object/Component/c-button';
 @use './Object/Component/c-toast';
+@use './Object/Component/c-avatar';
 
 /*
 * Utility

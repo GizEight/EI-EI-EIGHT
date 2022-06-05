@@ -1,0 +1,40 @@
+@use '../Foundation/' as va;
+
+.flex-row {
+  display: flex;
+  align-items: center;
+}
+
+.l-header {
+  height: 80px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: va.$ZHeader;
+  width: 100%;
+
+  &_inner {
+    @extend .flex-row;
+    justify-content: center;
+    padding: 20px 0;
+  }
+
+  &_content {
+    @extend .flex-row;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 40px;
+
+    &-title {
+      @extend .flex-row;
+      gap: 2rem;
+      font-size: 1.5rem;
+    }
+
+    &-menu {
+      @extend .flex-row;
+      gap: 2rem;
+    }
+  }
+}
