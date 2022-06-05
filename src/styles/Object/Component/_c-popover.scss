@@ -1,0 +1,22 @@
+@use '../../Foundation/' as va;
+
+.popover {
+  width: 230px;
+  position: absolute;
+  z-index: va.$ZPopover;
+  top: 55px;
+  right: 144px;
+  border-radius: 7px;
+  overflow: hidden;
+  box-shadow: rgb(4 37 63 / 25%) 0px 3px 12px -1px;
+  line-height: 1.4;
+
+  &_item {
+    padding: 0.7em 0.9em;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    text-align: left;
+  }
+}
