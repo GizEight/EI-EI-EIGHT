@@ -1,5 +1,6 @@
 import { ArticleDetail } from './components/pages/ArticleDetail'
 import { ArticleList } from './components/pages/ArticleList'
+import { CreateArticle } from './components/pages/CreateArticle'
 import { EditArticle } from './components/pages/EditArticle'
 import { EditUser } from './components/pages/EditUser'
 import { UserDetail } from './components/pages/UserDetail'
@@ -16,6 +17,10 @@ export const HOME_ROUTES = [
   {
     path: '/article/:id/edit',
     element: <EditArticle />,
+  },
+  {
+    path: '/article/create',
+    element: <CreateArticle />,
   },
   {
     path: '/user/:id',

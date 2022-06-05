@@ -26,7 +26,7 @@ export const HeaderLayout = () => {
           </RouterLink>
           <nav className="l-header_content-menu">
             {isEmpty(loginUser.user.userId) ? (
-              // TODO: addnew: 記事作成ページ遷移 avatar: menu表示
+              // TODO: avatar: menu表示
               <PrimaryButton onClick={login} isRounded>
                 <p className="iconwithbtn">
                   <FontAwesomeIcon icon={['fab', 'google']} />
@@ -41,7 +41,9 @@ export const HeaderLayout = () => {
                     alt={loginUser.user.name}
                   />
                 </Suspense>
-                <PrimaryButton onClick={console.log}>Add new</PrimaryButton>
+                <RouterLink to="/article/create" className="btn">
+                  Add new
+                </RouterLink>
               </>
             )}
           </nav>
