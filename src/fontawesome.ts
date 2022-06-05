@@ -4,6 +4,13 @@ import {
   faCircleExclamation,
   faCircleInfo,
   faXmark,
+  faLightbulb,
 } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faCircleCheck, faCircleExclamation, faCircleInfo, faXmark)
+library.add(
+  faCircleCheck,
+  faCircleExclamation,
+  faCircleInfo,
+  faXmark,
+  faLightbulb
+)

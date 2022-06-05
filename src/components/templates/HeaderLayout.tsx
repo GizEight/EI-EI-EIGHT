@@ -16,7 +16,7 @@ export const HeaderLayout = () => {
       <div className="l-header_inner">
         <div className="l-header_content">
           <h1 className="l-header_content-title">
-            <FontAwesomeIcon icon={['fas', 'xmark']} />
+            <FontAwesomeIcon icon={['fas', 'lightbulb']} />
             <span>{APP_TITLE}</span>
           </h1>
           <nav className="l-header_content-menu">

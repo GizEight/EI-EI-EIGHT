@@ -1,6 +1,6 @@
 @use '../Foundation/' as va;
 
-.flex-row {
+.flex-center {
   display: flex;
   align-items: center;
 }
@@ -14,26 +14,27 @@
   width: 100%;
 
   &_inner {
-    @extend .flex-row;
+    @extend .flex-center;
     justify-content: center;
     padding: 20px 0;
   }
 
   &_content {
-    @extend .flex-row;
+    @extend .flex-center;
     justify-content: space-between;
     width: 100%;
     max-width: 1200px;
     padding: 0 40px;
 
     &-title {
-      @extend .flex-row;
-      gap: 2rem;
+      @extend .flex-center;
+      gap: 1.5rem;
       font-size: 1.5rem;
+      cursor: pointer;
     }
 
     &-menu {
-      @extend .flex-row;
+      @extend .flex-center;
       gap: 2rem;
     }
   }
