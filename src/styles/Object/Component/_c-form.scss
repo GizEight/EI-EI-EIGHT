@@ -1,0 +1,63 @@
+@use '../../Foundation/' as va;
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.textform {
+  @extend .flex-column;
+
+  & > label {
+    display: inline-block;
+    font-size: va.$Sentence;
+    margin-left: 10px;
+  }
+
+  & > input {
+    display: inline-block;
+    margin-top: 5px;
+    outline: none;
+    width: 500px;
+    height: 30px;
+    background-color: va.$FormBackground;
+    padding: 8px 15px 8px 15px;
+    color: va.$Base;
+    border-radius: 50px;
+    font-size: va.$Sentence;
+
+    &:focus {
+      border: 1px solid va.$FocusForm;
+      box-shadow: 0 0 0 2.5px va.$FocusForm;
+    }
+  }
+}
+
+.textareaform {
+  @extend .flex-column;
+
+  & > label {
+    display: inline-block;
+    font-size: va.$Sentence;
+    margin-left: 10px;
+  }
+
+  & > textarea {
+    display: inline-block;
+    margin-top: 5px;
+    outline: none;
+    width: 500px;
+    height: 100px;
+    background-color: va.$FormBackground;
+    padding: 8px 15px 8px 15px;
+    color: va.$Base;
+    border-radius: 10px;
+    font-size: va.$Sentence;
+    resize: none;
+
+    &:focus {
+      border: 1px solid va.$FocusForm;
+      box-shadow: 0 0 0 2.5px va.$FocusForm;
+    }
+  }
+}

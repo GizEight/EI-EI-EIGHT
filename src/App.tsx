@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 
 import { useAppDispatch } from './app/hooks'
 import { login, logout } from './app/slices/userSlice'
+import { Form } from './components/atoms/Form'
 import { Toast } from './components/atoms/Toast'
 import { LayoutsWrapper } from './components/templates/LayoutsWrapper'
 import { AuthTest } from './components/test/AuthTest'
@@ -90,6 +91,10 @@ const App: FC = () => {
       >
         {toast.message}
       </Toast>
+      <Form label="名前" type="text" />
+      <br />
+      <br />
+      <Form label="自己紹介" type="textarea" />
     </QueryClientProvider>
   )
 }
