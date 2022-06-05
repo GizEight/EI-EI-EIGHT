@@ -7,12 +7,11 @@ type Props = {
   children: ReactNode
   type: ToastType
   isShow: boolean
-  iconClose: () => void
+  onCLickCloseIcon: () => void
 }
 
-// eslint-disable-next-line react/display-name
 export const Toast: FC<Props> = memo((props: Props) => {
-  const { children, type, isShow, iconClose } = props
+  const { children, type, isShow, onCLickCloseIcon } = props
 
   const changeIconBy = useCallback((toastType: ToastType) => {
     switch (toastType) {
@@ -38,7 +37,7 @@ export const Toast: FC<Props> = memo((props: Props) => {
       />
       <span className="iconwithtext">{children}</span>
       <span className="toast_closebtn">
-        <FontAwesomeIcon onClick={iconClose} icon={['fas', 'xmark']} />
+        <FontAwesomeIcon onClick={onCLickCloseIcon} icon={['fas', 'xmark']} />
       </span>
     </div>
   )

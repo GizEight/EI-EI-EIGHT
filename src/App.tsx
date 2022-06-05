@@ -98,7 +98,7 @@ const App: FC = () => {
         </LayoutsWrapper>
         <Toast
           type={toast.type}
-          iconClose={onClickCloseToast}
+          onCLickCloseIcon={onClickCloseToast}
           isShow={toast.isShow}
         >
           {toast.message}
