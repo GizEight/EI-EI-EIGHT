@@ -13,24 +13,23 @@ import { useToast } from './scripts/hooks/useToast'
 import { fetchUsers } from './scripts/lib/api'
 
 const App: FC = () => {
-  const { toast, resetToast, loginSuccessToast, onClickCloseToast } = useToast()
+  const { toast, onClickCloseToast } = useToast()
   const { registerUser, deleteUser, createUserMutation } = useMutateUsers()
 
   /*
-  ? ログイン状況監視
-  */
+   * ログイン状況監視
+   */
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(
       auth,
       (user: FirebaseUser | null) => {
         if (isNil(user)) {
           deleteUser()
-          resetToast()
           return
         }
-        loginSuccessToast()
+
         /*
-        ? ユーザーが登録済か確認する
+        ? ユーザーが登録済か確認
         */
         fetchUsers({
           filters: `userId[equals]${user.uid}`,

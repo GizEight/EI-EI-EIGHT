@@ -5,7 +5,7 @@ import { googleLogout, authGoogleLogin } from '../lib/firebase/auth'
 import { useToast } from './useToast'
 
 export const useAuth = () => {
-  const { showErrorToast } = useToast()
+  const { showErrorToast, loginSuccessToast, resetToast } = useToast()
 
   const [loading, setLoading] = useState(false)
 
@@ -19,6 +19,7 @@ export const useAuth = () => {
       if (res.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
         showErrorToast(res)
       }
+      loginSuccessToast()
     } catch (e) {
       showErrorToast({
         errCode: ERROR_CODES.INTERNAL_SERVER_ERROR.errCode,
@@ -39,6 +40,7 @@ export const useAuth = () => {
       if (res.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
         showErrorToast(res)
       }
+      resetToast()
     } catch (e) {
       showErrorToast({
         errCode: ERROR_CODES.INTERNAL_SERVER_ERROR.errCode,
