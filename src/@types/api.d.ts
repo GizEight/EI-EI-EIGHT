@@ -31,12 +31,9 @@ export interface AuthGoogleLoginResponse extends ErrorResponse {
  * 記事取得
  */
 export interface GetArticlesRequest extends Partial<GetMicroCmsRequest> {}
-export interface GetArticlesResponse extends ErrorResponse {
-  contents: ResponseArticle[]
-  totalCount: number
-  offset: number
-  limit: number
-}
+export interface GetArticlesResponse
+  extends GetMicroCmsResponse<ResponseArticle>,
+    ErrorResponse {}
 
 /*
  * 記事投稿
@@ -66,12 +63,9 @@ export interface UpdateArticleResponse extends ErrorResponse {
  * ユーザー取得
  */
 export interface GetUsersRequest extends Partial<GetMicroCmsRequest> {}
-export interface GetUsersResponse extends ErrorResponse {
-  contents: ResponseUser[]
-  totalCount: number
-  offset: number
-  limit: number
-}
+export interface GetUsersResponse
+  extends GetMicroCmsResponse<ResponseUser>,
+    ErrorResponse {}
 
 /*
  * ユーザー作成
