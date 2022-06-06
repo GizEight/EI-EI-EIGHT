@@ -1,7 +1,6 @@
 import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth'
 import { isNil, isEmpty, map } from 'lodash'
 import { FC, useEffect } from 'react'
-import { QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
@@ -14,14 +13,6 @@ import { HOME_ROUTES } from './routes'
 import { useToast } from './scripts/hooks/useToast'
 import { fetchUsers, createUser } from './scripts/lib/api'
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: false,
-      refetchOnWindowFocus: false,
-    },
-  },
-})
 
 const App: FC = () => {
   const dispatch = useAppDispatch()
@@ -78,7 +69,7 @@ const App: FC = () => {
   }, [])
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <BrowserRouter>
         <LayoutsWrapper>
           <Routes>
@@ -100,7 +91,7 @@ const App: FC = () => {
         </Toast>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    </>
   )
 }
 
