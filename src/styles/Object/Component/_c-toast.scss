@@ -10,7 +10,7 @@
   margin: 0 auto;
   padding-left: 20px;
   position: relative;
-  animation: default-fade-animation 3s ease 0s 1 forwards;
+  animation: default-fade-animation 5s ease 0s 1 forwards;
 
   &_closebtn {
     padding: 2px 5px 3px;
@@ -27,7 +27,7 @@
   }
 
   &_fadeout {
-    animation: fadeout-toast 1.5s ease 0s 1 forwards;
+    animation: fadeout-toast 5s ease 0s 1 forwards;
   }
 
   &_icon {
