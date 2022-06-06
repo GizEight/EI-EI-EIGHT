@@ -6,17 +6,25 @@ import { Link as RouterLink } from 'react-router-dom'
 import { useAppSelector } from '../../app/hooks'
 import { selectUser } from '../../app/slices/userSlice'
 import { useAuth } from '../../scripts/hooks/useAuth'
+import { useQueryUsers } from '../../scripts/hooks/useQueryUsers'
 import { APP_TITLE } from '../../scripts/utils/const'
 import { Avatar } from '../atoms/Avatar'
 import { Popover } from '../atoms/Popover'
 import { PrimaryButton } from '../atoms/PrimaryButton'
 
 export const HeaderLayout = () => {
-  const loginUser = useAppSelector(selectUser)
   // TODO: loading時にボタンにスピナー表示させる
-  const { loading, login, logout } = useAuth()
+  const { login, logout } = useAuth()
+  const { user } = useAppSelector(selectUser)
+
+  const { data, status } = useQueryUsers({ userId: user.userId })
 
   const [isShowPop, setIsShowPop] = useState(false)
+
+  // TODO: エラー処理
+  if (status === 'error') {
+    return <div>Error</div>
+  }
 
   return (
     <header className="l-header">
@@ -29,7 +37,7 @@ export const HeaderLayout = () => {
             </h1>
           </RouterLink>
           <nav className="l-header_content-menu">
-            {isEmpty(loginUser.user.userId) ? (
+            {isEmpty(user.userId) ? (
               <PrimaryButton onClick={login} isRounded>
                 <p className="iconwithbtn">
                   <FontAwesomeIcon icon={['fab', 'google']} />
@@ -41,14 +49,21 @@ export const HeaderLayout = () => {
                 <Suspense fallback={<span>Loading...</span>}>
                   <button onClick={() => setIsShowPop(!isShowPop)}>
                     <Avatar
-                      src={loginUser.user.photoURL}
-                      alt={loginUser.user.name}
+                      src={data?.contents[0].photoURL || ''}
+                      alt={data?.contents[0].name}
                     />
                   </button>
                   {isShowPop && (
                     <Popover>
                       <div className="popover_item">
-                        <PrimaryButton onClick={logout}>Log out</PrimaryButton>
+                        <PrimaryButton
+                          onClick={() => {
+                            logout()
+                            setIsShowPop(false)
+                          }}
+                        >
+                          Log out
+                        </PrimaryButton>
                       </div>
                     </Popover>
                   )}
