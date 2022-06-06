@@ -2,6 +2,7 @@ import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth'
 import { isNil, isEmpty, map } from 'lodash'
 import { FC, useEffect } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { useAppDispatch } from './app/hooks'
@@ -98,6 +99,7 @@ const App: FC = () => {
           {toast.message}
         </Toast>
       </BrowserRouter>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   )
 }
