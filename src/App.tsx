@@ -5,7 +5,7 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import { useAppDispatch } from './app/hooks'
-import { logout } from './app/slices/userSlice'
+import { logout, login } from './app/slices/userSlice'
 import { Toast } from './components/atoms/Toast'
 import { LayoutsWrapper } from './components/templates/LayoutsWrapper'
 import { auth } from './firebase'
@@ -29,6 +29,7 @@ const App: FC = () => {
       (user: FirebaseUser | null) => {
         if (isNil(user)) {
           deleteUserCache()
+          dispatch(logout())
           resetToast()
           return
         }
@@ -52,6 +53,7 @@ const App: FC = () => {
           } else {
             registerUserCache(res)
           }
+          dispatch(login(user.uid))
         })
       }
     )
