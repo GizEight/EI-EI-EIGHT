@@ -19,3 +19,8 @@ export const TOAST_DURATION_TIME = 3000
 export const LOGIN_SUCCESS_MESSAGE = 'Login Success!'
 
 export const APP_TITLE = 'EI-EI-EIGHT'
+/*
+ * useQuery cache key
+ */
+export const CACHE_KEY_ARTICLE = 'articles'
+export const CACHE_KEY_USER = 'users'
