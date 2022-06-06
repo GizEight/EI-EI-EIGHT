@@ -4,8 +4,6 @@ import { FC, useEffect } from 'react'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
-import { useAppDispatch } from './app/hooks'
-import { logout, login } from './app/slices/userSlice'
 import { Toast } from './components/atoms/Toast'
 import { LayoutsWrapper } from './components/templates/LayoutsWrapper'
 import { auth } from './firebase'
@@ -15,10 +13,8 @@ import { useToast } from './scripts/hooks/useToast'
 import { fetchUsers } from './scripts/lib/api'
 
 const App: FC = () => {
-  const dispatch = useAppDispatch()
   const { toast, resetToast, loginSuccessToast, onClickCloseToast } = useToast()
-  const { registerUserCache, deleteUserCache, createUserMutation } =
-    useMutateUsers()
+  const { registerUser, deleteUser, createUserMutation } = useMutateUsers()
 
   /*
   ? ログイン状況監視
@@ -28,8 +24,7 @@ const App: FC = () => {
       auth,
       (user: FirebaseUser | null) => {
         if (isNil(user)) {
-          deleteUserCache()
-          dispatch(logout())
+          deleteUser()
           resetToast()
           return
         }
@@ -51,9 +46,8 @@ const App: FC = () => {
             }
             createUserMutation.mutate(signInNewUser)
           } else {
-            registerUserCache(res)
+            registerUser(res)
           }
-          dispatch(login(user.uid))
         })
       }
     )

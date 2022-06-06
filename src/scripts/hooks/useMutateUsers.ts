@@ -4,7 +4,7 @@ import { useQueryClient, useMutation } from 'react-query'
 
 import { GetUsersResponse } from '../../@types/api.d'
 import { useAppDispatch } from '../../app/hooks'
-import { login } from '../../app/slices/userSlice'
+import { login, logout } from '../../app/slices/userSlice'
 import { fetchUsers, updateUser, createUser } from '../lib/api'
 import { CACHE_KEY_USER } from '../utils/const'
 
@@ -12,51 +12,53 @@ export const useMutateUsers = () => {
   const queryClient = useQueryClient()
   const dispatch = useAppDispatch()
 
-  const registerUserCache = (res: GetUsersResponse) => {
+  /*
+   * cache & reduxに登録
+   */
+  const registerUser = (res: GetUsersResponse) => {
     queryClient.setQueryData<GetUsersResponse>(CACHE_KEY_USER, res)
     const { contents } = res
-    dispatch(
-      login({
-        name: contents[0].name || contents[0].userId,
-        photoURL: contents[0].photoURL || '',
-        description: contents[0].description || '',
-        twitterUrl: contents[0].twitterUrl || '',
-        facebookUrl: contents[0].facebookUrl || '',
-        userId: contents[0].userId,
-      })
-    )
+    dispatch(login(contents[0].userId))
   }
 
-  const deleteUserCache = () => {
+  /*
+   * cache & reduxから削除
+   */
+  const deleteUser = () => {
+    dispatch(logout())
     queryClient.removeQueries(CACHE_KEY_USER)
   }
 
+  /*
+   * ユーザー作成後キャッシュに登録
+   */
   const createUserMutation = useMutation(createUser, {
     onSuccess: (data) => {
       // 初ユーザーログイン時のみ
       fetchUsers({ filters: `id[equals]${data.id}` }).then((res) => {
-        queryClient.setQueryData<GetUsersResponse>(CACHE_KEY_USER, res)
-        dispatch(login(res.contents[0]))
+        registerUser(res)
       })
     },
   })
 
+  /*
+   * ユーザー編集後キャッシュに登録
+   */
   const updateUserMutation = useMutation(updateUser, {
     onSuccess: (data) => {
       const previousUser =
         queryClient.getQueryData<GetUsersResponse>(CACHE_KEY_USER)
       if (!isNil(previousUser)) {
         fetchUsers({ filters: `id[equals]${data.id}` }).then((res) => {
-          queryClient.setQueryData<GetUsersResponse>(CACHE_KEY_USER, res)
-          dispatch(login(res.contents[0]))
+          registerUser(res)
         })
       }
     },
   })
 
   return {
-    registerUserCache,
-    deleteUserCache,
+    registerUser,
+    deleteUser,
     createUserMutation,
     updateUserMutation,
   }
