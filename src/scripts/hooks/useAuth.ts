@@ -9,6 +9,9 @@ export const useAuth = () => {
 
   const [loading, setLoading] = useState(false)
 
+  /*
+   * Googleログイン
+   */
   const login = useCallback(async () => {
     setLoading(true)
     try {
@@ -26,6 +29,9 @@ export const useAuth = () => {
     }
   }, [showErrorToast])
 
+  /*
+   * Googleログアウト
+   */
   const logout = useCallback(async () => {
     setLoading(true)
     try {

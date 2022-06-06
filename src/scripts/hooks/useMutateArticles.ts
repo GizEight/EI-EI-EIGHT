@@ -9,6 +9,9 @@ import { CACHE_KEY_ARTICLE } from '../utils/const'
 export const useMutateArticles = () => {
   const queryClient = useQueryClient()
 
+  /*
+   * 記事作成後、cacheに登録
+   */
   const createArticleMutation = useMutation(postArticle, {
     onSuccess: () => {
       const previousArticles =
@@ -21,6 +24,9 @@ export const useMutateArticles = () => {
     },
   })
 
+  /*
+   * 記事編集後、cacheを編集
+   */
   const updateArticleMutation = useMutation(updateArticle, {
     onSuccess: (data) => {
       const previousArticles =
