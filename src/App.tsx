@@ -17,7 +17,8 @@ import { fetchUsers } from './scripts/lib/api'
 const App: FC = () => {
   const dispatch = useAppDispatch()
   const { toast, resetToast, loginSuccessToast, onClickCloseToast } = useToast()
-  const { registerUserCache, createUserMutation } = useMutateUsers()
+  const { registerUserCache, deleteUserCache, createUserMutation } =
+    useMutateUsers()
 
   /*
   ? ログイン状況監視
@@ -27,7 +28,7 @@ const App: FC = () => {
       auth,
       (user: FirebaseUser | null) => {
         if (isNil(user)) {
-          dispatch(logout())
+          deleteUserCache()
           resetToast()
           return
         }

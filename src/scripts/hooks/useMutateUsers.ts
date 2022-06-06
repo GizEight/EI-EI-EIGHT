@@ -27,6 +27,10 @@ export const useMutateUsers = () => {
     )
   }
 
+  const deleteUserCache = () => {
+    queryClient.removeQueries(CACHE_KEY_USER)
+  }
+
   const createUserMutation = useMutation(createUser, {
     onSuccess: (data) => {
       // 初ユーザーログイン時のみ
@@ -50,5 +54,10 @@ export const useMutateUsers = () => {
     },
   })
 
-  return { registerUserCache, createUserMutation, updateUserMutation }
+  return {
+    registerUserCache,
+    deleteUserCache,
+    createUserMutation,
+    updateUserMutation,
+  }
 }
