@@ -13,7 +13,8 @@ import { PrimaryButton } from '../atoms/PrimaryButton'
 
 export const HeaderLayout = () => {
   const loginUser = useAppSelector(selectUser)
-  const { login, logout } = useAuth()
+  // TODO: loading時にボタンにスピナー表示させる
+  const { loading, login, logout } = useAuth()
 
   const [isShowPop, setIsShowPop] = useState(false)
 
