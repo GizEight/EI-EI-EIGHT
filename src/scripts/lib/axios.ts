@@ -1,9 +1,9 @@
 import axios from 'axios'
 
 import { MICROCMS_BASE_URL, X_MICROCMS_API_KEY } from '../utils/const'
+import { debugClientLog } from '../utils/logger'
 
-// eslint-disable-next-line no-console
-console.log('baseURL ===> ', MICROCMS_BASE_URL)
+debugClientLog('baseURL ===> ', MICROCMS_BASE_URL)
 
 const apiInstance = axios.create({
   headers: {
