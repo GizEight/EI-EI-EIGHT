@@ -1,5 +1,3 @@
-import { CmsResponseDefault } from './cms.d'
-
 export interface Article {
   imageUrl: string
   title: string
@@ -8,4 +6,15 @@ export interface Article {
   contentCount: number
 }
 
-export interface ResponseArticle extends CmsResponseDefault, Article {}
+export interface ResponseArticle {
+  imageUrl: string
+  title: string
+  userId: string
+  content: string
+  contentCount: number
+  id: string
+  createdAt: string
+  updatedAt: string
+  publishedAt: string
+  revisedAt: string
+}
