@@ -1,9 +1,7 @@
 import { isNil, omit } from 'lodash'
 
 import {
-  GetMicroCmsResponse,
   GetArticlesRequest,
-  ExceptingGetMicroCmsResponse,
   CreateArticleRequest,
   UpdateArticleRequest,
   GetArticlesResponse,
@@ -16,8 +14,7 @@ import {
   CreateUserResponse,
   UpdateUserResponse,
 } from '../../@types/api'
-import { ResponseArticle } from '../../@types/article'
-import { ResponseUser } from '../../@types/user.d'
+import { ExceptingGetMicroCmsResponse } from '../../@types/cms.d'
 import apiInstance from './axios'
 import { ERROR_CODES } from './error'
 import { errorHandler } from './responseErrorHandler'
@@ -46,12 +43,9 @@ export const fetchArticles = async (
   params?: GetArticlesRequest
 ): Promise<GetArticlesResponse> => {
   try {
-    const res = await apiInstance.get<GetMicroCmsResponse<ResponseArticle>>(
-      'articles',
-      {
-        params,
-      }
-    )
+    const res = await apiInstance.get<GetArticlesResponse>('articles', {
+      params,
+    })
     const validated = errorHandler(res)
     if (!isNil(validated)) {
       return validated
@@ -116,12 +110,9 @@ export const fetchUsers = async (
   params?: GetUsersRequest
 ): Promise<GetUsersResponse> => {
   try {
-    const res = await apiInstance.get<GetMicroCmsResponse<ResponseUser>>(
-      'users',
-      {
-        params,
-      }
-    )
+    const res = await apiInstance.get<GetUsersResponse>('users', {
+      params,
+    })
     const validated = errorHandler(res)
     if (!isNil(validated)) {
       return validated
