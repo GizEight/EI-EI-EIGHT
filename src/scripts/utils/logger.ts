@@ -1,4 +1,4 @@
-import { nowDate } from './format'
+import { nowDate } from './dateFormat'
 
 /*
  * Add Now Time Logger
