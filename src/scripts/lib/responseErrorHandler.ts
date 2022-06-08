@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios'
 import { isEmpty } from 'lodash'
 
-import { GetMicroCmsResponse } from '../../@types/api'
+import { GetMicroCmsResponse } from '../../@types/cms'
 import { ERROR_CODES } from './error'
 
 export const errorHandler = <T>(res: AxiosResponse<GetMicroCmsResponse<T>>) => {
