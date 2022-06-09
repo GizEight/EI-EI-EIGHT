@@ -7,7 +7,9 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint --fix --ext .jsx,.js,.tsx,.ts src/",
-    "format": "prettier --write src/**/*"
+    "format": "prettier --write src/**/*",
+    "test": "jest --config ./jest.config.json",
+    "test:watch": "yarn run test -- --watch"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
@@ -16,6 +18,9 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",
     "@reduxjs/toolkit": "^1.8.1",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^14.2.0",
     "axios": "^0.27.2",
     "dayjs": "^1.11.3",
     "firebase": "^9.8.2",
@@ -29,6 +34,7 @@
     "react-textarea-autosize": "^8.3.4"
   },
   "devDependencies": {
+    "@types/jest": "^28.1.1",
     "@types/lodash": "^4.14.182",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
@@ -45,8 +51,10 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "jest": "^28.1.1",
     "prettier": "^2.6.2",
     "sass": "^1.52.1",
+    "ts-jest": "^28.0.4",
     "typescript": "^4.6.3",
     "vite": "^2.9.9"
   }
