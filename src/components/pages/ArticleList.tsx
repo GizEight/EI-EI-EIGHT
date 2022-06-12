@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 
 import { ListCard } from '../../@types/view'
 import { useQueryArticles } from '../../scripts/hooks/useQueryArticles'
-import { calculateDate } from '../../scripts/utils/dateFormat'
 import { formatArticleCards } from '../../scripts/utils/view'
 import { ArticleCard } from '../organisms/ArticleCard'
 
