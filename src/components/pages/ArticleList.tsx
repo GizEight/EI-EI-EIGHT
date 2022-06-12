@@ -17,7 +17,7 @@ export const ArticleList = () => {
         setData(list)
       })
     }
-  }, [])
+  }, [articleData])
 
   if (articleStatus === 'loading') {
     return <div>Loading...</div>
@@ -27,23 +27,24 @@ export const ArticleList = () => {
   }
 
   return (
-    <div>
-      {isNil(articleData) ? (
-        <div>articleData is undefined</div>
-      ) : (
-        <>
-          {map(data, (content) => (
-            <ArticleCard
-              key={content.id}
-              imgUrl={content.imgUrl}
-              avatarUrl={content.avatarUrl}
-              name={content.name}
-              title={content.title}
-              createdAt={content.createdAt}
-            />
-          ))}
-        </>
-      )}
+    
+      <div className='p-article u-grid'>
+        {isNil(articleData) ? (
+          <div>articleData is undefined</div>
+        ) : (
+          <>
+            {map(data, (content) => (
+              <ArticleCard
+                key={content.id}
+                imgUrl={content.imgUrl}
+                avatarUrl={content.avatarUrl}
+                name={content.name}
+                title={content.title}
+                createdAt={content.createdAt}
+              />
+            ))}
+          </>
+        )}
     </div>
   )
 }
