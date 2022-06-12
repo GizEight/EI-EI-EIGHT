@@ -1,4 +1,3 @@
-import { format } from 'prettier'
 import { FC, memo, useCallback } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 
@@ -31,7 +30,7 @@ export const Form: FC<Props> = memo((props: Props) => {
   }, [])
 
   const switchForm = () => (
-    <div className='form'>
+    <div className="form">
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <label>{label}</label>
       {switchFormType()}

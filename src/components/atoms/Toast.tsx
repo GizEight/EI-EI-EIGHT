@@ -27,7 +27,9 @@ export const Toast: FC<Props> = memo((props: Props) => {
   }, [])
 
   const switchToast = () => (
-    <div className={`c-toast ${type} ${!isShow ? 'c-toast_fadeout' : undefined}`}>
+    <div
+      className={`c-toast ${type} ${!isShow ? 'c-toast_fadeout' : undefined}`}
+    >
       <FontAwesomeIcon
         className="c-toast_icon"
         icon={['fas', changeIconBy(type)]}
