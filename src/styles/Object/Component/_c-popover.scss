@@ -1,6 +1,6 @@
 @use '../../Foundation/' as va;
 
-.popover {
+.c-popover {
   width: 230px;
   position: absolute;
   z-index: va.$ZPopover;

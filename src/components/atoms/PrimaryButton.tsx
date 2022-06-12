@@ -18,7 +18,7 @@ export const PrimaryButton: FC<Props> = (props: Props) => {
   } = props
   return (
     <button
-      className={`btn ${isRounded ? 'btn-rounded' : undefined}`}
+      className={`c-btn ${isRounded ? 'c-btn-rounded' : undefined}`}
       type={type}
       onClick={onClick}
       disabled={isDisabled}
