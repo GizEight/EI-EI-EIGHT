@@ -8,7 +8,7 @@ export const Tag: FC<Props> = (props: Props) => {
   const { tagName } = props
 
   return (
-    <div className="tag">
+    <div className="c-tag">
       <p>{tagName}</p>
     </div>
   )
