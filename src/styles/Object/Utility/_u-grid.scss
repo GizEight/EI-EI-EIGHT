@@ -1,0 +1,6 @@
+.u-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 3.5rem);
+  gap: .8rem;
+  justify-content: center;
+}

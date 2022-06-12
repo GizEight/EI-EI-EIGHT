@@ -14,16 +14,16 @@ export const ArticleCard: FC<Props> = (props: Props) => {
   const { avatarUrl, name, imgUrl, title, createdAt } = props
 
   return (
-    <div>
-      <div>
+    <div className='p-card_article'>
+      <div className='p-card_article_user'>
         <Avatar src={avatarUrl} />
         <span>{name}</span>
       </div>
-      <figure>
-        <img src={imgUrl} alt="" />
-        <figcaption>{title}</figcaption>
+      <figure className='p-card_article_content'>
+        <img src={imgUrl} alt="" className='p-card_article_content_img'/>
+        <figcaption className='p-card_article_content_title'>{title}</figcaption>
       </figure>
-      <div>
+      <div className='p-card_article_status'>
         <span>{createdAt}</span>
       </div>
     </div>

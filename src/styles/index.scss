@@ -19,12 +19,15 @@
 @use './Object/Component/c-avatar';
 @use './Object/Component/c-form';
 @use './Object/Component/c-popover';
+@use './Object/Project/p-card.scss';
+@use './Object/Project/p-article';
 
 /*
 * Utility
 */
 @use './Object/Utility/u-text';
 @use './Object/Utility/u-type';
+@use './Object/Utility/u-grid';
 
 // font-family
 @import url('https://fonts.googleapis.com/css2?family=Nuosu+SIL&family=Zen+Antique&display=swap');
