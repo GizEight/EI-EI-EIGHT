@@ -1,0 +1,15 @@
+@use '../../Foundation/' as va;
+
+.c-tag {
+  padding: 5px 10px;
+  display: inline-block;
+  background: va.$FormBackground;
+  box-sizing: border-box;
+  border-radius: 50px;
+  text-align: center;
+
+  & > p {
+    font-size: va.$Sentence;
+    color: va.$Base;
+  }
+}

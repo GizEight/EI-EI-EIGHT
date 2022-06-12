@@ -4,6 +4,7 @@ import { FC, useEffect } from 'react'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+import { Tag } from './components/atoms/Tag'
 import { Toast } from './components/atoms/Toast'
 import { LayoutsWrapper } from './components/templates/LayoutsWrapper'
 import { auth } from './firebase'
@@ -76,6 +77,8 @@ const App: FC = () => {
         >
           {toast.message}
         </Toast>
+        <Tag tagName="Next.js" />
+        <Tag tagName="Next.jsaaaaaaaaaaddddd" />
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </>
