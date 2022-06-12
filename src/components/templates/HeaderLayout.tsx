@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { isEmpty } from 'lodash'
 import { Suspense, useState } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
 
 import { useAppSelector } from '../../app/hooks'
 import { selectUser } from '../../app/slices/userSlice'
@@ -11,6 +10,7 @@ import { APP_TITLE } from '../../scripts/utils/const'
 import { Avatar } from '../atoms/Avatar'
 import { Popover } from '../atoms/Popover'
 import { PrimaryButton } from '../atoms/PrimaryButton'
+import { RouterLink } from '../atoms/RouterLink'
 
 export const HeaderLayout = () => {
   // TODO: loading時にボタンにスピナー表示させる
@@ -39,7 +39,7 @@ export const HeaderLayout = () => {
           <nav className="l-header_content-menu">
             {isEmpty(user.userId) ? (
               <PrimaryButton onClick={login} isRounded>
-                <p className="iconwithbtn">
+                <p className="u-icon-btn">
                   <FontAwesomeIcon icon={['fab', 'google']} />
                   <span>Login with Google</span>
                 </p>
@@ -55,7 +55,7 @@ export const HeaderLayout = () => {
                   </button>
                   {isShowPop && (
                     <Popover>
-                      <div className="popover_item">
+                      <div className="c-popover_item">
                         <PrimaryButton
                           onClick={() => {
                             logout()
@@ -68,7 +68,7 @@ export const HeaderLayout = () => {
                     </Popover>
                   )}
                 </Suspense>
-                <RouterLink to="/article/create" className="btn">
+                <RouterLink to="/article/create" isBtn>
                   Add new
                 </RouterLink>
               </>

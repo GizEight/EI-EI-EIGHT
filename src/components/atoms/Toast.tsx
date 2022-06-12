@@ -27,13 +27,13 @@ export const Toast: FC<Props> = memo((props: Props) => {
   }, [])
 
   const switchToast = () => (
-    <div className={`toast ${type} ${!isShow ? 'toast_fadeout' : undefined}`}>
+    <div className={`c-toast ${type} ${!isShow ? 'c-toast_fadeout' : undefined}`}>
       <FontAwesomeIcon
-        className="toast_icon"
+        className="c-toast_icon"
         icon={['fas', changeIconBy(type)]}
       />
-      <span className="iconwithtext">{children}</span>
-      <span className="toast_closebtn">
+      <span className="u-icon-tex">{children}</span>
+      <span className="c-toast_btn-close">
         <FontAwesomeIcon onClick={onCLickCloseIcon} icon={['fas', 'xmark']} />
       </span>
     </div>

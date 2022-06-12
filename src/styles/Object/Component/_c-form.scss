@@ -27,7 +27,7 @@
   }
 }
 
-.textform {
+.form {
   @extend .flex-column;
 
   & > label {
@@ -38,14 +38,6 @@
     @extend .base-form-style;
     height: 30px;
     border-radius: 50px;
-  }
-}
-
-.textareaform {
-  @extend .flex-column;
-
-  & > label {
-    @extend .base-label-style;
   }
 
   & > textarea {

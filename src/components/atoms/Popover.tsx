@@ -5,5 +5,5 @@ type Props = {
 }
 
 export const Popover: FC<Props> = ({ children }: Props) => (
-  <div className="popover">{children}</div>
+  <div className="c-popover">{children}</div>
 )

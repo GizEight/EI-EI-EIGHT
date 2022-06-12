@@ -1,6 +1,6 @@
 @use '../../Foundation/' as va;
 
-.toast {
+.c-toast {
   width: 250px;
   height: 40px;
   color: va.$Base;
@@ -12,7 +12,7 @@
   position: relative;
   animation: default-fade-animation 5s ease 0s 1 forwards;
 
-  &_closebtn {
+  &_btn {
     padding: 2px 5px 3px;
     border-radius: 5px;
     cursor: pointer;
@@ -21,8 +21,10 @@
     right: 10px;
     transition: all 0.2s ease;
 
-    &:hover {
-      background-color: #1c5135;
+    &-close {
+      &:hover {
+        background-color: #1c5135;
+      }
     }
   }
 
