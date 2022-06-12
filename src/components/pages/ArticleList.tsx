@@ -10,9 +10,10 @@ export const ArticleList = () => {
   const { data: articleData, status: articleStatus } = useQueryArticles()
 
   if (articleStatus === 'loading' || userStatus === 'loading') {
+  if (articleStatus === 'loading') {
     return <div>Loading...</div>
   }
-  if (articleStatus === 'error' || userStatus === 'error') {
+  if (articleStatus === 'error') {
     return <div>Error...</div>
   }
 
