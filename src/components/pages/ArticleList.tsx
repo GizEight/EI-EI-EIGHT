@@ -1,15 +1,25 @@
-import { map, isNil, find } from 'lodash'
+import { map, isNil } from 'lodash'
+import { useState, useEffect } from 'react'
 
+import { ListCard } from '../../@types/view'
 import { useQueryArticles } from '../../scripts/hooks/useQueryArticles'
-import { useQueryUsers } from '../../scripts/hooks/useQueryUsers'
 import { calculateDate } from '../../scripts/utils/dateFormat'
+import { formatArticleCards } from '../../scripts/utils/view'
 import { ArticleCard } from '../organisms/ArticleCard'
 
 export const ArticleList = () => {
-  const { data: userData, status: userStatus } = useQueryUsers()
   const { data: articleData, status: articleStatus } = useQueryArticles()
 
-  if (articleStatus === 'loading' || userStatus === 'loading') {
+  const [data, setData] = useState<ListCard[]>([])
+
+  useEffect(() => {
+    if (!isNil(articleData)) {
+      formatArticleCards(articleData.contents).then((list) => {
+        setData(list)
+      })
+    }
+  }, [])
+
   if (articleStatus === 'loading') {
     return <div>Loading...</div>
   }
@@ -19,24 +29,18 @@ export const ArticleList = () => {
 
   return (
     <div>
-      {isNil(articleData) || isNil(userData) ? (
+      {isNil(articleData) ? (
         <div>articleData is undefined</div>
       ) : (
         <>
-          {map(articleData.contents, (content) => (
+          {map(data, (content) => (
             <ArticleCard
               key={content.id}
-              imgUrl={content.imageUrl}
-              avatarUrl={
-                find(userData.contents, { userId: content.userId })?.photoURL ||
-                ''
-              }
-              name={
-                find(userData.contents, { userId: content.userId })?.name ||
-                'No Register User'
-              }
+              imgUrl={content.imgUrl}
+              avatarUrl={content.avatarUrl}
+              name={content.name}
               title={content.title}
-              createdAt={calculateDate(content.createdAt)}
+              createdAt={content.createdAt}
             />
           ))}
         </>
