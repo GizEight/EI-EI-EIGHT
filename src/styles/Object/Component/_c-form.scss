@@ -58,6 +58,8 @@
     width: 100%;
     height: 42px !important;
     background-color: va.$Base;
+    color: va.$Text !important;
+    font-size: 16px !important;
 
     &-icon {
       position: absolute;
