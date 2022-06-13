@@ -27,24 +27,23 @@ export const ArticleList = () => {
   }
 
   return (
-    
-      <div className='p-article u-grid'>
-        {isNil(articleData) ? (
-          <div>articleData is undefined</div>
-        ) : (
-          <>
-            {map(data, (content) => (
-              <ArticleCard
-                key={content.id}
-                imgUrl={content.imgUrl}
-                avatarUrl={content.avatarUrl}
-                name={content.name}
-                title={content.title}
-                createdAt={content.createdAt}
-              />
-            ))}
-          </>
-        )}
-    </div>
+    <section className="p-article u-grid u-grid-article">
+      {isNil(articleData) ? (
+        <div>articleData is undefined</div>
+      ) : (
+        <>
+          {map(data, (content) => (
+            <ArticleCard
+              key={content.id}
+              imgUrl={content.imgUrl || 'noimage.JPG'}
+              avatarUrl={content.avatarUrl}
+              name={content.name}
+              title={content.title}
+              createdAt={content.createdAt}
+            />
+          ))}
+        </>
+      )}
+    </section>
   )
 }
