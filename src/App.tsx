@@ -5,7 +5,7 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 
-import { Toast } from './components/atoms/Toast'
+import { Toast } from './components/molecules/Toast'
 import { LayoutsWrapper } from './components/templates/LayoutsWrapper'
 import { auth } from './firebase'
 import { HOME_ROUTES } from './routes'
