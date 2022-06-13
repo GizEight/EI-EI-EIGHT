@@ -2,6 +2,7 @@
 
 .p-section {
   padding: 0.56rem;
+  padding-top: 0.4rem;
 
   &_inner {
     max-width: va.$SectionMaxWidth;
@@ -14,5 +15,6 @@
 
   &_title {
     font-size: 0.3745rem;
+    margin-top: 0.37rem;
   }
 }
