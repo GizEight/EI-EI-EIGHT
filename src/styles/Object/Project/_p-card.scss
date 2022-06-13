@@ -30,6 +30,7 @@
 
       &_title {
         margin-top: 12.4px;
+        height: 0.42rem;
 
         &:hover {
           color: va.$FocusForm;
@@ -40,7 +41,7 @@
     &_status {
       margin-top: 11px;
       color: va.$Horizon;
-      font-size: 0.1rem;
+      font-size: 0.12rem;
     }
   }
 }
