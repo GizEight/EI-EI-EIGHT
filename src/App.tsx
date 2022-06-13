@@ -3,6 +3,7 @@ import { isNil, isEmpty, map } from 'lodash'
 import { FC, useEffect } from 'react'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 
 import { Toast } from './components/atoms/Toast'
 import { LayoutsWrapper } from './components/templates/LayoutsWrapper'

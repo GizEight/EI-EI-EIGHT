@@ -5,6 +5,7 @@ import Tilt from 'react-parallax-tilt'
 import { ListCard } from '../../@types/view'
 import { useQueryArticles } from '../../scripts/hooks/useQueryArticles'
 import { formatArticleCards } from '../../scripts/utils/view'
+import { Loading } from '../atoms/Loading'
 import { ArticleCard } from '../organisms/ArticleCard'
 
 export const ArticleList = () => {
@@ -21,7 +22,7 @@ export const ArticleList = () => {
   }, [articleData])
 
   if (articleStatus === 'loading') {
-    return <div>Loading...</div>
+    return <Loading />
   }
   if (articleStatus === 'error') {
     return <div>Error...</div>
