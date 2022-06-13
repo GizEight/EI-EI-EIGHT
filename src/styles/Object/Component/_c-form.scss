@@ -13,11 +13,8 @@
 
 .base-form-style {
   display: inline-block;
-  margin-top: 5px;
   outline: none;
-  width: 500px;
-  background-color: va.$FormBackground;
-  padding: 8px 15px 8px 15px;
+  padding: 8px 15px;
   color: va.$Base;
   font-size: va.$Sentence;
 
@@ -27,11 +24,15 @@
   }
 }
 
-.form {
+.c-form {
   @extend .flex-column;
 
   & > label {
     @extend .base-label-style;
+  }
+
+  &.search-label {
+    position: relative;
   }
 
   & > input {
@@ -45,5 +46,25 @@
     height: 100px;
     border-radius: 10px;
     resize: none;
+  }
+
+  &-form {
+    margin-top: 5px;
+    width: 500px;
+    background-color: va.$FormBackground;
+  }
+
+  &-search {
+    width: 100%;
+    height: 42px !important;
+    background-color: va.$Base;
+
+    &-icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 20px;
+      z-index: va.$ZIcon;
+    }
   }
 }

@@ -14,11 +14,11 @@ export const Form: FC<Props> = memo((props: Props) => {
 
     switch (type) {
       case 'text':
-        formType = <input type="text" />
+        formType = <input type="text" className="c-form-form" />
         break
 
       case 'textarea':
-        formType = <TextareaAutosize minRows={3} />
+        formType = <TextareaAutosize minRows={3} className="c-form-form" />
         break
 
       default:
@@ -30,7 +30,7 @@ export const Form: FC<Props> = memo((props: Props) => {
   }, [])
 
   const switchForm = () => (
-    <div className="form">
+    <div className="c-form">
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <label>{label}</label>
       {switchFormType()}
