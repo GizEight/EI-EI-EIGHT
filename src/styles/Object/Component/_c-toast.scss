@@ -9,7 +9,11 @@
   align-items: center;
   margin: 0 auto;
   padding-left: 20px;
-  position: relative;
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: va.$ZToast;
   animation: default-fade-animation 5s ease 0s 1 forwards;
 
   &_btn {
