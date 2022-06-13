@@ -9,8 +9,13 @@
     background-color: va.$Main;
   }
 
+  &-article-featured {
+    background-color: va.$Base;
+  }
+
   &_inner {
     max-width: va.$ContentMaxWidth;
+    margin: 0 auto;
   }
 
   &_content {
