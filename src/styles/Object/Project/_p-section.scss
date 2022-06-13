@@ -1,0 +1,18 @@
+@use '../../Foundation/' as va;
+
+.p-section {
+  padding: 0.56rem;
+
+  &_inner {
+    max-width: va.$SectionMaxWidth;
+    margin: 0 auto;
+  }
+
+  &_content {
+    margin-top: 0.358rem;
+  }
+
+  &_title {
+    font-size: 0.3745rem;
+  }
+}
