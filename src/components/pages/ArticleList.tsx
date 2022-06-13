@@ -34,9 +34,8 @@ export const ArticleList = () => {
       ) : (
         <>
           {map(data, (content) => (
-            <Tilt>
+            <Tilt key={content.id}>
               <ArticleCard
-                key={content.id}
                 imgUrl={content.imgUrl || 'noimage.JPG'}
                 avatarUrl={content.avatarUrl}
                 name={content.name}
