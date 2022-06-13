@@ -1,6 +1,9 @@
 .u-grid {
   display: grid;
-  grid-template-columns: repeat(2, 3.5rem);
-  gap: .8rem;
   justify-content: center;
+
+  &-article {
+    grid-template-columns: repeat(auto-fit, minmax(35.8%, 430px));
+    gap: 5%;
+  }
 }
