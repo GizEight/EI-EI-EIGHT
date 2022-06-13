@@ -6,30 +6,30 @@
     border-top: 1px solid rgba(255, 255, 255, 0.5);
     border-left: 1px solid rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(5px);
-    padding: 0.14rem;
+    padding: 14px;
     max-height: calc(1200px * 0.345);
 
     &_user {
       display: flex;
       align-items: center;
-      gap: 0.08rem;
+      gap: 8px;
     }
 
     &_content {
-      margin-top: 0.11rem;
+      margin-top: 11px;
       &_img {
         width: 100%;
-        height: 1.75rem;
+        height: 175px;
         object-fit: cover;
       }
 
       &_title {
-        margin-top: 0.124rem;
+        margin-top: 12.4px;
       }
     }
 
     &_status {
-      margin-top: 0.11rem;
+      margin-top: 11px;
     }
   }
 }
