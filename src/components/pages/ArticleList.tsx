@@ -1,5 +1,6 @@
 import { map, isNil } from 'lodash'
 import { useState, useEffect } from 'react'
+import Tilt from 'react-parallax-tilt'
 
 import { ListCard } from '../../@types/view'
 import { useQueryArticles } from '../../scripts/hooks/useQueryArticles'
@@ -33,14 +34,16 @@ export const ArticleList = () => {
       ) : (
         <>
           {map(data, (content) => (
-            <ArticleCard
-              key={content.id}
-              imgUrl={content.imgUrl || 'noimage.JPG'}
-              avatarUrl={content.avatarUrl}
-              name={content.name}
-              title={content.title}
-              createdAt={content.createdAt}
-            />
+            <Tilt>
+              <ArticleCard
+                key={content.id}
+                imgUrl={content.imgUrl || 'noimage.JPG'}
+                avatarUrl={content.avatarUrl}
+                name={content.name}
+                title={content.title}
+                createdAt={content.createdAt}
+              />
+            </Tilt>
           ))}
         </>
       )}
