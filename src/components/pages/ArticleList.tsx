@@ -11,12 +11,12 @@ import { ArticleCard } from '../organisms/ArticleCard'
 export const ArticleList = () => {
   const { data: articleData, status: articleStatus } = useQueryArticles()
 
-  const [data, setData] = useState<ListCard[]>([])
+  const [articleList, setArticleList] = useState<ListCard[]>([])
 
   useEffect(() => {
     if (!isNil(articleData)) {
       formatArticleCards(articleData.contents).then((list) => {
-        setData(list)
+        setArticleList(list)
       })
     }
   }, [articleData])
@@ -34,9 +34,11 @@ export const ArticleList = () => {
         <div>articleData is undefined</div>
       ) : (
         <>
-          {map(data, (content) => (
+          {map(articleList, (content) => (
             <Tilt key={content.id}>
               <ArticleCard
+                id={content.id}
+                userId={content.userId}
                 imgUrl={content.imgUrl || 'noimage.JPG'}
                 avatarUrl={content.avatarUrl}
                 name={content.name}
