@@ -1,5 +1,10 @@
 // root html
 html {
-  font-size: 16px;
+  font-size: 100px;
   font-family: 'Zen Antique', serif;
+}
+
+body {
+  /* ルートのフォントサイズを1.6em（16pxと同等のサイズ）に設定 */
+  font-size: 0.16em;
 }

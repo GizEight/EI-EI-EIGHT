@@ -6,17 +6,26 @@ $Main: #f3f3f3;
 $FormBackground: #319795;
 $Horizon: #707070;
 $FocusForm: #3ea8ff;
+$CSuccess: #37a169;
+$CError: #e53e3e;
+$CWarning: #dd6a1f;
+$CInfo: #3182ce;
 
 // max-width
 $HeaderMaxWidth: 1200px;
+$ContentMaxWidth: 1200px;
+$SectionMaxWidth: 79vw;
+
 // TODO: コンテンツのmaxwidthは後で決める
 
 // font-size
 $ArticleTitle: 16.8px;
 $ButtonInnerText: 14.5px;
 $Subtext: 12.5px;
-$Sentence: 0.92rem;
+$Sentence: 0.092rem;
 
 // z-index
 $ZHeader: 100;
+$ZIcon: 150;
 $ZPopover: 200;
+$ZToast: 9999;

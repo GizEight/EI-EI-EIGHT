@@ -1,4 +1,6 @@
-import { FC } from 'react'
+import { FC, Suspense } from 'react'
+
+import { Loading } from './Loading'
 
 type Props = {
   src: string
@@ -6,5 +8,7 @@ type Props = {
 }
 
 export const Avatar: FC<Props> = ({ src, alt = '' }) => (
-  <img src={src} alt={alt} className="c-avatar" />
+  <Suspense fallback={<Loading />}>
+    <img src={src} alt={alt} className="c-avatar" />
+  </Suspense>
 )

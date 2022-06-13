@@ -12,7 +12,7 @@
 @use './Layout/l-main.scss';
 
 /*
-* Object
+* Component
 */
 @use './Object/Component/c-button';
 @use './Object/Component/c-toast';
@@ -21,11 +21,19 @@
 @use './Object/Component/c-popover';
 @use './Object/Component/c-tag';
 
+/* 
+* Project 
+*/
+@use './Object/Project/p-card.scss';
+@use './Object/Project/p-section';
+@use './Object/Project/p-loading';
+
 /*
 * Utility
 */
 @use './Object/Utility/u-text';
 @use './Object/Utility/u-type';
+@use './Object/Utility/u-grid';
 
 // font-family
 @import url('https://fonts.googleapis.com/css2?family=Nuosu+SIL&family=Zen+Antique&display=swap');

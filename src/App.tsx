@@ -3,9 +3,9 @@ import { isNil, isEmpty, map } from 'lodash'
 import { FC, useEffect } from 'react'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 
-import { Tag } from './components/atoms/Tag'
-import { Toast } from './components/atoms/Toast'
+import { Toast } from './components/molecules/Toast'
 import { LayoutsWrapper } from './components/templates/LayoutsWrapper'
 import { auth } from './firebase'
 import { HOME_ROUTES } from './routes'
@@ -77,8 +77,6 @@ const App: FC = () => {
         >
           {toast.message}
         </Toast>
-        <Tag tagName="Next.js" />
-        <Tag tagName="Next.jsaaaaaaaaaaddddd" />
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </>

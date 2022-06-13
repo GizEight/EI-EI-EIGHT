@@ -1,12 +1,14 @@
+@use '../../Foundation/' as va;
+
 .success {
-  background-color: #37a169;
+  background-color: va.$CSuccess;
 }
 .error {
-  background-color: #e53e3e;
+  background-color: va.$CError;
 }
 .warning {
-  background-color: #dd6a1f;
+  background-color: va.$CWarning;
 }
 .info {
-  background-color: #3182ce;
+  background-color: va.$CInfo;
 }

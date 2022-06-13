@@ -3,7 +3,6 @@ export interface Article {
   title: string
   userId: string
   content: string
-  contentCount: number
 }
 
 export interface ResponseArticle {
@@ -11,7 +10,6 @@ export interface ResponseArticle {
   title: string
   userId: string
   content: string
-  contentCount: number
   id: string
   createdAt: string
   updatedAt: string

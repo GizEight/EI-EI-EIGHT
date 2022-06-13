@@ -1,3 +1,12 @@
+@use '../Foundation/' as va;
+
 .l-main {
   margin-top: 80px;
+  background-color: va.$Main;
+  min-height: 100vh;
+
+  &_inner {
+    margin: 0 auto;
+    max-width: va.$ContentMaxWidth;
+  }
 }
