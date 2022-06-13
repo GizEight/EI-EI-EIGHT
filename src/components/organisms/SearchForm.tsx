@@ -8,7 +8,7 @@ type Input = {
   searchInput: string
 }
 
-export const SearchInput: FC = memo(() => {
+export const SearchForm: FC = memo(() => {
   const {
     register,
     formState: { errors },
@@ -23,17 +23,15 @@ export const SearchInput: FC = memo(() => {
           }
         />
       )}
-      <label className="c-form search-label" htmlFor="search">
+      <form className="c-form search-label">
         <input
           className="c-form-search"
           {...register('searchInput', { maxLength: 256 })}
         />
-        <FontAwesomeIcon
-          size="lg"
-          icon={['fas', 'magnifying-glass']}
-          className="c-form-search-icon"
-        />
-      </label>
+        <button type="submit" className="c-form-search-icon">
+          <FontAwesomeIcon size="lg" icon={['fas', 'magnifying-glass']} />
+        </button>
+      </form>
     </>
   )
 })

@@ -8,7 +8,7 @@ import { formatArticleCards } from '../../scripts/utils/view'
 import { Loading } from '../atoms/Loading'
 import { SectionTitle } from '../atoms/SectionTitle'
 import { ArticleCard } from '../organisms/ArticleCard'
-import { SearchInput } from '../organisms/SearchInput'
+import { SearchForm } from '../organisms/SearchForm'
 import { ArticleContentsWrapper } from '../templates/ArticleContentsWrapper'
 import { SectionLayout } from '../templates/SectionLayout'
 
@@ -36,7 +36,7 @@ export const ArticleList = () => {
     <>
       <SectionLayout sectionName="article">
         <div className="p-section_content">
-          <SearchInput />
+          <SearchForm />
           <SectionTitle>Articles</SectionTitle>
           <ArticleContentsWrapper>
             {isNil(articleData) ? (
