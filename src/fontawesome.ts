@@ -1,11 +1,12 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faGoogle, faSearchengin } from '@fortawesome/free-brands-svg-icons'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import {
   faCircleCheck,
   faCircleExclamation,
   faCircleInfo,
   faXmark,
   faLightbulb,
+  faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -15,5 +16,5 @@ library.add(
   faXmark,
   faLightbulb,
   faGoogle,
-  faSearchengin
+  faMagnifyingGlass
 )
