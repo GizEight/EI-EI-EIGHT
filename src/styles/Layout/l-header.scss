@@ -17,7 +17,7 @@
   &_inner {
     @extend .flex-center;
     justify-content: center;
-    padding: 20px 0;
+    padding: 0.2rem 0.4rem;
   }
 
   &_content {
@@ -25,7 +25,6 @@
     justify-content: space-between;
     width: 100%;
     max-width: 1200px;
-    padding: 0 40px;
 
     &-title {
       @extend .flex-center;
@@ -44,6 +43,10 @@
 
 @media screen and (max-width: 599px) {
   .l-header {
+    &_inner {
+      padding: 0.2rem 0.2rem;
+    }
+
     &_content {
       &-title {
         gap: 0.12rem;

@@ -1,16 +1,19 @@
+@use '../../Foundation/' as va;
+
 .u-grid {
   display: grid;
   justify-content: center;
 
   &-article {
-    grid-template-columns: repeat(auto-fit, minmax(35.8%, 430px));
+    grid-template-columns: repeat(2, 1fr);
     gap: 45px;
   }
 }
 
-@media screen and (max-width: 1017px) {
+@media screen and (max-width: 700px) {
   .u-grid {
     &-article {
+      grid-template-columns: 1fr;
       gap: 30px;
     }
   }
