@@ -17,22 +17,28 @@
   padding: 8px 15px;
   color: va.$Base;
   font-size: va.$Sentence;
+  transition: all 0.2s;
 
   &:focus {
-    border: 1px solid va.$FocusForm;
     box-shadow: 0 0 0 2.5px va.$FocusForm;
+
+    & + button {
+      transition: all 0.25s;
+      color: va.$FocusForm;
+    }
   }
 }
 
 .c-form {
   @extend .flex-column;
 
-  & > label {
-    @extend .base-label-style;
-  }
-
   &.search-label {
     position: relative;
+    transition: 0.2s;
+  }
+
+  & > label {
+    @extend .base-label-style;
   }
 
   & > input {
