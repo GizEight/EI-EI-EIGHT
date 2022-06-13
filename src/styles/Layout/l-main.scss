@@ -2,11 +2,6 @@
 
 .l-main {
   margin-top: 80px;
-  background-color: va.$Main;
+  background-color: va.$Base;
   min-height: 100vh;
-
-  &_inner {
-    margin: 0 auto;
-    max-width: va.$ContentMaxWidth;
-  }
 }

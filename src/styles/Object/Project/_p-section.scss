@@ -3,14 +3,19 @@
 .p-section {
   padding: 0.56rem;
   padding-top: 0.4rem;
+  width: 100%;
+
+  &-article {
+    background-color: va.$Main;
+  }
 
   &_inner {
-    max-width: va.$SectionMaxWidth;
-    margin: 0 auto;
+    max-width: va.$ContentMaxWidth;
   }
 
   &_content {
-    margin-top: 0.358rem;
+    max-width: va.$SectionMaxWidth;
+    margin: 0 auto;
   }
 
   &_title {
