@@ -19,6 +19,7 @@ export const formatArticleCards = async (
         if (!isNil(target)) {
           result.push({
             id: currentValue.id,
+            userId: currentValue.userId,
             avatarUrl: target.photoURL,
             name: target.name,
             imgUrl: currentValue.imageUrl,
