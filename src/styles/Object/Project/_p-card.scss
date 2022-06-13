@@ -1,3 +1,5 @@
+@use '../../Foundation/' as va;
+
 .p-card {
   &_article {
     box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
@@ -13,6 +15,9 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      &:hover {
+        color: va.$FocusForm;
+      }
     }
 
     &_content {
@@ -25,11 +30,17 @@
 
       &_title {
         margin-top: 12.4px;
+
+        &:hover {
+          color: va.$FocusForm;
+        }
       }
     }
 
     &_status {
       margin-top: 11px;
+      color: va.$Horizon;
+      font-size: 0.1rem;
     }
   }
 }
