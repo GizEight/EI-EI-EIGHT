@@ -6,7 +6,9 @@ import { ListCard } from '../../@types/view'
 import { useQueryArticles } from '../../scripts/hooks/useQueryArticles'
 import { formatArticleCards } from '../../scripts/utils/view'
 import { Loading } from '../atoms/Loading'
+import { SectionTitle } from '../atoms/SectionTitle'
 import { ArticleCard } from '../organisms/ArticleCard'
+import { SectionLayout } from '../templates/SectionLayout'
 
 export const ArticleList = () => {
   const { data: articleData, status: articleStatus } = useQueryArticles()
@@ -29,26 +31,29 @@ export const ArticleList = () => {
   }
 
   return (
-    <section className="p-article u-grid u-grid-article">
-      {isNil(articleData) ? (
-        <div>articleData is undefined</div>
-      ) : (
-        <>
-          {map(articleList, (content) => (
-            <Tilt key={content.id}>
-              <ArticleCard
-                id={content.id}
-                userId={content.userId}
-                imgUrl={content.imgUrl || 'noimage.JPG'}
-                avatarUrl={content.avatarUrl}
-                name={content.name}
-                title={content.title}
-                createdAt={content.createdAt}
-              />
-            </Tilt>
-          ))}
-        </>
-      )}
-    </section>
+    <SectionLayout>
+      <SectionTitle>Articles</SectionTitle>
+      <div className="p-section_content u-grid u-grid-article">
+        {isNil(articleData) ? (
+          <div>articleData is undefined</div>
+        ) : (
+          <>
+            {map(articleList, (content) => (
+              <Tilt key={content.id}>
+                <ArticleCard
+                  id={content.id}
+                  userId={content.userId}
+                  imgUrl={content.imgUrl || 'noimage.JPG'}
+                  avatarUrl={content.avatarUrl}
+                  name={content.name}
+                  title={content.title}
+                  createdAt={content.createdAt}
+                />
+              </Tilt>
+            ))}
+          </>
+        )}
+      </div>
+    </SectionLayout>
   )
 }
