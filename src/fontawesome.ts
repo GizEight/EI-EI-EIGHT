@@ -1,5 +1,5 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+import { faGoogle, faSearchengin } from '@fortawesome/free-brands-svg-icons'
 import {
   faCircleCheck,
   faCircleExclamation,
@@ -14,5 +14,6 @@ library.add(
   faCircleInfo,
   faXmark,
   faLightbulb,
-  faGoogle
+  faGoogle,
+  faSearchengin
 )

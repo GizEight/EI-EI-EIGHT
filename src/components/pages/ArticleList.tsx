@@ -8,6 +8,7 @@ import { formatArticleCards } from '../../scripts/utils/view'
 import { Loading } from '../atoms/Loading'
 import { SectionTitle } from '../atoms/SectionTitle'
 import { ArticleCard } from '../organisms/ArticleCard'
+import { SearchInput } from '../organisms/SearchInput'
 import { SectionLayout } from '../templates/SectionLayout'
 
 export const ArticleList = () => {
@@ -32,6 +33,7 @@ export const ArticleList = () => {
 
   return (
     <SectionLayout>
+      <SearchInput />
       <SectionTitle>Articles</SectionTitle>
       <div className="p-section_content u-grid u-grid-article">
         {isNil(articleData) ? (
