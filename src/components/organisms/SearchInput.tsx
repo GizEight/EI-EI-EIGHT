@@ -11,3 +11,8 @@ export const SearchInput = () => (
     />
   </label>
 )
+        <FontAwesomeIcon
+          size="lg"
+          icon={['fas', 'magnifying-glass']}
+          className="c-form-search-icon"
+        />
