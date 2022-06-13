@@ -1,4 +1,4 @@
-import { reduce, find, isNil } from 'lodash'
+import { reduce, find, isNil, size, padEnd } from 'lodash'
 
 import { ResponseArticle } from '../../@types/article'
 import { ListCard } from '../../@types/view'
@@ -6,6 +6,19 @@ import { fetchUsers } from '../lib/api'
 import { ERROR_CODES } from '../lib/error'
 import { calculateDate } from './dateFormat'
 
+/*
+ * 文字数に応じて３点リーダー付与
+ */
+export const overflowTextFormatter = (text: string) => {
+  if (size(text) > 40) {
+    return padEnd(text.slice(0, 40), 43, '.')
+  }
+  return text
+}
+
+/*
+ * 記事一覧に表示する内容をフォーマット
+ */
 export const formatArticleCards = async (
   listContents: ResponseArticle[]
 ): Promise<ListCard[]> => {
@@ -23,7 +36,7 @@ export const formatArticleCards = async (
             avatarUrl: target.photoURL,
             name: target.name,
             imgUrl: currentValue.imageUrl,
-            title: currentValue.title,
+            title: overflowTextFormatter(currentValue.title),
             createdAt: calculateDate(currentValue.createdAt),
           })
         }
