@@ -4,6 +4,14 @@
 
   &-article {
     grid-template-columns: repeat(auto-fit, minmax(35.8%, 430px));
-    gap: 5%;
+    gap: 45px;
+  }
+}
+
+@media screen and (max-width: 1017px) {
+  .u-grid {
+    &-article {
+      gap: 30px;
+    }
   }
 }

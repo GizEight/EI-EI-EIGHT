@@ -8,9 +8,3 @@ body {
   /* ルートのフォントサイズを1.6em（16pxと同等のサイズ）に設定 */
   font-size: 0.16em;
 }
-
-@media screen and (max-width: 599px) {
-  html {
-    font-size: 41.5px;
-  }
-}
