@@ -1,37 +1,35 @@
 .p-card {
-
   &_article {
-    box-shadow: 20px 20px 50px rgba(0,0,0,0.5);
+    box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
     border-radius: 15px;
     background: rgba(255, 255, 255, 0.1);
     border-top: 1px solid rgba(255, 255, 255, 0.5);
     border-left: 1px solid rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(5px);
-    height: 3.5rem;
-    width: 3.5rem;
-    padding: .14rem;
+    padding: 0.14rem;
+    max-height: calc(1200px * 0.345);
 
     &_user {
       display: flex;
       align-items: center;
-      gap: .08rem;
+      gap: 0.08rem;
     }
 
     &_content {
-      margin-top: .11rem;
+      margin-top: 0.11rem;
       &_img {
         width: 100%;
         height: 1.75rem;
-        object-fit:cover;
+        object-fit: cover;
       }
-  
+
       &_title {
-        margin-top: .124rem;
+        margin-top: 0.124rem;
       }
     }
 
     &_status {
-      margin-top: .11rem;
+      margin-top: 0.11rem;
     }
   }
 }
