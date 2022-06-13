@@ -9,6 +9,7 @@ import { Loading } from '../atoms/Loading'
 import { SectionTitle } from '../atoms/SectionTitle'
 import { ArticleCard } from '../organisms/ArticleCard'
 import { SearchInput } from '../organisms/SearchInput'
+import { ArticleContentsWrapper } from '../templates/ArticleContentsWrapper'
 import { SectionLayout } from '../templates/SectionLayout'
 
 export const ArticleList = () => {
@@ -32,30 +33,60 @@ export const ArticleList = () => {
   }
 
   return (
-    <SectionLayout>
-      <SearchInput />
-      <SectionTitle>Articles</SectionTitle>
-      <div className="p-section_content u-grid u-grid-article">
-        {isNil(articleData) ? (
-          <div>articleData is undefined</div>
-        ) : (
-          <>
-            {map(articleList, (content) => (
-              <Tilt key={content.id}>
-                <ArticleCard
-                  id={content.id}
-                  userId={content.userId}
-                  imgUrl={content.imgUrl || 'noimage.JPG'}
-                  avatarUrl={content.avatarUrl}
-                  name={content.name}
-                  title={content.title}
-                  createdAt={content.createdAt}
-                />
-              </Tilt>
-            ))}
-          </>
-        )}
-      </div>
-    </SectionLayout>
+    <>
+      <SectionLayout sectionName="article">
+        <div className="p-section_content">
+          <SearchInput />
+          <SectionTitle>Articles</SectionTitle>
+          <ArticleContentsWrapper>
+            {isNil(articleData) ? (
+              <div>List is not defined</div>
+            ) : (
+              <>
+                {map(articleList, (content) => (
+                  <Tilt key={content.id}>
+                    <ArticleCard
+                      id={content.id}
+                      userId={content.userId}
+                      imgUrl={content.imgUrl || 'noimage.JPG'}
+                      avatarUrl={content.avatarUrl}
+                      name={content.name}
+                      title={content.title}
+                      createdAt={content.createdAt}
+                    />
+                  </Tilt>
+                ))}
+              </>
+            )}
+          </ArticleContentsWrapper>
+        </div>
+      </SectionLayout>
+      <SectionLayout sectionName="article-featured">
+        <div className="p-section_content">
+          <SectionTitle>Featured</SectionTitle>
+          <ArticleContentsWrapper>
+            {isNil(articleData) ? (
+              <div>List is not defined</div>
+            ) : (
+              <>
+                {map(articleList, (content) => (
+                  <Tilt key={content.id}>
+                    <ArticleCard
+                      id={content.id}
+                      userId={content.userId}
+                      imgUrl={content.imgUrl || 'noimage.JPG'}
+                      avatarUrl={content.avatarUrl}
+                      name={content.name}
+                      title={content.title}
+                      createdAt={content.createdAt}
+                    />
+                  </Tilt>
+                ))}
+              </>
+            )}
+          </ArticleContentsWrapper>
+        </div>
+      </SectionLayout>
+    </>
   )
 }

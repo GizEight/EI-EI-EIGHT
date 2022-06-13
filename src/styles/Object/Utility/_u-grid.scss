@@ -5,6 +5,7 @@
   justify-content: center;
 
   &-article {
+    margin-top: 0.358rem;
     grid-template-columns: repeat(2, 1fr);
     gap: 45px;
   }
