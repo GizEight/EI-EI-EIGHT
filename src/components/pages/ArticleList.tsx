@@ -17,6 +17,11 @@ import { SectionLayout } from '../templates/SectionLayout'
 export const ArticleList = () => {
   const { data: articleData, status: articleStatus } = useQueryArticles()
   const { showErrorToast } = useToast()
+  const { currentPage, prevPage, nextPage, jumpPageBy } = usePaging({
+    allPageCount: isNil(articleData)
+      ? 1
+      : size(articleData.contents) / PER_PAGE,
+  })
 
   const [articleList, setArticleList] = useState<ListCard[]>([])
 
