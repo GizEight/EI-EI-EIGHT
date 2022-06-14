@@ -1,6 +1,6 @@
 import { FC, memo, Suspense } from 'react'
 
-import { Loading } from './Loading'
+import { Loading } from '../atoms/Loading'
 
 type Props = {
   src: string

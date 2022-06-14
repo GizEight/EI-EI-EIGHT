@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Avatar } from '../atoms/Avatar'
+import { Avatar } from '../molecules/Avatar'
 
 type Props = {
   id: string

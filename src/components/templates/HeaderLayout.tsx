@@ -7,10 +7,10 @@ import { selectUser } from '../../app/slices/userSlice'
 import { useAuth } from '../../scripts/hooks/useAuth'
 import { useQueryUsers } from '../../scripts/hooks/useQueryUsers'
 import { APP_TITLE } from '../../scripts/utils/const'
-import { Avatar } from '../atoms/Avatar'
 import { Popover } from '../atoms/Popover'
 import { PrimaryButton } from '../atoms/PrimaryButton'
 import { RouterLink } from '../atoms/RouterLink'
+import { Avatar } from '../molecules/Avatar'
 
 export const HeaderLayout = memo(() => {
   // TODO: loading時にボタンにスピナー表示させる
