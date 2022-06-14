@@ -27,14 +27,17 @@ export const Form: FC<Props> = memo((props: Props) => {
     }
 
     return formType
-  }, [])
+  }, [type])
 
-  const switchForm = () => (
-    <div className="c-form">
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-      <label>{label}</label>
-      {switchFormType()}
-    </div>
+  const switchForm = useCallback(
+    () => (
+      <div className="c-form">
+        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+        <label>{label}</label>
+        {switchFormType()}
+      </div>
+    ),
+    [label, switchFormType]
   )
 
   return <>{switchForm()}</>

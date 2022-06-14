@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { FC, memo } from 'react'
+import { FC, memo, useCallback } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import { ErrorMessage } from '../atoms/ErrorMessage'
@@ -15,9 +15,12 @@ export const SearchForm: FC = memo(() => {
     handleSubmit,
   } = useForm<Input>()
 
-  const onSubmitForm: SubmitHandler<Input> = (data: Input) =>
-    // eslint-disable-next-line no-console
-    console.log('data', data.searchInput)
+  const onSubmitForm: SubmitHandler<Input> = useCallback(
+    (data: Input) =>
+      // eslint-disable-next-line no-console
+      console.log('data', data.searchInput),
+    []
+  )
 
   return (
     <>

@@ -26,19 +26,22 @@ export const Toast: FC<Props> = memo((props: Props) => {
     }
   }, [])
 
-  const switchToast = () => (
-    <div
-      className={`c-toast ${type} ${!isShow ? 'c-toast_fadeout' : undefined}`}
-    >
-      <FontAwesomeIcon
-        className="c-toast_icon"
-        icon={['fas', changeIconBy(type)]}
-      />
-      <span className="u-icon-tex">{children}</span>
-      <span className="c-toast_btn-close">
-        <FontAwesomeIcon onClick={onCLickCloseIcon} icon={['fas', 'xmark']} />
-      </span>
-    </div>
+  const switchToast = useCallback(
+    () => (
+      <div
+        className={`c-toast ${type} ${!isShow ? 'c-toast_fadeout' : undefined}`}
+      >
+        <FontAwesomeIcon
+          className="c-toast_icon"
+          icon={['fas', changeIconBy(type)]}
+        />
+        <span className="u-icon-tex">{children}</span>
+        <span className="c-toast_btn-close">
+          <FontAwesomeIcon onClick={onCLickCloseIcon} icon={['fas', 'xmark']} />
+        </span>
+      </div>
+    ),
+    [type, isShow, children]
   )
 
   return <>{switchToast()}</>
