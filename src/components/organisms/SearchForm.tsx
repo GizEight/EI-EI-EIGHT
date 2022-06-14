@@ -15,8 +15,6 @@ export const SearchForm: FC = memo(() => {
     handleSubmit,
   } = useForm<Input>()
 
-  console.log('render search form')
-
   const onSubmitForm: SubmitHandler<Input> = useCallback(
     (data: Input) =>
       // eslint-disable-next-line no-console
