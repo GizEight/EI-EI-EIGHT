@@ -32,6 +32,21 @@ export const HeaderLayout = memo(() => {
   const [isShowPop, setIsShowPop] = useState(false)
 
   /*
+   * 記事投稿
+   */
+  const onClickPost = useCallback(() => {
+    const { userId } = user
+    const { id, title, content, imageUrl } = article
+
+    /*
+     ? 記事のidが存在しない ? 記事作成 : 記事更新
+     */
+    if (isEmpty(id)) {
+      createArticleMutation.mutate({ userId, title, content, imageUrl })
+    } else {
+      updateArticleMutation.mutate({ id, userId, title, content, imageUrl })
+    }
+  }, [user, article])
 
   return (
     <header className="l-header">
