@@ -49,12 +49,14 @@ export const HeaderLayout = memo(() => {
   }, [user, article])
 
   return (
-    <header className="l-header">
+    <header
+      className={`l-header ${article.isEdit ? 'l-header-edit' : undefined}`}
+    >
       <div className="l-header_inner">
         <div className="l-header_content">
           {article.isEdit ? (
-            <button onClick={() => navigate('-1')}>
-              <FontAwesomeIcon icon={['fas', 'circle-arrow-left']} />
+            <button onClick={() => navigate(-1)}>
+              <FontAwesomeIcon icon={['fas', 'circle-arrow-left']} size="lg" />
             </button>
           ) : (
             <RouterLink to="/">
@@ -65,9 +67,7 @@ export const HeaderLayout = memo(() => {
             </RouterLink>
           )}
           {article.isEdit ? (
-            <PrimaryButton onClick={onClickPost} isRounded>
-              Post it !
-            </PrimaryButton>
+            <PrimaryButton onClick={onClickPost}>Post it !</PrimaryButton>
           ) : (
             <nav className="l-header_content-menu">
               {isEmpty(user.userId) ? (
