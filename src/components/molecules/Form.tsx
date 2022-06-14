@@ -1,39 +1,45 @@
+import { isNil } from 'lodash'
 import { FC, memo, useCallback } from 'react'
 import TextareaAutosize from 'react-textarea-autosize'
 
+type NullAble<T> = T | null
+
 type Props = {
-  label: '名前' | '自己紹介'
+  label?: NullAble<string>
+  placeholder?: NullAble<string>
   type: 'text' | 'textarea'
 }
 
 export const Form: FC<Props> = memo((props: Props) => {
-  const { label, type } = props
+  const { label, placeholder, type } = props
 
   const switchFormType = useCallback(() => {
-    let formType = null
-
     switch (type) {
-      case 'text':
-        formType = <input type="text" className="c-form-form" />
-        break
-
       case 'textarea':
-        formType = <TextareaAutosize minRows={3} className="c-form-form" />
-        break
+        return (
+          <TextareaAutosize
+            minRows={3}
+            className="c-form-form"
+            placeholder={placeholder || ''}
+          />
+        )
 
       default:
-        formType = null
-        break
+        return (
+          <input
+            type="text"
+            className="c-form-form"
+            placeholder={placeholder || ''}
+          />
+        )
     }
-
-    return formType
   }, [type])
 
   const switchForm = useCallback(
     () => (
       <div className="c-form">
         {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label>{label}</label>
+        {!isNil(label) && <label>{label}</label>}
         {switchFormType()}
       </div>
     ),
