@@ -1,5 +1,6 @@
 import { reduce, find, isNil, size, padEnd } from 'lodash'
 
+import { GetUsersResponse } from '../../@types/api.d'
 import { ResponseArticle } from '../../@types/article'
 import { ListCard } from '../../@types/view'
 import { fetchUsers } from '../lib/api'
@@ -21,29 +22,28 @@ export const overflowTextFormatter = (text: string) => {
  */
 export const formatArticleCards = async (
   listContents: ResponseArticle[]
-): Promise<ListCard[]> => {
-  const users = await fetchUsers()
-  let list
-  if (users.errCode === ERROR_CODES.NORMAL_NOOP.errCode) {
-    list = reduce(
-      listContents,
-      (result: ListCard[], currentValue) => {
-        const target = find(users.contents, { userId: currentValue.userId })
-        if (!isNil(target)) {
-          result.push({
-            id: currentValue.id,
-            userId: currentValue.userId,
-            avatarUrl: target.photoURL,
-            name: target.name,
-            imgUrl: currentValue.imageUrl,
-            title: overflowTextFormatter(currentValue.title),
-            createdAt: calculateDate(currentValue.createdAt),
-          })
-        }
-        return result
-      },
-      []
-    )
+): Promise<ListCard[] | GetUsersResponse> => {
+  const res = await fetchUsers()
+  if (res.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
+    return res
   }
-  return list as ListCard[]
+  return reduce(
+    listContents,
+    (result: ListCard[], currentValue) => {
+      const target = find(res.contents, { userId: currentValue.userId })
+      if (!isNil(target)) {
+        result.push({
+          id: currentValue.id,
+          userId: currentValue.userId,
+          avatarUrl: target.photoURL,
+          name: target.name,
+          imgUrl: currentValue.imageUrl,
+          title: overflowTextFormatter(currentValue.title),
+          createdAt: calculateDate(currentValue.createdAt),
+        })
+      }
+      return result
+    },
+    []
+  )
 }

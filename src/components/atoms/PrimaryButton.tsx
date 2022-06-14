@@ -1,4 +1,4 @@
-import { ReactNode, FC } from 'react'
+import { ReactNode, FC, memo } from 'react'
 
 type Props = {
   children: ReactNode
@@ -8,7 +8,7 @@ type Props = {
   isRounded?: boolean
 }
 
-export const PrimaryButton: FC<Props> = (props: Props) => {
+export const PrimaryButton: FC<Props> = memo((props: Props) => {
   const {
     children,
     onClick,
@@ -26,4 +26,4 @@ export const PrimaryButton: FC<Props> = (props: Props) => {
       {children}
     </button>
   )
-}
+})

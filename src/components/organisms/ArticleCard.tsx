@@ -1,7 +1,7 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import { Link } from 'react-router-dom'
 
-import { Avatar } from '../atoms/Avatar'
+import { Avatar } from '../molecules/Avatar'
 
 type Props = {
   id: string
@@ -13,7 +13,7 @@ type Props = {
   createdAt: string
 }
 
-export const ArticleCard: FC<Props> = (props: Props) => {
+export const ArticleCard: FC<Props> = memo((props: Props) => {
   const { id, userId, avatarUrl, name, imgUrl, title, createdAt } = props
 
   return (
@@ -22,15 +22,19 @@ export const ArticleCard: FC<Props> = (props: Props) => {
         <Avatar src={avatarUrl} />
         <span>{name}</span>
       </Link>
-      <figure className="p-card_article_content">
-        <img src={imgUrl} alt="" className="p-card_article_content_img" />
-        <figcaption className="p-card_article_content_title">
-          <Link to={`/article/${id}`}>{title}</Link>
-        </figcaption>
-      </figure>
-      <div className="p-card_article_status">
-        <span>{createdAt}</span>
-      </div>
+      <Link to={`/article/${id}`}>
+        <figure className="p-card_article_content">
+          <img src={imgUrl} alt="" className="p-card_article_content_img" />
+          <figcaption className="p-card_article_content_title">
+            {title}
+          </figcaption>
+        </figure>
+      </Link>
+      <Link to={`/user/${userId}`}>
+        <div className="p-card_article_status">
+          <span>{createdAt}</span>
+        </div>
+      </Link>
     </div>
   )
-}
+})
