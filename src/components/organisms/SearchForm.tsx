@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FC, memo } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, SubmitHandler } from 'react-hook-form'
 
 import { ErrorMessage } from '../atoms/ErrorMessage'
 
@@ -8,11 +8,16 @@ type Input = {
   searchInput: string
 }
 
-export const SearchInput: FC = memo(() => {
+export const SearchForm: FC = memo(() => {
   const {
     register,
     formState: { errors },
+    handleSubmit,
   } = useForm<Input>()
+
+  const onSubmitForm: SubmitHandler<Input> = (data: Input) =>
+    // eslint-disable-next-line no-console
+    console.log('data', data.searchInput)
 
   return (
     <>
@@ -23,17 +28,18 @@ export const SearchInput: FC = memo(() => {
           }
         />
       )}
-      <label className="c-form search-label" htmlFor="search">
+      <form
+        onSubmit={handleSubmit(onSubmitForm)}
+        className="c-form search-label"
+      >
         <input
           className="c-form-search"
           {...register('searchInput', { maxLength: 256 })}
         />
-        <FontAwesomeIcon
-          size="lg"
-          icon={['fas', 'magnifying-glass']}
-          className="c-form-search-icon"
-        />
-      </label>
+        <button type="submit" className="c-form-search-icon">
+          <FontAwesomeIcon size="lg" icon={['fas', 'magnifying-glass']} />
+        </button>
+      </form>
     </>
   )
 })
