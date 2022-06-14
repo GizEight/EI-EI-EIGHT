@@ -1,6 +1,10 @@
 import { useState, useCallback } from 'react'
 
-export const usePaging = () => {
+type Props = {
+  allPageCount: number
+}
+
+export const usePaging = (props: Props) => {
   const [currentPage, setCurrentPage] = useState(1)
 
   const prevPage = useCallback(() => {
@@ -9,7 +13,7 @@ export const usePaging = () => {
   }, [currentPage, setCurrentPage])
 
   const nextPage = useCallback(() => {
-    // TODO: 最大ページ決まり次第制限処理
+    if (currentPage === props.allPageCount) return
     setCurrentPage((page) => page + 1)
   }, [setCurrentPage])
 
@@ -25,5 +29,5 @@ export const usePaging = () => {
     [setCurrentPage]
   )
 
-  return { prevPage, nextPage, jumpPageBy }
+  return { currentPage, prevPage, nextPage, jumpPageBy }
 }
