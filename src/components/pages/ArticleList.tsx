@@ -4,6 +4,7 @@ import Tilt from 'react-parallax-tilt'
 
 import { ListCard } from '../../@types/view'
 import { useQueryArticles } from '../../scripts/hooks/useQueryArticles'
+import { useToast } from '../../scripts/hooks/useToast'
 import { formatArticleCards } from '../../scripts/utils/view'
 import { Loading } from '../atoms/Loading'
 import { SectionTitle } from '../atoms/SectionTitle'
@@ -14,14 +15,25 @@ import { SectionLayout } from '../templates/SectionLayout'
 
 export const ArticleList = () => {
   const { data: articleData, status: articleStatus } = useQueryArticles()
+  const { showErrorToast } = useToast()
 
   const [articleList, setArticleList] = useState<ListCard[]>([])
 
   useEffect(() => {
+    let isMounted = true
     if (!isNil(articleData)) {
       formatArticleCards(articleData.contents).then((list) => {
-        setArticleList(list)
+        if (isMounted) {
+          if ('errCode' in list) {
+            showErrorToast(list)
+            return
+          }
+          setArticleList(list)
+        }
       })
+    }
+    return () => {
+      isMounted = false
     }
   }, [articleData])
 
