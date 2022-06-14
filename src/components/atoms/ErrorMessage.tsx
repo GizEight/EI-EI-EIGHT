@@ -1,9 +1,9 @@
 import { FC, memo } from 'react'
 
 type Props = {
-  message: string
+  children: string
 }
 
-export const ErrorMessage: FC<Props> = memo(({ message }: Props) => (
-  <p className="u-text-error">{message}</p>
+export const ErrorMessage: FC<Props> = memo(({ children }: Props) => (
+  <p className="u-text-error">{children}</p>
 ))

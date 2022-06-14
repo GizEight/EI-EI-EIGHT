@@ -15,6 +15,8 @@ export const SearchForm: FC = memo(() => {
     handleSubmit,
   } = useForm<Input>()
 
+  console.log('render search form')
+
   const onSubmitForm: SubmitHandler<Input> = useCallback(
     (data: Input) =>
       // eslint-disable-next-line no-console
@@ -25,11 +27,9 @@ export const SearchForm: FC = memo(() => {
   return (
     <>
       {errors.searchInput && (
-        <ErrorMessage
-          message={
-            errors.searchInput.message || '正しい形式で入力してください。'
-          }
-        />
+        <ErrorMessage>
+          {errors.searchInput.message || '正しい形式で入力してください。'}
+        </ErrorMessage>
       )}
       <form
         onSubmit={handleSubmit(onSubmitForm)}
