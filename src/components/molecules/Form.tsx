@@ -19,7 +19,7 @@ export const Form: FC<Props> = memo((props: Props) => {
         return (
           <TextareaAutosize
             minRows={3}
-            className="c-form-form"
+            className="c-form-form_textarea"
             placeholder={placeholder || ''}
           />
         )
@@ -28,7 +28,7 @@ export const Form: FC<Props> = memo((props: Props) => {
         return (
           <input
             type="text"
-            className="c-form-form"
+            className="c-form-form_input"
             placeholder={placeholder || ''}
           />
         )
