@@ -5,6 +5,9 @@
   padding-top: 0.4rem;
   width: 100%;
 
+  /*
+    * sectionごとのスタイル
+    */
   &-article {
     background-color: va.$Main;
   }
@@ -13,6 +16,14 @@
     background-color: va.$Base;
   }
 
+  &-create-article {
+    background-color: va.$Main;
+    min-height: 100vh;
+  }
+
+  /*
+    * ネスト
+    */
   &_inner {
     max-width: va.$ContentMaxWidth;
     margin: 0 auto;
@@ -21,6 +32,7 @@
   &_content {
     max-width: va.$SectionMaxWidth;
     margin: 0 auto;
+
     &_forms {
       margin: 0.4rem auto 0;
       display: flex;

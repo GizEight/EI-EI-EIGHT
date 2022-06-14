@@ -8,6 +8,9 @@ import {
   faLightbulb,
   faMagnifyingGlass,
   faCircleArrowLeft,
+  faPenToSquare,
+  faCaretRight,
+  faImage,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -18,5 +21,8 @@ library.add(
   faLightbulb,
   faGoogle,
   faMagnifyingGlass,
-  faCircleArrowLeft
+  faCircleArrowLeft,
+  faPenToSquare,
+  faCaretRight,
+  faImage
 )
