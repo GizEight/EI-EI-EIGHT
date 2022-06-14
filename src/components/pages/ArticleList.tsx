@@ -41,9 +41,6 @@ export const ArticleList = () => {
   if (articleStatus === 'loading') {
     return <Loading />
   }
-  if (articleStatus === 'error') {
-    return <div>Error...</div>
-  }
 
   return (
     <>
