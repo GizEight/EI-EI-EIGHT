@@ -3,6 +3,7 @@ import { ArticleList } from './components/pages/ArticleList'
 import { CreateArticle } from './components/pages/CreateArticle'
 import { EditArticle } from './components/pages/EditArticle'
 import { EditUser } from './components/pages/EditUser'
+import { NotFound } from './components/pages/NotFound'
 import { UserDetail } from './components/pages/UserDetail'
 
 export const HOME_ROUTES = [
@@ -29,5 +30,9 @@ export const HOME_ROUTES = [
   {
     path: '/user/:id/edit',
     element: <EditUser />,
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   },
 ]
