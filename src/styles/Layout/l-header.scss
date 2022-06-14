@@ -12,11 +12,18 @@
   left: 0;
   z-index: va.$ZHeader;
   width: 100%;
-  background-color: #fff;
+  background-color: va.$Base;
+
+  &-edit {
+    background-color: va.$Main;
+    box-shadow: 0 0 8px va.$Horizon;
+  }
 
   &_inner {
     @extend .flex-center;
     justify-content: center;
+    align-items: center;
+    height: 100%;
     padding: 0.2rem 0.4rem;
   }
 
