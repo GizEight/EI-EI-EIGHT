@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { isEmpty } from 'lodash'
-import { Suspense, useState } from 'react'
+import { Suspense, useState, memo } from 'react'
 
 import { useAppSelector } from '../../app/hooks'
 import { selectUser } from '../../app/slices/userSlice'
@@ -12,7 +12,7 @@ import { Popover } from '../atoms/Popover'
 import { PrimaryButton } from '../atoms/PrimaryButton'
 import { RouterLink } from '../atoms/RouterLink'
 
-export const HeaderLayout = () => {
+export const HeaderLayout = memo(() => {
   // TODO: loading時にボタンにスピナー表示させる
   const { login, logout } = useAuth()
   const { user } = useAppSelector(selectUser)
@@ -78,4 +78,4 @@ export const HeaderLayout = () => {
       </div>
     </header>
   )
-}
+})

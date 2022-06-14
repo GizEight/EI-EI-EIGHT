@@ -1,10 +1,10 @@
-import React, { FC } from 'react'
+import { FC, memo } from 'react'
 
 type Props = {
   tagName: string
 }
 
-export const Tag: FC<Props> = (props: Props) => {
+export const Tag: FC<Props> = memo((props: Props) => {
   const { tagName } = props
 
   return (
@@ -12,4 +12,4 @@ export const Tag: FC<Props> = (props: Props) => {
       <p>{tagName}</p>
     </div>
   )
-}
+})

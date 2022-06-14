@@ -1,4 +1,4 @@
-import { ReactNode, FC } from 'react'
+import { ReactNode, FC, memo } from 'react'
 
 import { FooterLayout } from './FooterLayout'
 import { HeaderLayout } from './HeaderLayout'
@@ -8,10 +8,10 @@ type Props = {
   children: ReactNode
 }
 
-export const LayoutsWrapper: FC<Props> = ({ children }: Props) => (
+export const LayoutsWrapper: FC<Props> = memo(({ children }: Props) => (
   <>
     <HeaderLayout />
     <MainLayout>{children}</MainLayout>
     <FooterLayout />
   </>
-)
+))
