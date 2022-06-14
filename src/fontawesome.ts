@@ -7,6 +7,7 @@ import {
   faXmark,
   faLightbulb,
   faMagnifyingGlass,
+  faCircleArrowLeft,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -16,5 +17,6 @@ library.add(
   faXmark,
   faLightbulb,
   faGoogle,
-  faMagnifyingGlass
+  faMagnifyingGlass,
+  faCircleArrowLeft
 )
