@@ -14,10 +14,19 @@ type Props = {
   placeholder?: NullAble<string>
   type: 'text' | 'textarea'
   register: UseFormRegister<Forms>
+  maxLength?: number
 }
 
 export const Form: FC<Props> = memo((props: Props) => {
-  const { label, placeholder, type, register, name, required } = props
+  const {
+    label,
+    placeholder,
+    type,
+    register,
+    name,
+    required,
+    maxLength = 256,
+  } = props
 
   const switchFormType = useCallback(() => {
     switch (type) {
@@ -27,7 +36,7 @@ export const Form: FC<Props> = memo((props: Props) => {
             minRows={3}
             className="c-form-form_textarea"
             placeholder={placeholder || ''}
-            {...register(name, { required })}
+            {...register(name, { required, maxLength })}
           />
         )
 
@@ -37,7 +46,7 @@ export const Form: FC<Props> = memo((props: Props) => {
             type="text"
             className="c-form-form_input"
             placeholder={placeholder || ''}
-            {...register(name, { required })}
+            {...register(name, { required, maxLength })}
           />
         )
     }
