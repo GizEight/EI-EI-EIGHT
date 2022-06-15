@@ -1,4 +1,4 @@
-import { ref, uploadBytes } from 'firebase/storage'
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 import { storage } from '../../../firebase'
 
@@ -14,5 +14,7 @@ export const getImageUrl = async (
 ) => {
   const path = `${dirName}/${fileName}`
   const storageRef = ref(storage, path)
-  const res = await uploadBytes(storageRef, imageFile)
+  await uploadBytes(storageRef, imageFile)
+  const url = await getDownloadURL(ref(storage, path))
+  return url
 }
