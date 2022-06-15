@@ -7,6 +7,10 @@ import {
   faXmark,
   faLightbulb,
   faMagnifyingGlass,
+  faCircleArrowLeft,
+  faPenToSquare,
+  faCaretRight,
+  faImage,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -16,5 +20,9 @@ library.add(
   faXmark,
   faLightbulb,
   faGoogle,
-  faMagnifyingGlass
+  faMagnifyingGlass,
+  faCircleArrowLeft,
+  faPenToSquare,
+  faCaretRight,
+  faImage
 )

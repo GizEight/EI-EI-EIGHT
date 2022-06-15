@@ -29,7 +29,6 @@ export interface CreateArticleRequest {
   title: string
   content: string
   imageUrl?: string
-  contentCount: number
   userId: string
 }
 export interface CreateArticleResponse extends ErrorResponse {
