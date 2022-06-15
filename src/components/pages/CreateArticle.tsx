@@ -10,8 +10,9 @@ import {
   setEditContent,
   setEditTitle,
 } from '../../app/slices/articleSlice'
-import { getImageUrl } from '../../scripts/lib/firebase/storage'
-import { getUniqueChar } from '../../scripts/utils/text'
+import { useContentsImage } from '../../scripts/hooks/useContentsImage'
+import { useToast } from '../../scripts/hooks/useToast'
+import { ERROR_CODES } from '../../scripts/lib/error'
 import { Form } from '../molecules/Form'
 import { IconButton } from '../molecules/IconButton'
 import { ImageInput } from '../molecules/ImageInput'
@@ -21,10 +22,16 @@ import { SectionLayout } from '../templates/SectionLayout'
 export const CreateArticle = () => {
   const dispatch = useAppDispatch()
   const { register, watch, setValue, getValues } = useForm<Forms>()
+  const {
+    contentImage,
+    setContentImage,
+    onChangedContentImage,
+    getContentsImageUrl,
+  } = useContentsImage()
+  const { showToast } = useToast()
 
   const [showMarkDown, setShowMarkDown] = useState(false)
   const [articleImage, setArticleImage] = useState<File | null>(null)
-  const [contentImage, setContentImage] = useState<File | null>(null)
   const onChangedArticleImage = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       const target = e.target.files
@@ -33,29 +40,21 @@ export const CreateArticle = () => {
     },
     [setArticleImage]
   )
-  const onChangedContentImage = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const target = e.target.files
-      !isNil(target) && setContentImage(target[0])
-      e.target.value = ''
-    },
-    [setContentImage]
-  )
 
+  /*
+   * GET contents image url
+   */
   useEffect(() => {
     let isMounted = true
-    if (!isNil(contentImage)) {
-      const imageInsertToContent = async () => {
-        const randomChar = getUniqueChar()
-        const fileName = `${randomChar}_${contentImage.name}`
-        const url = await getImageUrl('article', fileName, contentImage)
-        // TODO: 画像処理中のローディング
-        setValue('content', `![Image](${getValues('content')}\n${url}\n)`)
+    getContentsImageUrl().then((url) => {
+      if (isEmpty(url)) {
+        showToast('error', ERROR_CODES.VALIDATE_IMAGE.errMsg)
+        return
       }
-      imageInsertToContent()
-      if (isMounted) {
-        setContentImage(null)
-      }
+      setValue('content', `![Image](${getValues('content')}\n${url}\n)`)
+    })
+    if (isMounted) {
+      setContentImage(null)
     }
     return () => {
       isMounted = false
@@ -113,7 +112,7 @@ export const CreateArticle = () => {
               <ImageInput
                 id="articleImage"
                 icon={['far', 'images']}
-                onChange={onChangedArticleImage}
+                onChange={onChangedArticleImageUrl}
               />
               <div className="c-icon-btn-double">
                 <IconButton
