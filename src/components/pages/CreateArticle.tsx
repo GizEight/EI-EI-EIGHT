@@ -35,7 +35,7 @@ export const CreateArticle = () => {
         const fileName = `${randomChar}_${contentImage.name}`
         const url = await getImageUrl('article', fileName, contentImage)
         // TODO: 画像処理中のローディングとマークダウン形式での挿入
-        setValue('content', `${getValues('content')}\n${url}\n`)
+        setValue('content', `![Image](${getValues('content')}\n${url}\n)`)
       }
       imageInsertToContent()
       if (isMounted) {
