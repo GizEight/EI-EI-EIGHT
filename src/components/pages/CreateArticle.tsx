@@ -14,12 +14,14 @@ import { getImageUrl } from '../../scripts/lib/firebase/storage'
 import { getUniqueChar } from '../../scripts/utils/text'
 import { Form } from '../molecules/Form'
 import { IconButton } from '../molecules/IconButton'
+import { PreviewMarkdown } from '../organisms/PreviewMarkdown'
 import { SectionLayout } from '../templates/SectionLayout'
 
 export const CreateArticle = () => {
   const dispatch = useAppDispatch()
   const { register, watch, setValue, getValues } = useForm<Forms>()
 
+  const [showMarkDown, setShowMarkDown] = useState(false)
   const [contentImage, setContentImage] = useState<File | null>(null)
   const onChangedContentImage = (e: ChangeEvent<HTMLInputElement>) => {
     const target = e.target.files
@@ -83,23 +85,33 @@ export const CreateArticle = () => {
             required
           />
           <div className="p-section_content_forms_contents">
-            <Form
-              type="textarea"
-              placeholder="write in Markdown..."
-              register={register}
-              name="content"
-              required
-            />
+            {showMarkDown ? (
+              <PreviewMarkdown markdown={watch('content')} />
+            ) : (
+              <Form
+                type="textarea"
+                placeholder="write in Markdown..."
+                register={register}
+                name="content"
+                required
+              />
+            )}
             <div className="p-section_content_forms-buttons">
               <div className="c-icon-btn-double">
-                <IconButton onClick={() => console.log}>
+                <IconButton
+                  className={!showMarkDown ? 'is-bg' : ''}
+                  onClick={() => setShowMarkDown(false)}
+                >
                   <FontAwesomeIcon icon={['fas', 'pen-to-square']} size="lg" />
                 </IconButton>
-                <IconButton onClick={() => console.log}>
+                <IconButton
+                  className={showMarkDown ? 'is-bg' : ''}
+                  onClick={() => setShowMarkDown(true)}
+                >
                   <FontAwesomeIcon icon={['fas', 'caret-right']} size="lg" />
                 </IconButton>
               </div>
-              <IconButton onClick={() => console.log}>
+              <IconButton onClick={() => {}}>
                 <label htmlFor="image">
                   <FontAwesomeIcon icon={['fas', 'image']} size="lg" />
                   <input

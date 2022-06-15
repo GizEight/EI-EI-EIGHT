@@ -9,6 +9,10 @@
   justify-content: center;
   width: 44px;
   height: 44px;
+
+  &.is-bg {
+    background-color: va.$Theme;
+  }
 }
 
 .c-icon-btn-double {
@@ -18,7 +22,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 4px;
+  padding: 4px 4px;
 
   & > button {
     border: none !important;
