@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { isNil } from 'lodash'
-import { useEffect, useState, ChangeEvent } from 'react'
+import { useEffect, useState, ChangeEvent, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Forms } from '../../@types/view'
@@ -14,6 +14,7 @@ import { getImageUrl } from '../../scripts/lib/firebase/storage'
 import { getUniqueChar } from '../../scripts/utils/text'
 import { Form } from '../molecules/Form'
 import { IconButton } from '../molecules/IconButton'
+import { ImageInput } from '../molecules/ImageInput'
 import { PreviewMarkdown } from '../organisms/PreviewMarkdown'
 import { SectionLayout } from '../templates/SectionLayout'
 
@@ -22,12 +23,24 @@ export const CreateArticle = () => {
   const { register, watch, setValue, getValues } = useForm<Forms>()
 
   const [showMarkDown, setShowMarkDown] = useState(false)
+  const [articleImage, setArticleImage] = useState<File | null>(null)
   const [contentImage, setContentImage] = useState<File | null>(null)
-  const onChangedContentImage = (e: ChangeEvent<HTMLInputElement>) => {
-    const target = e.target.files
-    !isNil(target) && setContentImage(target[0])
-    e.target.value = ''
-  }
+  const onChangedArticleImage = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const target = e.target.files
+      !isNil(target) && setArticleImage(target[0])
+      e.target.value = ''
+    },
+    [setArticleImage]
+  )
+  const onChangedContentImage = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const target = e.target.files
+      !isNil(target) && setContentImage(target[0])
+      e.target.value = ''
+    },
+    [setContentImage]
+  )
 
   useEffect(() => {
     let isMounted = true
@@ -36,7 +49,7 @@ export const CreateArticle = () => {
         const randomChar = getUniqueChar()
         const fileName = `${randomChar}_${contentImage.name}`
         const url = await getImageUrl('article', fileName, contentImage)
-        // TODO: 画像処理中のローディングとマークダウン形式での挿入
+        // TODO: 画像処理中のローディング
         setValue('content', `![Image](${getValues('content')}\n${url}\n)`)
       }
       imageInsertToContent()
@@ -97,6 +110,11 @@ export const CreateArticle = () => {
               />
             )}
             <div className="p-section_content_forms-buttons">
+              <ImageInput
+                id="articleImage"
+                icon={['far', 'images']}
+                onChange={onChangedArticleImage}
+              />
               <div className="c-icon-btn-double">
                 <IconButton
                   className={!showMarkDown ? 'is-bg' : ''}
@@ -111,19 +129,11 @@ export const CreateArticle = () => {
                   <FontAwesomeIcon icon={['fas', 'caret-right']} size="lg" />
                 </IconButton>
               </div>
-              <IconButton onClick={() => {}}>
-                <label htmlFor="image">
-                  <FontAwesomeIcon icon={['fas', 'image']} size="lg" />
-                  <input
-                    type="file"
-                    name="image"
-                    id="image"
-                    accept="image/*"
-                    onChange={onChangedContentImage}
-                    style={{ display: 'none' }}
-                  />
-                </label>
-              </IconButton>
+              <ImageInput
+                id="contentImage"
+                icon={['fas', 'image']}
+                onChange={onChangedContentImage}
+              />
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+import { faImages } from '@fortawesome/free-regular-svg-icons'
 import {
   faCircleCheck,
   faCircleExclamation,
@@ -24,5 +25,6 @@ library.add(
   faCircleArrowLeft,
   faPenToSquare,
   faCaretRight,
-  faImage
+  faImage,
+  faImages
 )
