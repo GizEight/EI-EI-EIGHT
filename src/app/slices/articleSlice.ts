@@ -2,15 +2,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { RootState } from '../store'
 
-type Editable = 'title' | 'content'
 type EditContents = {
-  [K in Editable]: string
+  title: string
+  content: string
 }
 
 export interface ArticleState {
   isEdit: boolean
   id: string
-  image: string
+  imageUrl: string
   form: EditContents
 }
 
@@ -22,7 +22,7 @@ const initialState: InitialState = {
   article: {
     isEdit: false,
     id: '',
-    image: '',
+    imageUrl: '',
     form: {
       title: '',
       content: '',
@@ -44,7 +44,7 @@ export const articleSlice = createSlice({
       state.article.form.content = action.payload
     },
     setImageUrl: (state, action: PayloadAction<string>) => {
-      state.article.image = action.payload
+      state.article.imageUrl = action.payload
     },
   },
 })
