@@ -12,6 +12,18 @@ export interface AuthGoogleLoginResponse extends ErrorResponse {
 }
 
 /*
+ * Firebase ImageUrl 取得
+ */
+export interface GetImageUrlRequest {
+  dirName: string
+  fileName: string
+  imageFile: File
+}
+export interface GetImageUrlResponse extends ErrorResponse {
+  url: string
+}
+
+/*
  * 記事取得
  */
 export interface GetArticlesRequest extends Partial<GetMicroCmsRequest> {}
