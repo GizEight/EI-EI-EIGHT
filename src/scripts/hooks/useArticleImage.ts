@@ -29,7 +29,7 @@ export const useArticleImage = () => {
       try {
         const target = e.target.files
         if (isNil(target)) {
-          showToast('error', '')
+          showToast('error', ERROR_CODES.VALIDATE_IMAGE.errMsg)
           return
         }
         const randomChar = getUniqueChar()

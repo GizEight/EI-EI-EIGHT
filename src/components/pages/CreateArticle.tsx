@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { isNil } from 'lodash'
-import { useEffect, useState, ChangeEvent, useCallback } from 'react'
+import { isNil, isEmpty } from 'lodash'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Forms } from '../../@types/view'
@@ -10,9 +10,8 @@ import {
   setEditContent,
   setEditTitle,
 } from '../../app/slices/articleSlice'
+import { useArticleImage } from '../../scripts/hooks/useArticleImage'
 import { useContentsImage } from '../../scripts/hooks/useContentsImage'
-import { useToast } from '../../scripts/hooks/useToast'
-import { ERROR_CODES } from '../../scripts/lib/error'
 import { Form } from '../molecules/Form'
 import { IconButton } from '../molecules/IconButton'
 import { ImageInput } from '../molecules/ImageInput'
@@ -20,6 +19,9 @@ import { PreviewMarkdown } from '../organisms/PreviewMarkdown'
 import { SectionLayout } from '../templates/SectionLayout'
 
 export const CreateArticle = () => {
+  /*
+   * Hooks
+   */
   const dispatch = useAppDispatch()
   const { register, watch, setValue, getValues } = useForm<Forms>()
   const {
@@ -28,18 +30,12 @@ export const CreateArticle = () => {
     onChangedContentImage,
     getContentsImageUrl,
   } = useContentsImage()
-  const { showToast } = useToast()
+  const { onChangedArticleImageUrl } = useArticleImage()
 
+  /*
+   * State
+   */
   const [showMarkDown, setShowMarkDown] = useState(false)
-  const [articleImage, setArticleImage] = useState<File | null>(null)
-  const onChangedArticleImage = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const target = e.target.files
-      !isNil(target) && setArticleImage(target[0])
-      e.target.value = ''
-    },
-    [setArticleImage]
-  )
 
   /*
    * GET contents image url
@@ -48,7 +44,6 @@ export const CreateArticle = () => {
     let isMounted = true
     getContentsImageUrl().then((url) => {
       if (isEmpty(url)) {
-        showToast('error', ERROR_CODES.VALIDATE_IMAGE.errMsg)
         return
       }
       setValue('content', `![Image](${getValues('content')}\n${url}\n)`)
@@ -61,6 +56,9 @@ export const CreateArticle = () => {
     }
   }, [contentImage])
 
+  /*
+   * Store set form values
+   */
   useEffect(() => {
     dispatch(toggleEdit(true))
     const subscription = watch((value, { name }) => {
