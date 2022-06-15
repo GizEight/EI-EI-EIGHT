@@ -1,10 +1,15 @@
 import { isNil } from 'lodash'
 import { useState, ChangeEvent, useCallback } from 'react'
 
+import { ERROR_CODES } from '../lib/error'
 import { getImageUrl } from '../lib/firebase/storage'
 import { getUniqueChar } from '../utils/text'
+import { useToast } from './useToast'
 
 export const useContentsImage = () => {
+  const { showToast } = useToast()
+
+  const [loading, setLoading] = useState(false)
   const [contentImage, setContentImage] = useState<File | null>(null)
 
   const onChangedContentImage = useCallback(
@@ -17,16 +22,31 @@ export const useContentsImage = () => {
   )
 
   const getContentsImageUrl = useCallback(async () => {
-    if (isNil(contentImage)) {
-      return ''
+    setLoading(true)
+    try {
+      if (isNil(contentImage)) {
+        showToast('error', ERROR_CODES.VALIDATE_IMAGE.errMsg)
+        return ''
+      }
+      const randomChar = getUniqueChar()
+      const fileName = `${randomChar}_${contentImage.name}`
+      const res = await getImageUrl({
+        dirName: 'content',
+        fileName,
+        imageFile: contentImage,
+      })
+      if (res.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
+        showToast('error', res.errMsg)
+        return ''
+      }
+      return res.url
+    } finally {
+      setLoading(false)
     }
-    const randomChar = getUniqueChar()
-    const fileName = `${randomChar}_${contentImage.name}`
-    const url = await getImageUrl('contents', fileName, contentImage)
-    return url
   }, [contentImage])
 
   return {
+    loading,
     contentImage,
     setContentImage,
     onChangedContentImage,
