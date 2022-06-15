@@ -2,16 +2,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { RootState } from '../store'
 
-interface EditContents {
-  title: string
-  content: string
+type Editable = 'title' | 'content'
+type EditContents = {
+  [K in Editable]: string
 }
+
 export interface ArticleState {
   isEdit: boolean
   id: string
-  title: string
-  content: string
-  imageUrl?: string
+  image: File | null
+  form: EditContents
 }
 
 interface InitialState {
@@ -22,9 +22,11 @@ const initialState: InitialState = {
   article: {
     isEdit: false,
     id: '',
-    title: '',
-    content: '',
-    imageUrl: '',
+    image: null,
+    form: {
+      title: '',
+      content: '',
+    },
   },
 }
 
@@ -35,21 +37,19 @@ export const articleSlice = createSlice({
     toggleEdit: (state, action: PayloadAction<boolean>) => {
       state.article.isEdit = action.payload
     },
-    setArticleImage: (state, action: PayloadAction<string>) => {
-      state.article.imageUrl = action.payload
+    setEditTitle: (state, action: PayloadAction<string>) => {
+      state.article.form.title = action.payload
     },
-    setEditContents: (state, action: PayloadAction<EditContents>) => {
-      const { title, content } = action.payload
-      state.article = {
-        ...state.article,
-        title,
-        content,
-      }
+    setEditContent: (state, action: PayloadAction<string>) => {
+      state.article.form.content = action.payload
+    },
+    setImage: (state, action: PayloadAction<File>) => {
+      state.article.image = action.payload
     },
   },
 })
 
-export const { toggleEdit, setEditContents, setArticleImage } =
+export const { toggleEdit, setEditTitle, setEditContent, setImage } =
   articleSlice.actions
 
 export const selectArticle = (state: RootState) => state.article
