@@ -10,7 +10,7 @@ type EditContents = {
 export interface ArticleState {
   isEdit: boolean
   id: string
-  image: File | null
+  image: string
   form: EditContents
 }
 
@@ -22,7 +22,7 @@ const initialState: InitialState = {
   article: {
     isEdit: false,
     id: '',
-    image: null,
+    image: '',
     form: {
       title: '',
       content: '',
@@ -43,13 +43,13 @@ export const articleSlice = createSlice({
     setEditContent: (state, action: PayloadAction<string>) => {
       state.article.form.content = action.payload
     },
-    setImage: (state, action: PayloadAction<File>) => {
+    setImageUrl: (state, action: PayloadAction<string>) => {
       state.article.image = action.payload
     },
   },
 })
 
-export const { toggleEdit, setEditTitle, setEditContent, setImage } =
+export const { toggleEdit, setEditTitle, setEditContent, setImageUrl } =
   articleSlice.actions
 
 export const selectArticle = (state: RootState) => state.article
