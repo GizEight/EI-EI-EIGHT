@@ -10,13 +10,15 @@ import {
   setEditContent,
   setEditTitle,
 } from '../../app/slices/articleSlice'
+import { getImageUrl } from '../../scripts/lib/firebase/storage'
+import { getUniqueChar } from '../../scripts/utils/text'
 import { Form } from '../molecules/Form'
 import { IconButton } from '../molecules/IconButton'
 import { SectionLayout } from '../templates/SectionLayout'
 
 export const CreateArticle = () => {
   const dispatch = useAppDispatch()
-  const { register, watch } = useForm<Forms>()
+  const { register, watch, setValue, getValues } = useForm<Forms>()
 
   const [contentImage, setContentImage] = useState<File | null>(null)
   const onChangedContentImage = (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,6 +26,26 @@ export const CreateArticle = () => {
     !isNil(target) && setContentImage(target[0])
     e.target.value = ''
   }
+
+  useEffect(() => {
+    let isMounted = true
+    if (!isNil(contentImage)) {
+      const imageInsertToContent = async () => {
+        const randomChar = getUniqueChar()
+        const fileName = `${randomChar}_${contentImage.name}`
+        const url = await getImageUrl('article', fileName, contentImage)
+        // TODO: 画像処理中のローディングとマークダウン形式での挿入
+        setValue('content', `${getValues('content')}\n${url}\n`)
+      }
+      imageInsertToContent()
+      if (isMounted) {
+        setContentImage(null)
+      }
+    }
+    return () => {
+      isMounted = false
+    }
+  }, [contentImage])
 
   useEffect(() => {
     dispatch(toggleEdit(true))
