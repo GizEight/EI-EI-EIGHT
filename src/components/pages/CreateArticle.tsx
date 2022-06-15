@@ -46,7 +46,7 @@ export const CreateArticle = () => {
       if (isEmpty(url)) {
         return
       }
-      setValue('content', `![Image](${getValues('content')}\n${url}\n)`)
+      setValue('content', `${getValues('content')}\n![Image](${url}\n)`)
     })
     if (isMounted) {
       setContentImage(null)
