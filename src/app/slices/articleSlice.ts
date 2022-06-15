@@ -5,7 +5,6 @@ import { RootState } from '../store'
 interface EditContents {
   title: string
   content: string
-  imageUrl?: string
 }
 export interface ArticleState {
   isEdit: boolean
@@ -36,19 +35,22 @@ export const articleSlice = createSlice({
     toggleEdit: (state, action: PayloadAction<boolean>) => {
       state.article.isEdit = action.payload
     },
+    setArticleImage: (state, action: PayloadAction<string>) => {
+      state.article.imageUrl = action.payload
+    },
     setEditContents: (state, action: PayloadAction<EditContents>) => {
-      const { title, content, imageUrl } = action.payload
+      const { title, content } = action.payload
       state.article = {
         ...state.article,
         title,
         content,
-        imageUrl,
       }
     },
   },
 })
 
-export const { toggleEdit } = articleSlice.actions
+export const { toggleEdit, setEditContents, setArticleImage } =
+  articleSlice.actions
 
 export const selectArticle = (state: RootState) => state.article
 
