@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { isNil } from 'lodash'
-import { useEffect } from 'react'
+import { useEffect, useState, ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Forms } from '../../@types/view'
@@ -17,6 +17,13 @@ import { SectionLayout } from '../templates/SectionLayout'
 export const CreateArticle = () => {
   const dispatch = useAppDispatch()
   const { register, watch } = useForm<Forms>()
+
+  const [contentImage, setContentImage] = useState<File | null>(null)
+  const onChangedContentImage = (e: ChangeEvent<HTMLInputElement>) => {
+    const target = e.target.files
+    !isNil(target) && setContentImage(target[0])
+    e.target.value = ''
+  }
 
   useEffect(() => {
     dispatch(toggleEdit(true))
@@ -71,7 +78,17 @@ export const CreateArticle = () => {
                 </IconButton>
               </div>
               <IconButton onClick={() => console.log}>
-                <FontAwesomeIcon icon={['fas', 'image']} size="lg" />
+                <label htmlFor="image">
+                  <FontAwesomeIcon icon={['fas', 'image']} size="lg" />
+                  <input
+                    type="file"
+                    name="image"
+                    id="image"
+                    accept="image/*"
+                    onChange={onChangedContentImage}
+                    style={{ display: 'none' }}
+                  />
+                </label>
               </IconButton>
             </div>
           </div>
