@@ -89,4 +89,19 @@
       z-index: va.$ZIcon;
     }
   }
+
+  &-image {
+    background-color: va.$Base;
+    border-radius: 50%;
+    border: 1px solid va.$Horizon;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+
+    & > input {
+      display: none;
+    }
+  }
 }

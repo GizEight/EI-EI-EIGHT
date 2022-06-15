@@ -24,6 +24,14 @@ export const ERROR_CODES = {
   },
 
   /*
+   * バリデーション: Image
+   */
+  VALIDATE_IMAGE: {
+    errCode: 3001,
+    errMsg: '画像のURLが取得できませんでした。再度お試しください。',
+  },
+
+  /*
    * 必須入力項目
    */
   REQUIRED_TEXT: {

@@ -36,7 +36,8 @@ export const HeaderLayout = memo(() => {
    */
   const onClickPost = useCallback(() => {
     const { userId } = user
-    const { id, title, content, imageUrl } = article
+    const { id, imageUrl } = article
+    const { title, content } = article.form
 
     /*
      ? 記事のidが存在しない ? 記事作成 : 記事更新

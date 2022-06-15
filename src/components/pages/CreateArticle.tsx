@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { isNil } from 'lodash'
-import { useEffect, useState, ChangeEvent } from 'react'
+import { isNil, isEmpty } from 'lodash'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Forms } from '../../@types/view'
@@ -10,43 +10,55 @@ import {
   setEditContent,
   setEditTitle,
 } from '../../app/slices/articleSlice'
-import { getImageUrl } from '../../scripts/lib/firebase/storage'
-import { getUniqueChar } from '../../scripts/utils/text'
+import { useArticleImage } from '../../scripts/hooks/useArticleImage'
+import { useContentsImage } from '../../scripts/hooks/useContentsImage'
 import { Form } from '../molecules/Form'
 import { IconButton } from '../molecules/IconButton'
+import { ImageInput } from '../molecules/ImageInput'
+import { PreviewMarkdown } from '../organisms/PreviewMarkdown'
 import { SectionLayout } from '../templates/SectionLayout'
 
 export const CreateArticle = () => {
+  /*
+   * Hooks
+   */
   const dispatch = useAppDispatch()
   const { register, watch, setValue, getValues } = useForm<Forms>()
+  const {
+    contentImage,
+    setContentImage,
+    onChangedContentImage,
+    getContentsImageUrl,
+  } = useContentsImage()
+  const { onChangedArticleImageUrl } = useArticleImage()
 
-  const [contentImage, setContentImage] = useState<File | null>(null)
-  const onChangedContentImage = (e: ChangeEvent<HTMLInputElement>) => {
-    const target = e.target.files
-    !isNil(target) && setContentImage(target[0])
-    e.target.value = ''
-  }
+  /*
+   * State
+   */
+  const [showMarkDown, setShowMarkDown] = useState(false)
 
+  /*
+   * GET contents image url
+   */
   useEffect(() => {
     let isMounted = true
-    if (!isNil(contentImage)) {
-      const imageInsertToContent = async () => {
-        const randomChar = getUniqueChar()
-        const fileName = `${randomChar}_${contentImage.name}`
-        const url = await getImageUrl('article', fileName, contentImage)
-        // TODO: 画像処理中のローディングとマークダウン形式での挿入
-        setValue('content', `${getValues('content')}\n${url}\n`)
+    getContentsImageUrl().then((url) => {
+      if (isEmpty(url)) {
+        return
       }
-      imageInsertToContent()
-      if (isMounted) {
-        setContentImage(null)
-      }
+      setValue('content', `![Image](${getValues('content')}\n${url}\n)`)
+    })
+    if (isMounted) {
+      setContentImage(null)
     }
     return () => {
       isMounted = false
     }
   }, [contentImage])
 
+  /*
+   * Store set form values
+   */
   useEffect(() => {
     dispatch(toggleEdit(true))
     const subscription = watch((value, { name }) => {
@@ -83,35 +95,42 @@ export const CreateArticle = () => {
             required
           />
           <div className="p-section_content_forms_contents">
-            <Form
-              type="textarea"
-              placeholder="write in Markdown..."
-              register={register}
-              name="content"
-              required
-            />
+            {showMarkDown ? (
+              <PreviewMarkdown markdown={watch('content')} />
+            ) : (
+              <Form
+                type="textarea"
+                placeholder="write in Markdown..."
+                register={register}
+                name="content"
+                required
+              />
+            )}
             <div className="p-section_content_forms-buttons">
+              <ImageInput
+                id="articleImage"
+                icon={['far', 'images']}
+                onChange={onChangedArticleImageUrl}
+              />
               <div className="c-icon-btn-double">
-                <IconButton onClick={() => console.log}>
+                <IconButton
+                  className={!showMarkDown ? 'is-bg' : ''}
+                  onClick={() => setShowMarkDown(false)}
+                >
                   <FontAwesomeIcon icon={['fas', 'pen-to-square']} size="lg" />
                 </IconButton>
-                <IconButton onClick={() => console.log}>
+                <IconButton
+                  className={showMarkDown ? 'is-bg' : ''}
+                  onClick={() => setShowMarkDown(true)}
+                >
                   <FontAwesomeIcon icon={['fas', 'caret-right']} size="lg" />
                 </IconButton>
               </div>
-              <IconButton onClick={() => console.log}>
-                <label htmlFor="image">
-                  <FontAwesomeIcon icon={['fas', 'image']} size="lg" />
-                  <input
-                    type="file"
-                    name="image"
-                    id="image"
-                    accept="image/*"
-                    onChange={onChangedContentImage}
-                    style={{ display: 'none' }}
-                  />
-                </label>
-              </IconButton>
+              <ImageInput
+                id="contentImage"
+                icon={['fas', 'image']}
+                onChange={onChangedContentImage}
+              />
             </div>
           </div>
         </div>

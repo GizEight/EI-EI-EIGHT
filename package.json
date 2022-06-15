@@ -29,12 +29,14 @@
     "react-dom": "^18.0.0",
     "react-hook-form": "^7.32.0",
     "react-loader-spinner": "^5.1.5",
+    "react-markdown": "^8.0.3",
     "react-parallax-tilt": "^1.7.40",
     "react-query": "^3.39.1",
     "react-query-devtools": "^2.6.3",
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.3.0",
-    "react-textarea-autosize": "^8.3.4"
+    "react-textarea-autosize": "^8.3.4",
+    "remark-gfm": "^3.0.1"
   },
   "devDependencies": {
     "@types/jest": "^28.1.1",
