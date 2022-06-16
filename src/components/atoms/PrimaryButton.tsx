@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { ReactNode, FC, memo } from 'react'
 import { TailSpin } from 'react-loader-spinner'
 
@@ -13,7 +14,11 @@ export const PrimaryButton: FC<Props> = memo<Props>((props: Props) => {
   const { children, isRounded = false, isLoading = false, ...rest } = props
   return (
     <button
-      className={`c-btn ${isRounded ? 'c-btn-rounded' : undefined}`}
+      className={clsx(
+        'c-btn',
+        isRounded && 'c-btn-rounded',
+        isLoading && 'c-btn-loading'
+      )}
       {...rest}
     >
       {isLoading ? (
