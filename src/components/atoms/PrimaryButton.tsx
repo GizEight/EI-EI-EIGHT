@@ -1,27 +1,18 @@
 import { ReactNode, FC, memo } from 'react'
 
+type ButtonProps = JSX.IntrinsicElements['button']
+
 type Props = {
   children: ReactNode
-  onClick: () => void
-  type?: 'button' | 'submit' | 'reset'
-  isDisabled?: boolean
   isRounded?: boolean
-}
+} & ButtonProps
 
-export const PrimaryButton: FC<Props> = memo((props: Props) => {
-  const {
-    children,
-    onClick,
-    isDisabled = false,
-    type = 'button',
-    isRounded = false,
-  } = props
+export const PrimaryButton: FC<Props> = memo<Props>((props: Props) => {
+  const { children, isRounded = false, ...rest } = props
   return (
     <button
       className={`c-btn ${isRounded ? 'c-btn-rounded' : undefined}`}
-      type={type}
-      onClick={onClick}
-      disabled={isDisabled}
+      {...rest}
     >
       {children}
     </button>

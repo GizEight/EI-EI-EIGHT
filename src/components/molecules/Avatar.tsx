@@ -2,13 +2,12 @@ import { FC, memo, Suspense } from 'react'
 
 import { Loading } from '../atoms/Loading'
 
-type Props = {
-  src: string
-  alt?: string
-}
+type ImageProps = JSX.IntrinsicElements['img']
 
-export const Avatar: FC<Props> = memo(({ src, alt = '' }: Props) => (
+type Props = ImageProps
+
+export const Avatar: FC<Props> = memo<Props>((props: Props) => (
   <Suspense fallback={<Loading />}>
-    <img src={src} alt={alt} className="c-avatar" />
+    <img {...props} alt={props.alt} className="c-avatar" />
   </Suspense>
 ))

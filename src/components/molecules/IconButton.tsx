@@ -1,19 +1,17 @@
 import { isEmpty } from 'lodash'
 import { FC, memo, ReactNode } from 'react'
 
-type Props = {
-  type?: 'button' | 'submit' | 'reset'
-  className?: string
-  children: ReactNode
-  onClick: () => void
-}
+type ButtonProps = JSX.IntrinsicElements['button']
 
-export const IconButton: FC<Props> = memo(
-  ({ type = 'button', className = '', children, onClick }: Props) => (
+type Props = {
+  children: ReactNode
+} & ButtonProps
+
+export const IconButton: FC<Props> = memo<Props>(
+  ({ children, className, ...rest }: Props) => (
     <button
-      type={type}
       className={isEmpty(className) ? `c-icon-btn` : `c-icon-btn ${className}`}
-      onClick={onClick}
+      {...rest}
     >
       {children}
     </button>
