@@ -94,14 +94,16 @@ export const CreateArticle = () => {
    */
   useEffect(() => {
     let isMounted = true
-    getContentsImageUrl().then((url) => {
-      if (isEmpty(url)) {
-        return
+    if (!isNil(contentImage)) {
+      getContentsImageUrl().then((url) => {
+        if (isEmpty(url)) {
+          return
+        }
+        setValue('content', `${getValues('content')}\n![Image](${url}\n)`)
+      })
+      if (isMounted) {
+        setContentImage(null)
       }
-      setValue('content', `${getValues('content')}\n![Image](${url}\n)`)
-    })
-    if (isMounted) {
-      setContentImage(null)
     }
     return () => {
       isMounted = false
