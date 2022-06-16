@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { isNil, isEmpty } from 'lodash'
-import { useEffect, useState } from 'react'
+import { isNil, isEmpty, size } from 'lodash'
+import { useEffect, useState, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Forms } from '../../@types/view'
@@ -32,6 +32,7 @@ export const CreateArticle = () => {
     setValue,
     getValues,
     setError,
+    clearErrors,
     formState: { errors },
   } = useForm<Forms>({
     criteriaMode: 'all',
@@ -48,6 +49,39 @@ export const CreateArticle = () => {
    * State
    */
   const [showMarkDown, setShowMarkDown] = useState(false)
+
+  /*
+   * Validation Title
+   */
+  const validateTitle = useCallback(() => {
+    if (size(getValues('title')) > 256) {
+      setError('title', {
+        type: 'maxLength',
+        message: ERROR_CODES.VALIDATE_TEXT_256.errMsg,
+      })
+    } else if (isEmpty(getValues('title'))) {
+      setError('title', {
+        type: 'required',
+        message: ERROR_CODES.REQUIRED_TEXT.errMsg,
+      })
+    } else {
+      clearErrors('title')
+    }
+  }, [])
+
+  /*
+   * Validation Content
+   */
+  const validateContent = useCallback(() => {
+    if (isEmpty(getValues('content'))) {
+      setError('content', {
+        type: 'required',
+        message: ERROR_CODES.REQUIRED_TEXT.errMsg,
+      })
+    } else {
+      clearErrors('content')
+    }
+  }, [])
 
   /*
    * GET contents image url
@@ -103,6 +137,7 @@ export const CreateArticle = () => {
             <Input
               placeholder="Title..."
               {...register('title', { maxLength: 256, required: true })}
+              onBlur={validateTitle}
             />
           </Form>
           <div className="p-section_content_forms_contents">
@@ -113,6 +148,7 @@ export const CreateArticle = () => {
                 <Textarea
                   placeholder="write in Markdown..."
                   {...register('content', { required: true })}
+                  onBlur={validateContent}
                 />
               </Form>
             )}
