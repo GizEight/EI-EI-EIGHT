@@ -1,10 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import clsx from 'clsx'
 import { isEmpty } from 'lodash'
 import { Suspense, useState, memo, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { useAppSelector } from '../../app/hooks'
-import { selectArticle } from '../../app/slices/articleSlice'
+import { useAppSelector, useAppDispatch } from '../../app/hooks'
+import { selectArticle, resetForm } from '../../app/slices/articleSlice'
 import { selectUser } from '../../app/slices/userSlice'
 import { useAuth } from '../../scripts/hooks/useAuth'
 import { useMutateArticles } from '../../scripts/hooks/useMutateArticles'
@@ -21,10 +22,18 @@ export const HeaderLayout = memo(() => {
    */
   const { login, logout } = useAuth()
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const { user } = useAppSelector(selectUser)
   const { article } = useAppSelector(selectArticle)
   const { data } = useQueryUsers({ userId: user.userId })
   const { createArticleMutation, updateArticleMutation } = useMutateArticles()
+
+  /*
+   * Mutation state
+   */
+  const { isLoading: createIsLoading, isSuccess: createIsSuccess } =
+    createArticleMutation
+  const { isLoading: updateIsLoading } = updateArticleMutation
 
   /*
    * State
@@ -36,23 +45,22 @@ export const HeaderLayout = memo(() => {
    */
   const onClickPost = useCallback(() => {
     const { userId } = user
-    const { id, imageUrl } = article
+    const { id, thumbUrl } = article
     const { title, content } = article.form
 
     /*
      ? 記事のidが存在しない ? 記事作成 : 記事更新
      */
     if (isEmpty(id)) {
-      createArticleMutation.mutate({ userId, title, content, imageUrl })
+      createArticleMutation.mutate({ userId, title, content, thumbUrl })
+      createIsSuccess && dispatch(resetForm())
     } else {
-      updateArticleMutation.mutate({ id, userId, title, content, imageUrl })
+      updateArticleMutation.mutate({ id, userId, title, content, thumbUrl })
     }
   }, [user, article])
 
   return (
-    <header
-      className={`l-header ${article.isEdit ? 'l-header-edit' : undefined}`}
-    >
+    <header className={clsx('l-header', article.isEdit && 'l-header-edit')}>
       <div className="l-header_inner">
         <div className="l-header_content">
           {article.isEdit ? (
@@ -68,7 +76,15 @@ export const HeaderLayout = memo(() => {
             </RouterLink>
           )}
           {article.isEdit ? (
-            <PrimaryButton onClick={onClickPost}>Post it !</PrimaryButton>
+            <PrimaryButton
+              onClick={onClickPost}
+              disabled={
+                article.form.isValid || createIsLoading || updateIsLoading
+              }
+              isLoading={createIsLoading || updateIsLoading}
+            >
+              Post it !
+            </PrimaryButton>
           ) : (
             <nav className="l-header_content-menu">
               {isEmpty(user.userId) ? (

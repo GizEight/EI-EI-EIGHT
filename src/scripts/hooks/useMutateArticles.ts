@@ -1,19 +1,26 @@
-// TODO: fetch後のformリセット処理
 import { isNil, map } from 'lodash'
 import { useQueryClient, useMutation } from 'react-query'
 
 import { GetArticlesResponse } from '../../@types/api.d'
 import { postArticle, updateArticle, fetchArticles } from '../lib/api'
-import { CACHE_KEY_ARTICLE } from '../utils/const'
+import { ERROR_CODES } from '../lib/error'
+import { CACHE_KEY_ARTICLE, POST_SUCCESS_MESSAGE } from '../utils/const'
+import { useToast } from './useToast'
 
 export const useMutateArticles = () => {
   const queryClient = useQueryClient()
+  const { showToast } = useToast()
 
   /*
    * 記事作成後、cacheに登録
    */
   const createArticleMutation = useMutation(postArticle, {
-    onSuccess: () => {
+    onSuccess: (data) => {
+      if (data.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
+        showToast('error', data.errMsg)
+        return
+      }
+      showToast('success', POST_SUCCESS_MESSAGE)
       const previousArticles =
         queryClient.getQueryData<GetArticlesResponse>(CACHE_KEY_ARTICLE)
       if (!isNil(previousArticles)) {
@@ -22,6 +29,9 @@ export const useMutateArticles = () => {
         })
       }
     },
+    onError: () => {
+      showToast('error', ERROR_CODES.INTERNAL_SERVER_ERROR.errMsg)
+    },
   })
 
   /*
@@ -29,6 +39,11 @@ export const useMutateArticles = () => {
    */
   const updateArticleMutation = useMutation(updateArticle, {
     onSuccess: (data) => {
+      if (data.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
+        showToast('error', data.errMsg)
+        return
+      }
+      showToast('success', POST_SUCCESS_MESSAGE)
       const previousArticles =
         queryClient.getQueryData<GetArticlesResponse>(CACHE_KEY_ARTICLE)
       if (!isNil(previousArticles)) {
@@ -41,6 +56,9 @@ export const useMutateArticles = () => {
           })
         })
       }
+    },
+    onError: () => {
+      showToast('error', ERROR_CODES.INTERNAL_SERVER_ERROR.errMsg)
     },
   })
 

@@ -2,16 +2,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { RootState } from '../store'
 
-type EditContents = {
-  title: string
-  content: string
-}
-
 export interface ArticleState {
   isEdit: boolean
   id: string
   thumbUrl: string
-  form: EditContents
+  form: {
+    isValid: boolean
+    title: string
+    content: string
+  }
 }
 
 interface InitialState {
@@ -24,6 +23,7 @@ const initialState: InitialState = {
     id: '',
     thumbUrl: '',
     form: {
+      isValid: false,
       title: '',
       content: '',
     },
@@ -37,6 +37,9 @@ export const articleSlice = createSlice({
     toggleEdit: (state, action: PayloadAction<boolean>) => {
       state.article.isEdit = action.payload
     },
+    setIsValid: (state, action: PayloadAction<boolean>) => {
+      state.article.form.isValid = action.payload
+    },
     setEditTitle: (state, action: PayloadAction<string>) => {
       state.article.form.title = action.payload
     },
@@ -46,11 +49,24 @@ export const articleSlice = createSlice({
     setThumbUrl: (state, action: PayloadAction<string>) => {
       state.article.thumbUrl = action.payload
     },
+    resetForm: (state) => {
+      state.article.form = {
+        ...state.article.form,
+        title: '',
+        content: '',
+      }
+    },
   },
 })
 
-export const { toggleEdit, setEditTitle, setEditContent, setThumbUrl } =
-  articleSlice.actions
+export const {
+  toggleEdit,
+  setIsValid,
+  setEditTitle,
+  setEditContent,
+  setThumbUrl,
+  resetForm,
+} = articleSlice.actions
 
 export const selectArticle = (state: RootState) => state.article
 

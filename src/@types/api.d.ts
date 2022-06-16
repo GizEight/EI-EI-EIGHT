@@ -40,7 +40,7 @@ export interface GetArticlesResponse extends ErrorResponse {
 export interface CreateArticleRequest {
   title: string
   content: string
-  imageUrl?: string
+  thumbUrl?: string
   userId: string
 }
 export interface CreateArticleResponse extends ErrorResponse {

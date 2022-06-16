@@ -1,12 +1,15 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import clsx from 'clsx'
 import { isNil, isEmpty, size } from 'lodash'
 import { useEffect, useState, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Forms } from '../../@types/view'
-import { useAppDispatch } from '../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import {
+  selectArticle,
   toggleEdit,
+  setIsValid,
   setEditContent,
   setEditTitle,
 } from '../../app/slices/articleSlice'
@@ -26,6 +29,9 @@ export const CreateArticle = () => {
    * Hooks
    */
   const dispatch = useAppDispatch()
+  const {
+    article: { form },
+  } = useAppSelector(selectArticle)
   const {
     register,
     watch,
@@ -120,6 +126,11 @@ export const CreateArticle = () => {
           default:
             break
         }
+        if (isEmpty(value.title) || isEmpty(value.content)) {
+          dispatch(setIsValid(true))
+        } else {
+          dispatch(setIsValid(false))
+        }
       }
     })
 
@@ -129,12 +140,29 @@ export const CreateArticle = () => {
     }
   }, [watch])
 
+  /*
+   * Init Page validate
+   */
+  useEffect(() => {
+    if (
+      !isEmpty(errors.title) ||
+      !isEmpty(errors.content) ||
+      isEmpty(getValues('title')) ||
+      isEmpty(getValues('content'))
+    ) {
+      dispatch(setIsValid(true))
+    } else {
+      dispatch(setIsValid(false))
+    }
+  }, [])
+
   return (
     <SectionLayout sectionName="create-article">
       <div className="p-section_content">
         <div className="p-section_content_forms">
           <Form errorMsg={errors.title?.message || ''}>
             <Input
+              value={form.title}
               placeholder="Title..."
               {...register('title', { maxLength: 256, required: true })}
               onBlur={validateTitle}
@@ -146,6 +174,7 @@ export const CreateArticle = () => {
             ) : (
               <Form errorMsg={errors.content?.message || ''}>
                 <Textarea
+                  value={form.content}
                   placeholder="write in Markdown..."
                   {...register('content', { required: true })}
                   onBlur={validateContent}
@@ -160,13 +189,13 @@ export const CreateArticle = () => {
               />
               <div className="c-icon-btn-double">
                 <IconButton
-                  className={!showMarkDown ? 'is-bg' : ''}
+                  className={clsx(!showMarkDown && 'is-bg')}
                   onClick={() => setShowMarkDown(false)}
                 >
                   <FontAwesomeIcon icon={['fas', 'pen-to-square']} size="lg" />
                 </IconButton>
                 <IconButton
-                  className={showMarkDown ? 'is-bg' : ''}
+                  className={clsx(showMarkDown && 'is-bg')}
                   onClick={() => setShowMarkDown(true)}
                 >
                   <FontAwesomeIcon icon={['fas', 'caret-right']} size="lg" />
