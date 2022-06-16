@@ -22,6 +22,7 @@ export const X_MICROCMS_API_KEY = import.meta.env.VITE_X_MICROCMS_API_KEY
  * message, title, etc...
  */
 export const LOGIN_SUCCESS_MESSAGE = 'Login Success!'
+export const POST_SUCCESS_MESSAGE = 'Post Success!'
 export const APP_TITLE = 'EI-EI-EIGHT'
 
 /*
