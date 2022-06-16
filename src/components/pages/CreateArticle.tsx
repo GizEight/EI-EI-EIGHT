@@ -7,6 +7,7 @@ import { Forms } from '../../@types/view'
 import { useAppDispatch } from '../../app/hooks'
 import {
   toggleEdit,
+  setIsValid,
   setEditContent,
   setEditTitle,
 } from '../../app/slices/articleSlice'
@@ -128,6 +129,17 @@ export const CreateArticle = () => {
       subscription.unsubscribe()
     }
   }, [watch])
+
+  /*
+   * Store set form is valid
+   */
+  useEffect(() => {
+    if (!isEmpty(errors.title || errors.content)) {
+      dispatch(setIsValid(true))
+    } else {
+      dispatch(setIsValid(false))
+    }
+  }, [errors.title, errors.content])
 
   return (
     <SectionLayout sectionName="create-article">
