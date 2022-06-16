@@ -10,7 +10,7 @@ type EditContents = {
 export interface ArticleState {
   isEdit: boolean
   id: string
-  imageUrl: string
+  thumbUrl: string
   form: EditContents
 }
 
@@ -22,7 +22,7 @@ const initialState: InitialState = {
   article: {
     isEdit: false,
     id: '',
-    imageUrl: '',
+    thumbUrl: '',
     form: {
       title: '',
       content: '',
@@ -43,13 +43,13 @@ export const articleSlice = createSlice({
     setEditContent: (state, action: PayloadAction<string>) => {
       state.article.form.content = action.payload
     },
-    setImageUrl: (state, action: PayloadAction<string>) => {
-      state.article.imageUrl = action.payload
+    setThumbUrl: (state, action: PayloadAction<string>) => {
+      state.article.thumbUrl = action.payload
     },
   },
 })
 
-export const { toggleEdit, setEditTitle, setEditContent, setImageUrl } =
+export const { toggleEdit, setEditTitle, setEditContent, setThumbUrl } =
   articleSlice.actions
 
 export const selectArticle = (state: RootState) => state.article
