@@ -36,16 +36,16 @@ export const HeaderLayout = memo(() => {
    */
   const onClickPost = useCallback(() => {
     const { userId } = user
-    const { id, imageUrl } = article
+    const { id, thumbUrl } = article
     const { title, content } = article.form
 
     /*
      ? 記事のidが存在しない ? 記事作成 : 記事更新
      */
     if (isEmpty(id)) {
-      createArticleMutation.mutate({ userId, title, content, imageUrl })
+      createArticleMutation.mutate({ userId, title, content, thumbUrl })
     } else {
-      updateArticleMutation.mutate({ id, userId, title, content, imageUrl })
+      updateArticleMutation.mutate({ id, userId, title, content, thumbUrl })
     }
   }, [user, article])
 
