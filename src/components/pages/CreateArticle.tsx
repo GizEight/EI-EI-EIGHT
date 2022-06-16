@@ -10,7 +10,7 @@ import {
   setEditContent,
   setEditTitle,
 } from '../../app/slices/articleSlice'
-import { useArticleImage } from '../../scripts/hooks/useArticleImage'
+import { useArticleThumbnail } from '../../scripts/hooks/useArticleThumbnail'
 import { useContentsImage } from '../../scripts/hooks/useContentsImage'
 import { ERROR_CODES } from '../../scripts/lib/error'
 import { Input } from '../atoms/Forms/Input'
@@ -43,7 +43,7 @@ export const CreateArticle = () => {
     onChangedContentImage,
     getContentsImageUrl,
   } = useContentsImage()
-  const { onChangedArticleImageUrl } = useArticleImage()
+  const { onChangedArticleThumbUrl } = useArticleThumbnail()
 
   /*
    * State
@@ -154,9 +154,9 @@ export const CreateArticle = () => {
             )}
             <div className="p-section_content_forms-buttons">
               <ImageInput
-                id="articleImage"
+                id="articleThumb"
                 icon={['far', 'images']}
-                onChange={onChangedArticleImageUrl}
+                onChange={onChangedArticleThumbUrl}
               />
               <div className="c-icon-btn-double">
                 <IconButton

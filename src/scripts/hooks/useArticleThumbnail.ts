@@ -2,13 +2,13 @@ import { isNil } from 'lodash'
 import { useCallback, ChangeEvent, useState } from 'react'
 
 import { useAppDispatch } from '../../app/hooks'
-import { setImageUrl } from '../../app/slices/articleSlice'
+import { setThumbUrl } from '../../app/slices/articleSlice'
 import { ERROR_CODES } from '../lib/error'
 import { getImageUrl } from '../lib/firebase/storage'
 import { getUniqueChar } from '../utils/text'
 import { useToast } from './useToast'
 
-export const useArticleImage = () => {
+export const useArticleThumbnail = () => {
   /*
    * Hooks
    */
@@ -23,7 +23,7 @@ export const useArticleImage = () => {
   /*
    * Store set article image url
    */
-  const onChangedArticleImageUrl = useCallback(
+  const onChangedArticleThumbUrl = useCallback(
     async (e: ChangeEvent<HTMLInputElement>) => {
       setLoading(true)
       try {
@@ -43,12 +43,12 @@ export const useArticleImage = () => {
           showToast('error', res.errMsg)
           return
         }
-        dispatch(setImageUrl(res.url))
+        dispatch(setThumbUrl(res.url))
       } finally {
         setLoading(false)
       }
     },
     []
   )
-  return { loading, onChangedArticleImageUrl }
+  return { loading, onChangedArticleThumbUrl }
 }
