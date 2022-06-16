@@ -68,7 +68,12 @@ export const HeaderLayout = memo(() => {
             </RouterLink>
           )}
           {article.isEdit ? (
-            <PrimaryButton onClick={onClickPost}>Post it !</PrimaryButton>
+            <PrimaryButton
+              onClick={onClickPost}
+              disabled={article.form.isValid}
+            >
+              Post it !
+            </PrimaryButton>
           ) : (
             <nav className="l-header_content-menu">
               {isEmpty(user.userId) ? (
