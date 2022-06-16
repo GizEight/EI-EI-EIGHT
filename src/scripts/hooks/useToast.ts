@@ -2,12 +2,17 @@ import { useCallback } from 'react'
 
 import { ToastType } from '../../@types/view'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { selectToast, closeToast, setToast } from '../../app/slices/toastSlice'
+import {
+  selectToast,
+  closeToast,
+  setToast,
+  setLoadingToastIsShow,
+} from '../../app/slices/toastSlice'
 import { LOGIN_SUCCESS_MESSAGE, TOAST_DURATION_TIME } from '../utils/const'
 
 export const useToast = () => {
   const dispatch = useAppDispatch()
-  const { toast } = useAppSelector(selectToast)
+  const { toast, loadingToast } = useAppSelector(selectToast)
 
   const onClickCloseToast = useCallback(() => dispatch(closeToast()), [])
 
@@ -19,6 +24,10 @@ export const useToast = () => {
         isShow: true,
       })
     )
+  }, [])
+
+  const showLoadingToast = useCallback(() => {
+    dispatch(setLoadingToastIsShow(true))
   }, [])
 
   const resetToast = useCallback(() => {

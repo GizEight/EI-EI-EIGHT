@@ -44,6 +44,7 @@ export const CreateArticle = () => {
     criteriaMode: 'all',
   })
   const {
+    loading,
     contentImage,
     setContentImage,
     onChangedContentImage,
