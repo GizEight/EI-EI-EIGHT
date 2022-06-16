@@ -25,6 +25,8 @@ export const HeaderLayout = memo(() => {
   const { article } = useAppSelector(selectArticle)
   const { data } = useQueryUsers({ userId: user.userId })
   const { createArticleMutation, updateArticleMutation } = useMutateArticles()
+  const { isLoading: createIsLoading } = createArticleMutation
+  const { isLoading: updateIsLoading } = updateArticleMutation
 
   /*
    * State
@@ -70,7 +72,10 @@ export const HeaderLayout = memo(() => {
           {article.isEdit ? (
             <PrimaryButton
               onClick={onClickPost}
-              disabled={article.form.isValid}
+              disabled={
+                article.form.isValid || createIsLoading || updateIsLoading
+              }
+              isLoading={createIsLoading || updateIsLoading}
             >
               Post it !
             </PrimaryButton>
