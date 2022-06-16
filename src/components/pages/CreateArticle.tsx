@@ -135,6 +135,22 @@ export const CreateArticle = () => {
     }
   }, [watch])
 
+  /*
+   * Init Page validate
+   */
+  useEffect(() => {
+    if (
+      !isEmpty(errors.title) ||
+      !isEmpty(errors.content) ||
+      isEmpty(getValues('title')) ||
+      isEmpty(getValues('content'))
+    ) {
+      dispatch(setIsValid(true))
+    } else {
+      dispatch(setIsValid(false))
+    }
+  }, [])
+
   return (
     <SectionLayout sectionName="create-article">
       <div className="p-section_content">
