@@ -12,19 +12,29 @@ import {
 } from '../../app/slices/articleSlice'
 import { useArticleImage } from '../../scripts/hooks/useArticleImage'
 import { useContentsImage } from '../../scripts/hooks/useContentsImage'
+import { ERROR_CODES } from '../../scripts/lib/error'
+import { Input } from '../atoms/Forms/Input'
 import { Form } from '../molecules/Form'
 import { IconButton } from '../molecules/IconButton'
 import { ImageInput } from '../molecules/ImageInput'
 import { PreviewMarkdown } from '../organisms/PreviewMarkdown'
 import { SectionLayout } from '../templates/SectionLayout'
-import { Input } from '../atoms/Forms/Textarea'
 
 export const CreateArticle = () => {
   /*
    * Hooks
    */
   const dispatch = useAppDispatch()
-  const { register, watch, setValue, getValues } = useForm<Forms>()
+  const {
+    register,
+    watch,
+    setValue,
+    getValues,
+    setError,
+    formState: { errors },
+  } = useForm<Forms>({
+    criteriaMode: 'all',
+  })
   const {
     contentImage,
     setContentImage,
@@ -88,8 +98,11 @@ export const CreateArticle = () => {
     <SectionLayout sectionName="create-article">
       <div className="p-section_content">
         <div className="p-section_content_forms">
-          <Form>
-            <Input />
+          <Form errorMsg={errors.title?.message || ''}>
+            <Input
+              placeholder="Title..."
+              {...register('title', { maxLength: 256, required: true })}
+            />
           </Form>
           <div className="p-section_content_forms_contents">
             {showMarkDown ? (
