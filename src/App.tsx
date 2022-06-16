@@ -70,13 +70,11 @@ const App: FC = () => {
             ))}
           </Routes>
         </LayoutsWrapper>
-        <Toast
-          type={toast.type}
-          onCLickCloseIcon={onClickCloseToast}
-          isShow={toast.isShow}
-        >
-          {toast.message}
-        </Toast>
+        {toast.isShow && (
+          <Toast type={toast.type} onCLickCloseIcon={onClickCloseToast}>
+            {toast.message}
+          </Toast>
+        )}
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
     </>
