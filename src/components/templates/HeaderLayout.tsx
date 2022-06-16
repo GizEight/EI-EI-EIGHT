@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
 import { isEmpty } from 'lodash'
-import { Suspense, useState, memo, useCallback, useEffect } from 'react'
+import { Suspense, useState, memo, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { useAppSelector } from '../../app/hooks'
-import { selectArticle } from '../../app/slices/articleSlice'
+import { useAppSelector, useAppDispatch } from '../../app/hooks'
+import { selectArticle, resetForm } from '../../app/slices/articleSlice'
 import { selectUser } from '../../app/slices/userSlice'
 import { useAuth } from '../../scripts/hooks/useAuth'
 import { useMutateArticles } from '../../scripts/hooks/useMutateArticles'
@@ -22,11 +22,17 @@ export const HeaderLayout = memo(() => {
    */
   const { login, logout } = useAuth()
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const { user } = useAppSelector(selectUser)
   const { article } = useAppSelector(selectArticle)
   const { data } = useQueryUsers({ userId: user.userId })
   const { createArticleMutation, updateArticleMutation } = useMutateArticles()
-  const { isLoading: createIsLoading } = createArticleMutation
+
+  /*
+   * Mutation state
+   */
+  const { isLoading: createIsLoading, isSuccess: createIsSuccess } =
+    createArticleMutation
   const { isLoading: updateIsLoading } = updateArticleMutation
 
   /*
@@ -47,6 +53,7 @@ export const HeaderLayout = memo(() => {
      */
     if (isEmpty(id)) {
       createArticleMutation.mutate({ userId, title, content, thumbUrl })
+      createIsSuccess && dispatch(resetForm())
     } else {
       updateArticleMutation.mutate({ id, userId, title, content, thumbUrl })
     }

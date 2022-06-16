@@ -49,6 +49,13 @@ export const articleSlice = createSlice({
     setThumbUrl: (state, action: PayloadAction<string>) => {
       state.article.thumbUrl = action.payload
     },
+    resetForm: (state) => {
+      state.article.form = {
+        ...state.article.form,
+        title: '',
+        content: '',
+      }
+    },
   },
 })
 
@@ -58,6 +65,7 @@ export const {
   setEditTitle,
   setEditContent,
   setThumbUrl,
+  resetForm,
 } = articleSlice.actions
 
 export const selectArticle = (state: RootState) => state.article

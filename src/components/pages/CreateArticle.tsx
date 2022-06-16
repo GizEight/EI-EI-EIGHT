@@ -5,8 +5,9 @@ import { useEffect, useState, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Forms } from '../../@types/view'
-import { useAppDispatch } from '../../app/hooks'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import {
+  selectArticle,
   toggleEdit,
   setIsValid,
   setEditContent,
@@ -28,6 +29,9 @@ export const CreateArticle = () => {
    * Hooks
    */
   const dispatch = useAppDispatch()
+  const {
+    article: { form },
+  } = useAppSelector(selectArticle)
   const {
     register,
     watch,
@@ -158,6 +162,7 @@ export const CreateArticle = () => {
         <div className="p-section_content_forms">
           <Form errorMsg={errors.title?.message || ''}>
             <Input
+              value={form.title}
               placeholder="Title..."
               {...register('title', { maxLength: 256, required: true })}
               onBlur={validateTitle}
@@ -169,6 +174,7 @@ export const CreateArticle = () => {
             ) : (
               <Form errorMsg={errors.content?.message || ''}>
                 <Textarea
+                  value={form.content}
                   placeholder="write in Markdown..."
                   {...register('content', { required: true })}
                   onBlur={validateContent}
