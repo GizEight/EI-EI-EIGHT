@@ -14,6 +14,7 @@ import { useArticleImage } from '../../scripts/hooks/useArticleImage'
 import { useContentsImage } from '../../scripts/hooks/useContentsImage'
 import { ERROR_CODES } from '../../scripts/lib/error'
 import { Input } from '../atoms/Forms/Input'
+import { Textarea } from '../atoms/Forms/Textarea'
 import { Form } from '../molecules/Form'
 import { IconButton } from '../molecules/IconButton'
 import { ImageInput } from '../molecules/ImageInput'
@@ -108,13 +109,12 @@ export const CreateArticle = () => {
             {showMarkDown ? (
               <PreviewMarkdown markdown={watch('content')} />
             ) : (
-              <Form
-                type="textarea"
-                placeholder="write in Markdown..."
-                register={register}
-                name="content"
-                required
-              />
+              <Form errorMsg={errors.content?.message || ''}>
+                <Textarea
+                  placeholder="write in Markdown..."
+                  {...register('content', { required: true })}
+                />
+              </Form>
             )}
             <div className="p-section_content_forms-buttons">
               <ImageInput
