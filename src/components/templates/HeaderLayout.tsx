@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import clsx from 'clsx'
 import { isEmpty } from 'lodash'
-import { Suspense, useState, memo, useCallback } from 'react'
+import { Suspense, useState, memo, useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useAppSelector } from '../../app/hooks'
@@ -52,9 +53,7 @@ export const HeaderLayout = memo(() => {
   }, [user, article])
 
   return (
-    <header
-      className={`l-header ${article.isEdit ? 'l-header-edit' : undefined}`}
-    >
+    <header className={clsx('l-header', article.isEdit && 'l-header-edit')}>
       <div className="l-header_inner">
         <div className="l-header_content">
           {article.isEdit ? (

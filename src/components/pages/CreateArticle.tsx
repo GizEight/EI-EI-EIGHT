@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import clsx from 'clsx'
 import { isNil, isEmpty, size } from 'lodash'
 import { useEffect, useState, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
@@ -182,13 +183,13 @@ export const CreateArticle = () => {
               />
               <div className="c-icon-btn-double">
                 <IconButton
-                  className={!showMarkDown ? 'is-bg' : ''}
+                  className={clsx(!showMarkDown && 'is-bg')}
                   onClick={() => setShowMarkDown(false)}
                 >
                   <FontAwesomeIcon icon={['fas', 'pen-to-square']} size="lg" />
                 </IconButton>
                 <IconButton
-                  className={showMarkDown ? 'is-bg' : ''}
+                  className={clsx(showMarkDown && 'is-bg')}
                   onClick={() => setShowMarkDown(true)}
                 >
                   <FontAwesomeIcon icon={['fas', 'caret-right']} size="lg" />
