@@ -29,6 +29,7 @@ export const useArticleThumbnail = () => {
       try {
         const target = e.target.files
         if (isNil(target)) {
+          // TODO: メッセージ変更必要ありそう
           showToast('error', ERROR_CODES.VALIDATE_IMAGE.errMsg)
           return
         }
