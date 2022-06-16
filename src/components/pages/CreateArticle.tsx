@@ -17,6 +17,7 @@ import { IconButton } from '../molecules/IconButton'
 import { ImageInput } from '../molecules/ImageInput'
 import { PreviewMarkdown } from '../organisms/PreviewMarkdown'
 import { SectionLayout } from '../templates/SectionLayout'
+import { Input } from '../atoms/Forms/Textarea'
 
 export const CreateArticle = () => {
   /*
@@ -87,13 +88,9 @@ export const CreateArticle = () => {
     <SectionLayout sectionName="create-article">
       <div className="p-section_content">
         <div className="p-section_content_forms">
-          <Form
-            type="text"
-            placeholder="Title..."
-            register={register}
-            name="title"
-            required
-          />
+          <Form>
+            <Input />
+          </Form>
           <div className="p-section_content_forms_contents">
             {showMarkDown ? (
               <PreviewMarkdown markdown={watch('content')} />
