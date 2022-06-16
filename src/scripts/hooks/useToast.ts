@@ -41,6 +41,10 @@ export const useToast = () => {
     dispatch(setLoadingToastIsShow(true))
   }, [])
 
+  const showLoadingToast = useCallback(() => {
+    dispatch(setLoadingToastIsShow(true))
+  }, [])
+
   const resetToast = useCallback(() => {
     dispatch(
       setToast({
