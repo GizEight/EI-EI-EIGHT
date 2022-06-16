@@ -121,6 +121,11 @@ export const CreateArticle = () => {
           default:
             break
         }
+        if (isEmpty(value.title) || isEmpty(value.content)) {
+          dispatch(setIsValid(true))
+        } else {
+          dispatch(setIsValid(false))
+        }
       }
     })
 
@@ -129,17 +134,6 @@ export const CreateArticle = () => {
       subscription.unsubscribe()
     }
   }, [watch])
-
-  /*
-   * Store set form is valid
-   */
-  useEffect(() => {
-    if (!isEmpty(errors.title || errors.content)) {
-      dispatch(setIsValid(true))
-    } else {
-      dispatch(setIsValid(false))
-    }
-  }, [errors.title, errors.content])
 
   return (
     <SectionLayout sectionName="create-article">
