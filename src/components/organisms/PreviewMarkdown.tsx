@@ -14,7 +14,7 @@ export const PreviewMarkdown: FC<Props> = memo((props: Props) => {
       {isEmpty(markdown) ? (
         <p className="c-form-form_textarea_message">コンテンツがありません。</p>
       ) : (
-        <ReactMarkdown remarkPlugins={[remarkGfm]} unwrapDisallowed={false}>
+        <ReactMarkdown className='u-markdown' remarkPlugins={[remarkGfm]} unwrapDisallowed={false}>
           {markdown}
         </ReactMarkdown>
       )}
