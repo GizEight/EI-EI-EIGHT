@@ -14,7 +14,12 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: va.$ZToast;
-  animation: default-fade-animation 5s ease 0s 1 forwards;
+  // animation: default-fade-animation 5s ease 0s 1 forwards;
+
+  &-loading {
+    padding-left: 0;
+    justify-content: center;
+  }
 
   &_btn {
     padding: 2px 5px 3px;
