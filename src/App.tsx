@@ -15,7 +15,7 @@ import { useToast } from './scripts/hooks/useToast'
 import { fetchUsers } from './scripts/lib/api'
 
 const App: FC = () => {
-  const { toast, loadingToast, onClickCloseToast } = useToast()
+  const { toast, loadingToast, handleCloseToast } = useToast()
   const { registerUser, deleteUser, createUserMutation } = useMutateUsers()
 
   /*
@@ -74,7 +74,7 @@ const App: FC = () => {
         {(toast.isShow || loadingToast.isShow) && (
           <Toast
             type={toast.type}
-            onCLickCloseIcon={onClickCloseToast}
+            onCLickCloseIcon={handleCloseToast}
             isLoading={loadingToast.isShow}
           >
             {loadingToast.isShow && (

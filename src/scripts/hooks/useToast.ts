@@ -14,7 +14,7 @@ export const useToast = () => {
   const dispatch = useAppDispatch()
   const { toast, loadingToast } = useAppSelector(selectToast)
 
-  const onClickCloseToast = useCallback(() => dispatch(closeToast()), [])
+  const handleCloseToast = useCallback(() => dispatch(closeToast()), [])
 
   const showToast = useCallback((type: ToastType, message: string) => {
     dispatch(
@@ -36,5 +36,6 @@ export const useToast = () => {
     loadingToast,
     showToast,
     onClickCloseToast,
+    handleCloseToast,
   }
 }
