@@ -1,39 +1,30 @@
 @use '../../Foundation/' as va;
 
 .c-toast {
-  width: 250px;
   height: 40px;
   color: va.$Base;
   border-radius: 10px;
   display: flex;
   align-items: center;
   margin: 0 auto;
-  padding-left: 20px;
+  padding: 20px;
   position: fixed;
   top: 50px;
   left: 50%;
   transform: translateX(-50%);
   z-index: va.$ZToast;
-  animation: default-fade-animation 5s ease 0s 1 forwards;
+  animation: fade-animation 7s ease 0s 1 forwards;
 
   &_btn {
     padding: 2px 5px 3px;
     border-radius: 5px;
     cursor: pointer;
-    position: absolute;
-    top: 2px;
-    right: 10px;
     transition: all 0.2s ease;
+    margin-left: 5px;
 
-    &-close {
-      &:hover {
-        background-color: #1c5135;
-      }
+    &:hover {
+      background-color: #1c5135;
     }
-  }
-
-  &_fadeout {
-    animation: fadeout-toast 5s ease 0s 1 forwards;
   }
 
   &_icon {
@@ -43,16 +34,7 @@
   }
 }
 
-@keyframes fadeout-toast {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes default-fade-animation {
+@keyframes fade-animation {
   0% {
     opacity: 0;
   }
