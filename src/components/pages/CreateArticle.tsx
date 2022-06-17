@@ -150,9 +150,10 @@ export const CreateArticle = () => {
   useEffect(() => {
     if (contentImageLoading) {
       showLoadingToast()
-    } else {
-      handleCloseToast()
     }
+    // } else {
+    //   handleCloseToast()
+    // }
   }, [contentImageLoading])
 
   return (

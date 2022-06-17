@@ -13,7 +13,7 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: va.$ZToast;
-  animation: fade-animation 7s ease 0s 1 forwards;
+  // animation: fade-animation 7s ease 0s 1 forwards;
 
   &-loading {
     padding-left: 0;

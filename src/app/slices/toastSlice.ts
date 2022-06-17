@@ -21,11 +21,11 @@ interface InitialState {
 const initialState: InitialState = {
   toast: {
     isShow: false,
-    type: 'success',
+    type: 'info',
     message: '',
   },
   loadingToast: {
-    isShow: false,
+    isShow: true,
   },
 }
 
