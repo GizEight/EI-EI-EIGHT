@@ -5,7 +5,7 @@ import { googleLogout, authGoogleLogin } from '../lib/firebase/auth'
 import { useToast } from './useToast'
 
 export const useAuth = () => {
-  const { showErrorToast, loginSuccessToast, resetToast } = useToast()
+  const { showToast } = useToast()
 
   const [loading, setLoading] = useState(false)
 
@@ -17,18 +17,15 @@ export const useAuth = () => {
     try {
       const res = await authGoogleLogin()
       if (res.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
-        showErrorToast(res)
+        showToast('error', res.errMsg)
+        return
       }
-      loginSuccessToast()
     } catch (e) {
-      showErrorToast({
-        errCode: ERROR_CODES.INTERNAL_SERVER_ERROR.errCode,
-        errMsg: ERROR_CODES.INTERNAL_SERVER_ERROR.errMsg,
-      })
+      showToast('error', ERROR_CODES.INTERNAL_SERVER_ERROR.errMsg)
     } finally {
       setLoading(false)
     }
-  }, [showErrorToast])
+  }, [showToast])
 
   /*
    * Googleログアウト
@@ -38,18 +35,14 @@ export const useAuth = () => {
     try {
       const res = await googleLogout()
       if (res.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
-        showErrorToast(res)
+        showToast('error', res.errMsg)
       }
-      resetToast()
     } catch (e) {
-      showErrorToast({
-        errCode: ERROR_CODES.INTERNAL_SERVER_ERROR.errCode,
-        errMsg: ERROR_CODES.INTERNAL_SERVER_ERROR.errMsg,
-      })
+      showToast('error', ERROR_CODES.INTERNAL_SERVER_ERROR.errMsg)
     } finally {
       setLoading(false)
     }
-  }, [showErrorToast])
+  }, [showToast])
 
   return { loading, login, logout }
 }

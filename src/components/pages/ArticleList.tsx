@@ -16,7 +16,7 @@ import { SectionLayout } from '../templates/SectionLayout'
 
 export const ArticleList = () => {
   const { data: articleData, status: articleStatus } = useQueryArticles()
-  const { showErrorToast } = useToast()
+  const { showToast } = useToast()
 
   const [articleList, setArticleList] = useState<ListCard[]>([])
 
@@ -26,7 +26,7 @@ export const ArticleList = () => {
       formatArticleCards(articleData.contents).then((list) => {
         if (isMounted) {
           if ('errCode' in list) {
-            showErrorToast(list)
+            showToast('error', list.errMsg)
             return
           }
           setArticleList(list)
