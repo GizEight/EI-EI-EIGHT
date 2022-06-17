@@ -43,13 +43,8 @@ export const CreateArticle = () => {
   } = useForm<Forms>({
     criteriaMode: 'all',
   })
-  const {
-    loading,
-    contentImage,
-    setContentImage,
-    onChangedContentImage,
-    getContentsImageUrl,
-  } = useContentsImage()
+  const { loading: contentImageLoading, getContentsImageUrl } =
+    useContentsImage()
   const { onChangedArticleThumbUrl } = useArticleThumbnail()
 
   /*
@@ -93,23 +88,14 @@ export const CreateArticle = () => {
   /*
    * GET contents image url
    */
-  useEffect(() => {
-    let isMounted = true
-    if (!isNil(contentImage)) {
-      getContentsImageUrl().then((url) => {
-        if (isEmpty(url)) {
-          return
-        }
-        setValue('content', `${getValues('content')}\n![Image](${url}\n)`)
-      })
-      if (isMounted) {
-        setContentImage(null)
+  const onChangedContentImage = (e: ChangeEvent<HTMLInputElement>) => {
+    getContentsImageUrl(e).then((url) => {
+      if (isEmpty(url)) {
+        return
       }
-    }
-    return () => {
-      isMounted = false
-    }
-  }, [contentImage])
+      setValue('content', `${getValues('content')}\n![Image](${url}\n)`)
+    })
+  }
 
   /*
    * Store set form values

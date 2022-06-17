@@ -10,46 +10,37 @@ export const useContentsImage = () => {
   const { showToast } = useToast()
 
   const [loading, setLoading] = useState(false)
-  const [contentImage, setContentImage] = useState<File | null>(null)
 
-  const onChangedContentImage = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
+  const getContentsImageUrl = useCallback(
+    async (e: ChangeEvent<HTMLInputElement>) => {
+      setLoading(true)
       const target = e.target.files
-      !isNil(target) && setContentImage(target[0])
-      e.target.value = ''
+      try {
+        if (isNil(target)) {
+          showToast('error', ERROR_CODES.VALIDATE_IMAGE.errMsg)
+          return ''
+        }
+        const randomChar = getUniqueChar()
+        const fileName = `${randomChar}_${target[0].name}`
+        const res = await getImageUrl({
+          dirName: 'content',
+          fileName,
+          imageFile: target[0],
+        })
+        if (res.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
+          showToast('error', res.errMsg)
+          return ''
+        }
+        return res.url
+      } finally {
+        setLoading(false)
+      }
     },
-    [setContentImage]
+    [showToast]
   )
-
-  const getContentsImageUrl = useCallback(async () => {
-    setLoading(true)
-    try {
-      if (isNil(contentImage)) {
-        showToast('error', ERROR_CODES.VALIDATE_IMAGE.errMsg)
-        return ''
-      }
-      const randomChar = getUniqueChar()
-      const fileName = `${randomChar}_${contentImage.name}`
-      const res = await getImageUrl({
-        dirName: 'content',
-        fileName,
-        imageFile: contentImage,
-      })
-      if (res.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
-        showToast('error', res.errMsg)
-        return ''
-      }
-      return res.url
-    } finally {
-      setLoading(false)
-    }
-  }, [contentImage])
 
   return {
     loading,
-    contentImage,
-    setContentImage,
-    onChangedContentImage,
     getContentsImageUrl,
   }
 }
