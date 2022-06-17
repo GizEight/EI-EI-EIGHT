@@ -13,7 +13,7 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: va.$ZToast;
-  animation: login-fade-animation 7s ease 0s 1 forwards;
+  animation: fade-animation 7s ease 0s 1 forwards;
 
   &_btn {
     padding: 2px 5px 3px;
@@ -34,7 +34,7 @@
   }
 }
 
-@keyframes login-fade-animation {
+@keyframes fade-animation {
   0% {
     opacity: 0;
   }
