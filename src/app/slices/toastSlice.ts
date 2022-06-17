@@ -41,6 +41,7 @@ export const toastSlice = createSlice({
     },
     closeToast: (state) => {
       state.toast.isShow = false
+      state.loadingToast.isShow = false
     },
     setLoadingToastIsShow: (state, action: PayloadAction<boolean>) => {
       state.loadingToast.isShow = action.payload

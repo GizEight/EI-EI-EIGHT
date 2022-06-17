@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
 import { isNil, isEmpty, size } from 'lodash'
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Forms } from '../../@types/view'
@@ -15,6 +15,7 @@ import {
 } from '../../app/slices/articleSlice'
 import { useArticleThumbnail } from '../../scripts/hooks/useArticleThumbnail'
 import { useContentsImage } from '../../scripts/hooks/useContentsImage'
+import { useToast } from '../../scripts/hooks/useToast'
 import { ERROR_CODES } from '../../scripts/lib/error'
 import { Input } from '../atoms/Forms/Input'
 import { Textarea } from '../atoms/Forms/Textarea'
@@ -46,6 +47,7 @@ export const CreateArticle = () => {
   const { loading: contentImageLoading, getContentsImageUrl } =
     useContentsImage()
   const { onChangedArticleThumbUrl } = useArticleThumbnail()
+  const { showLoadingToast, handleCloseToast } = useToast()
 
   /*
    * State
@@ -144,6 +146,14 @@ export const CreateArticle = () => {
       dispatch(setIsValid(false))
     }
   }, [])
+
+  useEffect(() => {
+    if (contentImageLoading) {
+      showLoadingToast()
+    } else {
+      handleCloseToast()
+    }
+  }, [contentImageLoading])
 
   return (
     <SectionLayout sectionName="create-article">
