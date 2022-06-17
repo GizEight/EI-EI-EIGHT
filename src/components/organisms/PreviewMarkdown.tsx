@@ -10,7 +10,7 @@ type Props = {
 export const PreviewMarkdown: FC<Props> = memo((props: Props) => {
   const { markdown } = props
   return (
-    <div className="c-form-form_textarea">
+    <div className="c-form-form_textarea preview">
       {isEmpty(markdown) ? (
         <p className="c-form-form_textarea_message">コンテンツがありません。</p>
       ) : (
