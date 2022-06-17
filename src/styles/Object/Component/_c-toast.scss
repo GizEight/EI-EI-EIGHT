@@ -1,6 +1,7 @@
 @use '../../Foundation/' as va;
 
 .c-toast {
+  min-width: 200px;
   color: va.$Base;
   border-radius: 10px;
   display: flex;
