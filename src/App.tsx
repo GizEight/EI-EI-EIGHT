@@ -1,6 +1,7 @@
 import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth'
 import { isNil, isEmpty, map } from 'lodash'
 import { FC, useEffect } from 'react'
+import { TailSpin } from 'react-loader-spinner'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
@@ -14,7 +15,7 @@ import { useToast } from './scripts/hooks/useToast'
 import { fetchUsers } from './scripts/lib/api'
 
 const App: FC = () => {
-  const { toast, onClickCloseToast } = useToast()
+  const { toast, loadingToast, onClickCloseToast } = useToast()
   const { registerUser, deleteUser, createUserMutation } = useMutateUsers()
 
   /*
@@ -70,8 +71,23 @@ const App: FC = () => {
             ))}
           </Routes>
         </LayoutsWrapper>
-        {toast.isShow && (
-          <Toast type={toast.type} onCLickCloseIcon={onClickCloseToast}>
+        {(toast.isShow || loadingToast.isShow) && (
+          <Toast
+            type={toast.type}
+            onCLickCloseIcon={onClickCloseToast}
+            isLoading={loadingToast.isShow}
+          >
+            {loadingToast.isShow && (
+              <TailSpin
+                height={30}
+                width={30}
+                color="#707070"
+                wrapperStyle={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              />
+            )}
             {toast.message}
           </Toast>
         )}
