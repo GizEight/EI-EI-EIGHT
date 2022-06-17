@@ -29,8 +29,8 @@ export const useToast = () => {
 
   const showLoadingToast = useCallback(() => {
     dispatch(setLoadingToastIsShow(true))
-    setTimeout(() => dispatch(closeToast()), TOAST_DURATION_TIME)
-  }, [])
+    showToast('info', 'Loading...')
+  }, [showToast])
 
   return {
     toast,
