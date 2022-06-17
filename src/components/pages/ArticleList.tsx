@@ -11,8 +11,8 @@ import { Loading } from '../atoms/Loading'
 import { SectionTitle } from '../atoms/SectionTitle'
 import { ArticleCard } from '../organisms/ArticleCard'
 import { SearchForm } from '../organisms/SearchForm'
-import { ArticleContentsWrapper } from '../templates/ArticleContentsWrapper'
-import { SectionLayout } from '../templates/SectionLayout'
+import { ArticleContentsWrapper } from '../template/ArticleContentsWrapper'
+import { SectionLayout } from '../template/SectionLayout'
 
 export const ArticleList = () => {
   const { data: articleData, status: articleStatus } = useQueryArticles()

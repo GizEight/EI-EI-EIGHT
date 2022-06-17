@@ -7,7 +7,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 
 import { Toast } from './components/molecules/Toast'
-import { LayoutsWrapper } from './components/templates/LayoutsWrapper'
+import { LayoutsWrapper } from './components/template/LayoutsWrapper'
 import { auth } from './firebase'
 import { HOME_ROUTES } from './routes'
 import { useMutateUsers } from './scripts/hooks/useMutateUsers'

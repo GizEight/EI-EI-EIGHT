@@ -22,7 +22,7 @@ import { Form } from '../molecules/Form'
 import { IconButton } from '../molecules/IconButton'
 import { ImageInput } from '../molecules/ImageInput'
 import { PreviewMarkdown } from '../organisms/PreviewMarkdown'
-import { SectionLayout } from '../templates/SectionLayout'
+import { SectionLayout } from '../template/SectionLayout'
 
 export const CreateArticle = () => {
   /*
