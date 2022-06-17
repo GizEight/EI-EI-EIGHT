@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import clsx from 'clsx'
 import { isNil, isEmpty, size } from 'lodash'
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { Forms } from '../../@types/view'
@@ -15,6 +15,7 @@ import {
 } from '../../app/slices/articleSlice'
 import { useArticleThumbnail } from '../../scripts/hooks/useArticleThumbnail'
 import { useContentsImage } from '../../scripts/hooks/useContentsImage'
+import { useToast } from '../../scripts/hooks/useToast'
 import { ERROR_CODES } from '../../scripts/lib/error'
 import { Input } from '../atoms/Forms/Input'
 import { Textarea } from '../atoms/Forms/Textarea'
@@ -22,7 +23,7 @@ import { Form } from '../molecules/Form'
 import { IconButton } from '../molecules/IconButton'
 import { ImageInput } from '../molecules/ImageInput'
 import { PreviewMarkdown } from '../organisms/PreviewMarkdown'
-import { SectionLayout } from '../templates/SectionLayout'
+import { SectionLayout } from '../template/SectionLayout'
 
 export const CreateArticle = () => {
   /*
@@ -43,14 +44,10 @@ export const CreateArticle = () => {
   } = useForm<Forms>({
     criteriaMode: 'all',
   })
-  const {
-    loading,
-    contentImage,
-    setContentImage,
-    onChangedContentImage,
-    getContentsImageUrl,
-  } = useContentsImage()
+  const { loading: contentImageLoading, getContentsImageUrl } =
+    useContentsImage()
   const { onChangedArticleThumbUrl } = useArticleThumbnail()
+  const { showLoadingToast, handleCloseToast } = useToast()
 
   /*
    * State
@@ -93,23 +90,14 @@ export const CreateArticle = () => {
   /*
    * GET contents image url
    */
-  useEffect(() => {
-    let isMounted = true
-    if (!isNil(contentImage)) {
-      getContentsImageUrl().then((url) => {
-        if (isEmpty(url)) {
-          return
-        }
-        setValue('content', `${getValues('content')}\n![Image](${url}\n)`)
-      })
-      if (isMounted) {
-        setContentImage(null)
+  const onChangedContentImage = (e: ChangeEvent<HTMLInputElement>) => {
+    getContentsImageUrl(e).then((url) => {
+      if (isEmpty(url)) {
+        return
       }
-    }
-    return () => {
-      isMounted = false
-    }
-  }, [contentImage])
+      setValue('content', `${getValues('content')}\n![Image](${url}\n)`)
+    })
+  }
 
   /*
    * Store set form values
@@ -158,6 +146,15 @@ export const CreateArticle = () => {
       dispatch(setIsValid(false))
     }
   }, [])
+
+  useEffect(() => {
+    if (contentImageLoading) {
+      showLoadingToast()
+    }
+    // } else {
+    //   handleCloseToast()
+    // }
+  }, [contentImageLoading])
 
   return (
     <SectionLayout sectionName="create-article">

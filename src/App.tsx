@@ -1,12 +1,13 @@
 import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth'
 import { isNil, isEmpty, map } from 'lodash'
 import { FC, useEffect } from 'react'
+import { Oval } from 'react-loader-spinner'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 
 import { Toast } from './components/molecules/Toast'
-import { LayoutsWrapper } from './components/templates/LayoutsWrapper'
+import { LayoutsWrapper } from './components/template/LayoutsWrapper'
 import { auth } from './firebase'
 import { HOME_ROUTES } from './routes'
 import { useMutateUsers } from './scripts/hooks/useMutateUsers'
@@ -14,7 +15,7 @@ import { useToast } from './scripts/hooks/useToast'
 import { fetchUsers } from './scripts/lib/api'
 
 const App: FC = () => {
-  const { toast, onClickCloseToast } = useToast()
+  const { toast, loadingToast, handleCloseToast } = useToast()
   const { registerUser, deleteUser, createUserMutation } = useMutateUsers()
 
   /*
@@ -70,9 +71,27 @@ const App: FC = () => {
             ))}
           </Routes>
         </LayoutsWrapper>
-        {toast.isShow && (
-          <Toast type={toast.type} onCLickCloseIcon={onClickCloseToast}>
+        {(toast.isShow || loadingToast.isShow) && (
+          <Toast
+            type={toast.type}
+            onCLickCloseIcon={handleCloseToast}
+            isLoading={loadingToast.isShow}
+          >
             {toast.message}
+            Loading...
+            {loadingToast.isShow && (
+              <Oval
+                height={30}
+                width={30}
+                ariaLabel="loading"
+                color="#cce0f3"
+                secondaryColor="#fff"
+                wrapperStyle={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              />
+            )}
           </Toast>
         )}
       </BrowserRouter>
