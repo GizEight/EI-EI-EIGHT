@@ -70,7 +70,7 @@ const App: FC = () => {
             ))}
           </Routes>
         </LayoutsWrapper>
-        {toast.isShow && (
+        {true && (
           <Toast type={toast.type} onCLickCloseIcon={onClickCloseToast}>
             {toast.message}
           </Toast>

@@ -33,7 +33,7 @@ export const Toast: FC<Props> = memo((props: Props) => {
         icon={['fas', changeIconBy(type)]}
       />
       <span className="u-icon-tex">{children}</span>
-      <span className="c-toast_btn-close">
+      <span className="c-toast_btn">
         <FontAwesomeIcon onClick={onCLickCloseIcon} icon={['fas', 'xmark']} />
       </span>
     </div>
