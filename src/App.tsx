@@ -1,7 +1,7 @@
 import { onAuthStateChanged, User as FirebaseUser } from 'firebase/auth'
 import { isNil, isEmpty, map } from 'lodash'
 import { FC, useEffect } from 'react'
-import { TailSpin } from 'react-loader-spinner'
+import { Oval } from 'react-loader-spinner'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
@@ -77,18 +77,21 @@ const App: FC = () => {
             onCLickCloseIcon={handleCloseToast}
             isLoading={loadingToast.isShow}
           >
+            {toast.message}
+            Loading...
             {loadingToast.isShow && (
-              <TailSpin
+              <Oval
                 height={30}
                 width={30}
-                color="#707070"
+                ariaLabel="loading"
+                color="#cce0f3"
+                secondaryColor="#fff"
                 wrapperStyle={{
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
               />
             )}
-            {toast.message}
           </Toast>
         )}
       </BrowserRouter>
