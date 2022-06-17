@@ -1,23 +1,23 @@
 @use '../../Foundation/' as va;
 
 .c-toast {
-  height: 40px;
   color: va.$Base;
   border-radius: 10px;
   display: flex;
   align-items: center;
   margin: 0 auto;
-  padding: 20px;
+  padding: 10px;
   position: fixed;
   top: 50px;
   left: 50%;
   transform: translateX(-50%);
   z-index: va.$ZToast;
-  // animation: fade-animation 7s ease 0s 1 forwards;
+  animation: fade-animation 7s ease 0s 1 forwards;
 
   &-loading {
-    padding-left: 0;
     justify-content: center;
+    min-width: 150px;
+    padding-right: 0;
   }
 
   &_btn {
@@ -29,6 +29,10 @@
 
     &:hover {
       background-color: #1c5135;
+    }
+
+    &-close {
+      margin: 0 10px;
     }
   }
 
