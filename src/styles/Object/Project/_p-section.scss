@@ -38,13 +38,13 @@
       display: flex;
       justify-content: center;
       flex-direction: column;
-      max-width: 700px;
+      max-width: 7rem;
 
       &_contents {
         display: flex;
         align-items: flex-start;
         gap: 0.45rem;
-        margin-top: 80px;
+        margin-top: .56rem;
       }
 
       &-buttons {
