@@ -22,14 +22,15 @@ export const X_MICROCMS_API_KEY = import.meta.env.VITE_X_MICROCMS_API_KEY
  * message, title, etc...
  */
 export const LOGIN_SUCCESS_MESSAGE = 'Login Success!'
+export const POST_SUCCESS_MESSAGE = 'Post Success!'
 export const APP_TITLE = 'EI-EI-EIGHT'
 
 /*
  * number
  */
 export const USE_QUERY_STALE_TIME = 60000
-export const TOAST_DURATION_TIME = 3000
 export const PER_PAGE = 10
+export const TOAST_DURATION_TIME = 8000
 
 /*
  * useQuery cache key

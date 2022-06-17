@@ -1,56 +1,42 @@
 import { useCallback } from 'react'
 
+import { ToastType } from '../../@types/view'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
-import { selectToast, closeToast, setToast } from '../../app/slices/toastSlice'
-import { LOGIN_SUCCESS_MESSAGE, TOAST_DURATION_TIME } from '../utils/const'
+import {
+  selectToast,
+  closeToast,
+  setToast,
+  setLoadingToastIsShow,
+} from '../../app/slices/toastSlice'
+import { TOAST_DURATION_TIME } from '../utils/const'
 
 export const useToast = () => {
   const dispatch = useAppDispatch()
-  const { toast } = useAppSelector(selectToast)
+  const { toast, loadingToast } = useAppSelector(selectToast)
 
-  const onClickCloseToast = useCallback(() => dispatch(closeToast()), [])
+  const handleCloseToast = useCallback(() => dispatch(closeToast()), [])
 
-  const resetToast = useCallback(() => {
+  const showToast = useCallback((type: ToastType, message: string) => {
     dispatch(
       setToast({
-        type: 'success',
-        message: toast.message,
-        isShow: false,
-      })
-    )
-  }, [dispatch, setToast])
-
-  const loginSuccessToast = useCallback(() => {
-    dispatch(
-      setToast({
-        type: 'success',
-        message: LOGIN_SUCCESS_MESSAGE,
+        type,
+        message,
         isShow: true,
       })
     )
-    // TODO: 時間経って消えていく処理
-    setTimeout(() => resetToast, TOAST_DURATION_TIME)
-  }, [resetToast, dispatch, setToast])
+    setTimeout(() => dispatch(closeToast()), TOAST_DURATION_TIME)
+  }, [])
 
-  const showErrorToast = useCallback(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (res: any) => {
-      dispatch(
-        setToast({
-          isShow: true,
-          type: 'error',
-          message: `code: ${res.errCode} - ${res.errMsg}`,
-        })
-      )
-    },
-    [dispatch, setToast]
-  )
+  const showLoadingToast = useCallback(() => {
+    dispatch(setLoadingToastIsShow(true))
+    showToast('info', 'Loading...')
+  }, [showToast])
 
   return {
     toast,
-    onClickCloseToast,
-    resetToast,
-    loginSuccessToast,
-    showErrorToast,
+    loadingToast,
+    showToast,
+    showLoadingToast,
+    handleCloseToast,
   }
 }

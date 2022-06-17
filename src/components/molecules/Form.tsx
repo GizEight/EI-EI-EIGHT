@@ -1,44 +1,25 @@
-import { FC, memo, useCallback } from 'react'
-import TextareaAutosize from 'react-textarea-autosize'
+import { isNil, isEmpty } from 'lodash'
+import { FC, memo, ReactNode } from 'react'
+
+import { ErrorMessage } from '../atoms/ErrorMessage'
+
+type NullAble<T> = T | null
 
 type Props = {
-  label: '名前' | '自己紹介'
-  type: 'text' | 'textarea'
+  label?: NullAble<string>
+  children: ReactNode
+  errorMsg?: string
 }
 
 export const Form: FC<Props> = memo((props: Props) => {
-  const { label, type } = props
+  const { label = '', children, errorMsg = '' } = props
 
-  const switchFormType = useCallback(() => {
-    let formType = null
-
-    switch (type) {
-      case 'text':
-        formType = <input type="text" className="c-form-form" />
-        break
-
-      case 'textarea':
-        formType = <TextareaAutosize minRows={3} className="c-form-form" />
-        break
-
-      default:
-        formType = null
-        break
-    }
-
-    return formType
-  }, [type])
-
-  const switchForm = useCallback(
-    () => (
-      <div className="c-form">
-        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-        <label>{label}</label>
-        {switchFormType()}
-      </div>
-    ),
-    [label, switchFormType]
+  return (
+    <div className="c-form">
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+      {!isNil(label) && <label>{label}</label>}
+      {children}
+      {!isEmpty(errorMsg) && <ErrorMessage>{errorMsg}</ErrorMessage>}
+    </div>
   )
-
-  return <>{switchForm()}</>
 })

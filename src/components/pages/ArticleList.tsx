@@ -13,19 +13,19 @@ import { Loading } from '../atoms/Loading'
 import { SectionTitle } from '../atoms/SectionTitle'
 import { ArticleCard } from '../organisms/ArticleCard'
 import { SearchForm } from '../organisms/SearchForm'
-import { ArticleContentsWrapper } from '../templates/ArticleContentsWrapper'
-import { SectionLayout } from '../templates/SectionLayout'
+import { ArticleContentsWrapper } from '../template/ArticleContentsWrapper'
+import { SectionLayout } from '../template/SectionLayout'
 
 export const ArticleList = () => {
   // TODO: microCMSから指定データ数持ってくる
   // TODO: デザイン来たらそれに合わせて実装する
   const { data: articleData, status: articleStatus } = useQueryArticles()
-  const { showErrorToast } = useToast()
   const { currentPage, prevPage, nextPage, jumpPageBy } = usePaging({
     allPageCount: isNil(articleData)
       ? 1
       : size(articleData.contents) / PER_PAGE,
   })
+  const { showToast } = useToast()
 
   const [articleList, setArticleList] = useState<ListCard[][]>([])
 
@@ -35,7 +35,7 @@ export const ArticleList = () => {
       formatArticleCards(articleData.contents).then((list) => {
         if (isMounted) {
           if ('errCode' in list) {
-            showErrorToast(list)
+            showToast('error', list.errMsg)
             return
           }
           setArticleList(chunk(list, PER_PAGE))

@@ -18,9 +18,17 @@ export const ERROR_CODES = {
   /*
    * バリデーション: Email
    */
-  VALIDATE_EMAIL: {
+  VALIDATE_TEXT_256: {
     errCode: 3000,
-    errMsg: '正しい形式で入力してください。',
+    errMsg: '256文字以内で入力してください。',
+  },
+
+  /*
+   * バリデーション: Image
+   */
+  VALIDATE_IMAGE: {
+    errCode: 3001,
+    errMsg: '画像のURLが取得できませんでした。再度お試しください。',
   },
 
   /*

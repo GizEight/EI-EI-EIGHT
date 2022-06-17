@@ -9,15 +9,23 @@ export interface Toast {
   message: string
 }
 
+export interface LoadingToast {
+  isShow: boolean
+}
+
 interface InitialState {
   toast: Toast
+  loadingToast: LoadingToast
 }
 
 const initialState: InitialState = {
   toast: {
     isShow: false,
-    type: 'success',
+    type: 'info',
     message: '',
+  },
+  loadingToast: {
+    isShow: true,
   },
 }
 
@@ -33,11 +41,16 @@ export const toastSlice = createSlice({
     },
     closeToast: (state) => {
       state.toast.isShow = false
+      state.loadingToast.isShow = false
+    },
+    setLoadingToastIsShow: (state, action: PayloadAction<boolean>) => {
+      state.loadingToast.isShow = action.payload
     },
   },
 })
 
-export const { setToast, resetToast, closeToast } = toastSlice.actions
+export const { setToast, resetToast, closeToast, setLoadingToastIsShow } =
+  toastSlice.actions
 
 export const selectToast = (state: RootState) => state.toast
 

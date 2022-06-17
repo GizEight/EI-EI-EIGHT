@@ -6,7 +6,7 @@ export interface Article {
 }
 
 export interface ResponseArticle {
-  imageUrl: string
+  thumbUrl: string
   title: string
   userId: string
   content: string

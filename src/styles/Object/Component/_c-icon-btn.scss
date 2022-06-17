@@ -1,0 +1,32 @@
+@use '../../Foundation/' as va;
+
+.c-icon-btn {
+  background-color: va.$Base;
+  border-radius: 50%;
+  border: 1px solid va.$Horizon;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+
+  &.is-bg {
+    background-color: va.$Theme;
+  }
+}
+
+.c-icon-btn-double {
+  background-color: va.$Base;
+  border: 1px solid va.$Horizon;
+  border-radius: 2.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 4px;
+
+  & > button {
+    border: none !important;
+    width: 40px;
+    height: 40px;
+  }
+}
