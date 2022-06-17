@@ -120,10 +120,12 @@ export const CreateArticle = () => {
       if (!isNil(name)) {
         switch (name) {
           case 'title':
+            clearErrors('title')
             dispatch(setEditTitle(value.title || ''))
             break
 
           case 'content':
+            clearErrors('content')
             dispatch(setEditContent(value.content || ''))
             break
           default:
@@ -173,7 +175,9 @@ export const CreateArticle = () => {
           </Form>
           <div className="p-section_content_forms_contents">
             {showMarkDown ? (
-              <PreviewMarkdown markdown={watch('content')} />
+              <Form>
+                <PreviewMarkdown markdown={watch('content')} />
+              </Form>
             ) : (
               <Form errorMsg={errors.content?.message || ''}>
                 <Textarea
