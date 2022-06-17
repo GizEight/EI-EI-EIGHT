@@ -47,6 +47,10 @@
     resize: none;
   }
 
+  &-hidden {
+    visibility: hidden;
+  }
+
   &-form {
     &_input {
       font-size: 32px;

@@ -1,3 +1,4 @@
+import clsx from 'clsx'
 import { isNil, isEmpty } from 'lodash'
 import { FC, memo, ReactNode } from 'react'
 
@@ -19,7 +20,9 @@ export const Form: FC<Props> = memo((props: Props) => {
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       {!isNil(label) && <label>{label}</label>}
       {children}
-      {!isEmpty(errorMsg) && <ErrorMessage>{errorMsg}</ErrorMessage>}
+      <ErrorMessage className={clsx(isEmpty(errorMsg) && 'c-form-hidden')}>
+        {errorMsg}
+      </ErrorMessage>
     </div>
   )
 })
