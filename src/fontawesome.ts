@@ -12,6 +12,8 @@ import {
   faPenToSquare,
   faCaretRight,
   faImage,
+  faAnglesLeft,
+  faAnglesRight,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -26,5 +28,7 @@ library.add(
   faPenToSquare,
   faCaretRight,
   faImage,
-  faImages
+  faImages,
+  faAnglesLeft,
+  faAnglesRight
 )

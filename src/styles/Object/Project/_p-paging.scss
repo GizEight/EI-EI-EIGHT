@@ -1,0 +1,30 @@
+@use '../../Foundation/' as va;
+
+.p-paging {
+  padding: 0.05rem 0.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: va.$Base;
+  border-radius: 100px;
+  border: 1px solid va.$Horizon;
+  width: 70%;
+  margin: 0.5rem auto 0;
+
+  &_btn {
+    border-radius: 100%;
+    width: 0.4rem;
+    height: 0.4rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+    }
+    &-current {
+      background-color: va.$Theme;
+    }
+  }
+}

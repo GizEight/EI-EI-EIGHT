@@ -3,26 +3,39 @@ import { useState, useEffect } from 'react'
 import Tilt from 'react-parallax-tilt'
 
 import { ListCard } from '../../@types/view'
+import { usePaging } from '../../scripts/hooks/usePaging'
 import { useQueryArticles } from '../../scripts/hooks/useQueryArticles'
 import { useToast } from '../../scripts/hooks/useToast'
+import { PER_PAGE } from '../../scripts/utils/const'
 import { formatArticleCards } from '../../scripts/utils/view'
 import { ErrorMessage } from '../atoms/ErrorMessage'
 import { Loading } from '../atoms/Loading'
 import { SectionTitle } from '../atoms/SectionTitle'
 import { ArticleCard } from '../organisms/ArticleCard'
+import { PagingButtons } from '../organisms/PagingButtons'
 import { SearchForm } from '../organisms/SearchForm'
 import { ArticleContentsWrapper } from '../template/ArticleContentsWrapper'
 import { SectionLayout } from '../template/SectionLayout'
 
 export const ArticleList = () => {
-  const { data: articleData, status: articleStatus } = useQueryArticles()
+  const [articleList, setArticleList] = useState<ListCard[]>([])
+  const [pageCount, setPageCount] = useState(1)
+
+  const { currentPage, goBack, goNext, jumpPageBy } = usePaging({
+    allPageCount: pageCount,
+  })
+  const { data: articleData, status: articleStatus } = useQueryArticles({
+    page: currentPage,
+  })
   const { showToast } = useToast()
 
-  const [articleList, setArticleList] = useState<ListCard[]>([])
-
+  /*
+   * Format Article Data & Set Page Count
+   */
   useEffect(() => {
     let isMounted = true
     if (!isNil(articleData)) {
+      isMounted && setPageCount(Math.ceil(articleData.totalCount / PER_PAGE))
       formatArticleCards(articleData.contents).then((list) => {
         if (isMounted) {
           if ('errCode' in list) {
@@ -53,21 +66,30 @@ export const ArticleList = () => {
               <ErrorMessage>List is not defined...</ErrorMessage>
             </div>
           ) : (
-            <ArticleContentsWrapper>
-              {map(articleList, (content) => (
-                <Tilt key={content.id}>
-                  <ArticleCard
-                    id={content.id}
-                    userId={content.userId}
-                    imgUrl={content.imgUrl || 'noimage.JPG'}
-                    avatarUrl={content.avatarUrl}
-                    name={content.name}
-                    title={content.title}
-                    createdAt={content.createdAt}
-                  />
-                </Tilt>
-              ))}
-            </ArticleContentsWrapper>
+            <>
+              <ArticleContentsWrapper>
+                {map(articleList, (content) => (
+                  <Tilt key={content.id}>
+                    <ArticleCard
+                      id={content.id}
+                      userId={content.userId}
+                      imgUrl={content.imgUrl || 'noimage.JPG'}
+                      avatarUrl={content.avatarUrl}
+                      name={content.name}
+                      title={content.title}
+                      createdAt={content.createdAt}
+                    />
+                  </Tilt>
+                ))}
+              </ArticleContentsWrapper>
+              <PagingButtons
+                next={goNext}
+                prev={goBack}
+                jump={jumpPageBy}
+                currentPage={currentPage}
+                allCountPage={pageCount}
+              />
+            </>
           )}
         </div>
       </SectionLayout>
