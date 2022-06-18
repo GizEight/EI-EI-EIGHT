@@ -19,5 +19,6 @@ export const useQueryArticles = ({ page }: Props) =>
      */
     queryFn: () => fetchArticles({ offset: page * 10 - 10 }),
     staleTime: USE_QUERY_STALE_TIME,
+    staleTime: 0,
     keepPreviousData: true,
   })
