@@ -10,6 +10,7 @@ import { calculateDate } from '../../scripts/utils/dateFormat'
 import { stringCountFormatBy } from '../../scripts/utils/format'
 import { ErrorMessage } from '../atoms/ErrorMessage'
 import { Loading } from '../atoms/Loading'
+import { PrimaryButton } from '../atoms/PrimaryButton'
 import { DetailContentWrapper } from '../molecules/ArticleDetail/DetailContent'
 import { DetailHeader } from '../molecules/ArticleDetail/DetailHeader'
 import { SectionLayout } from '../template/SectionLayout'
@@ -73,7 +74,7 @@ export const ArticleDetail = () => {
                   />
                 </div>
                 <aside className="p-section-article-detail_side">
-                  <dl>
+                  <dl className="p-section-article-detail_side description">
                     <dt>
                       <FontAwesomeIcon icon={['fas', 'calendar-check']} />
                       著者
@@ -93,6 +94,14 @@ export const ArticleDetail = () => {
                     </dt>
                     <dd>{stringCountFormatBy(article.contents[0].content)}</dd>
                   </dl>
+                  <div className="p-section-article-detail_side follow">
+                    <div>
+                      <img src={user.contents[0].photoURL} alt="" />
+                      <span>{user.contents[0].name}</span>
+                      <PrimaryButton>Follow</PrimaryButton>
+                    </div>
+                    <p>{user.contents[0].description}</p>
+                  </div>
                 </aside>
               </DetailContentWrapper>
             </>
