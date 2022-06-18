@@ -78,24 +78,33 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-    max-width: 700px;
+    max-width: 8rem;
 
     &_contents {
       display: flex;
       align-items: flex-start;
       gap: 0.45rem;
-      margin-top: 80px;
+      margin-top: 0.56rem;
     }
 
     &-buttons {
       display: flex;
       flex-direction: column;
       gap: 0.32rem;
-    }
-  }
+      position: relative;
 
-  &_title {
-    font-size: 0.3745rem;
-    margin-top: 0.37rem;
+      & > img {
+        position: absolute;
+        width: 2.2rem;
+        left: 1.15rem;
+        height: 150px;
+        object-fit: cover;
+      }
+    }
+
+    &_title {
+      font-size: 0.3745rem;
+      margin-top: 0.37rem;
+    }
   }
 }

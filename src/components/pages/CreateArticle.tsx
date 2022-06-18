@@ -30,9 +30,7 @@ export const CreateArticle = () => {
    * Hooks
    */
   const dispatch = useAppDispatch()
-  const {
-    article: { form },
-  } = useAppSelector(selectArticle)
+  const { article } = useAppSelector(selectArticle)
   const {
     register,
     watch,
@@ -108,10 +106,12 @@ export const CreateArticle = () => {
       if (!isNil(name)) {
         switch (name) {
           case 'title':
+            clearErrors('title')
             dispatch(setEditTitle(value.title || ''))
             break
 
           case 'content':
+            clearErrors('content')
             dispatch(setEditContent(value.content || ''))
             break
           default:
@@ -160,7 +160,7 @@ export const CreateArticle = () => {
       <div className="p-section_forms">
         <Form errorMsg={errors.title?.message || ''}>
           <Input
-            value={form.title}
+            value={article.form.title}
             placeholder="Title..."
             {...register('title', { maxLength: 256, required: true })}
             onBlur={validateTitle}
@@ -172,14 +172,17 @@ export const CreateArticle = () => {
           ) : (
             <Form errorMsg={errors.content?.message || ''}>
               <Textarea
-                value={form.content}
+                value={article.form.content}
                 placeholder="write in Markdown..."
                 {...register('content', { required: true })}
                 onBlur={validateContent}
               />
             </Form>
           )}
-          <div className="p-section_content_forms-buttons">
+          <div className="p-section_forms-buttons">
+            {!isEmpty(article.thumbUrl) && (
+              <img src={article.thumbUrl} alt={article.form.title} />
+            )}
             <ImageInput
               id="articleThumb"
               icon={['far', 'images']}

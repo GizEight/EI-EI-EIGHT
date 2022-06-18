@@ -1,0 +1,99 @@
+.u-markdown {
+  font-size: 16px;
+  white-space: pre-wrap;
+
+  & > h1,
+  & > h2,
+  & > h3,
+  & > h4,
+  & > h5,
+  & > h6 {
+    font-weight: 600;
+  }
+  & > h2 {
+    font-size: 1.5em;
+  }
+  & > h3 {
+    font-size: 1.3em;
+  }
+  & > h4 {
+    font-size: 1.1em;
+  }
+  & > h5 {
+    font-size: 0.9em;
+  }
+  & > h6 {
+    font-size: 0.7em;
+  }
+  & > p {
+    & > code {
+      background-color: #ebebeb;
+    }
+    & > a {
+      color: #0000ee;
+    }
+    & > a:visited {
+      color: #551a8b;
+    }
+    & > img {
+      width: 200px;
+      height: 175px;
+      object-fit: cover;
+    }
+  }
+  & > ul {
+    list-style: inside;
+
+    & > li {
+      & > ul  {
+        margin-left: 2em;
+        list-style: circle;
+
+        & > li {
+          & > ul  {
+            margin-left: 2em;
+            list-style: square;
+          }
+        }
+      }
+    }
+  }
+  & > ol li {
+    list-style: inside;
+    list-style-type: decimal;
+  }
+  & > table {
+    border: 1px solid #afadad;
+  }
+  & > table thead {
+    background-color: #ebebeb;
+  }
+  & > table thead tr {
+    border-bottom: 1px solid #afadad;
+  }
+  & > table thead tr th {
+    border-right: 1px solid #afadad;
+  }
+  & > table thead tr th:last-child {
+    border-right: none;
+  }
+  & > tbody tr {
+    border-bottom: 1px solid #afadad;
+  }
+  & > tbody tr:last-child {
+    border-bottom: none;
+  }
+  & > tbody tr td {
+    border-right: 1px solid #afadad;
+  }
+  & > tbody tr td:last-child {
+    border-right: none;
+  }
+  & > blockquote {
+    font-size: 0.95em;
+    margin: 1.4em 0;
+    border-left: 3px solid #b3bfc7;
+    padding: 2px 0 2px 0.7em;
+    color: #626e77;
+  }
+}
