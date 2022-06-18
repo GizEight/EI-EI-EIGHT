@@ -39,6 +39,7 @@
     "jsx-quotes": "off",
     "prefer-destructuring": "off",
     "import/no-cycle": "off",
+    "no-nested-ternary": "off",
     "no-param-reassign": ["error", { "props": false }],
     "import/order": [
       "error",

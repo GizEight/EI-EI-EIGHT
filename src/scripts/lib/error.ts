@@ -46,4 +46,9 @@ export const ERROR_CODES = {
     errCode: 5000,
     errMsg: 'サーバーエラーが起きました。開発者に問い合わせください。',
   },
+
+  UNKNOWN_ERROR: {
+    errCode: 9999,
+    errMsg: '予期せぬエラーが発生しました。再度お試しください。',
+  },
 }

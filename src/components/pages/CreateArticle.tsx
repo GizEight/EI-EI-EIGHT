@@ -157,55 +157,53 @@ export const CreateArticle = () => {
 
   return (
     <SectionLayout sectionName="create-article">
-      <div className="p-section_content">
-        <div className="p-section_content_forms">
-          <Form errorMsg={errors.title?.message || ''}>
-            <Input
-              value={form.title}
-              placeholder="Title..."
-              {...register('title', { maxLength: 256, required: true })}
-              onBlur={validateTitle}
+      <div className="p-section_forms">
+        <Form errorMsg={errors.title?.message || ''}>
+          <Input
+            value={form.title}
+            placeholder="Title..."
+            {...register('title', { maxLength: 256, required: true })}
+            onBlur={validateTitle}
+          />
+        </Form>
+        <div className="p-section_forms_contents">
+          {showMarkDown ? (
+            <PreviewMarkdown markdown={watch('content')} />
+          ) : (
+            <Form errorMsg={errors.content?.message || ''}>
+              <Textarea
+                value={form.content}
+                placeholder="write in Markdown..."
+                {...register('content', { required: true })}
+                onBlur={validateContent}
+              />
+            </Form>
+          )}
+          <div className="p-section_content_forms-buttons">
+            <ImageInput
+              id="articleThumb"
+              icon={['far', 'images']}
+              onChange={onChangedArticleThumbUrl}
             />
-          </Form>
-          <div className="p-section_content_forms_contents">
-            {showMarkDown ? (
-              <PreviewMarkdown markdown={watch('content')} />
-            ) : (
-              <Form errorMsg={errors.content?.message || ''}>
-                <Textarea
-                  value={form.content}
-                  placeholder="write in Markdown..."
-                  {...register('content', { required: true })}
-                  onBlur={validateContent}
-                />
-              </Form>
-            )}
-            <div className="p-section_content_forms-buttons">
-              <ImageInput
-                id="articleThumb"
-                icon={['far', 'images']}
-                onChange={onChangedArticleThumbUrl}
-              />
-              <div className="c-icon-btn-double">
-                <IconButton
-                  className={clsx(!showMarkDown && 'is-bg')}
-                  onClick={() => setShowMarkDown(false)}
-                >
-                  <FontAwesomeIcon icon={['fas', 'pen-to-square']} size="lg" />
-                </IconButton>
-                <IconButton
-                  className={clsx(showMarkDown && 'is-bg')}
-                  onClick={() => setShowMarkDown(true)}
-                >
-                  <FontAwesomeIcon icon={['fas', 'caret-right']} size="lg" />
-                </IconButton>
-              </div>
-              <ImageInput
-                id="contentImage"
-                icon={['fas', 'image']}
-                onChange={onChangedContentImage}
-              />
+            <div className="c-icon-btn-double">
+              <IconButton
+                className={clsx(!showMarkDown && 'is-bg')}
+                onClick={() => setShowMarkDown(false)}
+              >
+                <FontAwesomeIcon icon={['fas', 'pen-to-square']} size="lg" />
+              </IconButton>
+              <IconButton
+                className={clsx(showMarkDown && 'is-bg')}
+                onClick={() => setShowMarkDown(true)}
+              >
+                <FontAwesomeIcon icon={['fas', 'caret-right']} size="lg" />
+              </IconButton>
             </div>
+            <ImageInput
+              id="contentImage"
+              icon={['fas', 'image']}
+              onChange={onChangedContentImage}
+            />
           </div>
         </div>
       </div>
