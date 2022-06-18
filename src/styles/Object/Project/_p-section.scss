@@ -42,6 +42,25 @@
         font-size: 0.3rem;
       }
     }
+
+    &_contents {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      margin-top: 0.65rem;
+    }
+
+    &_body {
+      width: calc(100% - 300px);
+      border-radius: 12px;
+      padding: 0.4rem 0;
+      backdrop-filter: blur(7px);
+      background-color: va.$Base;
+    }
+
+    &_side {
+      width: 300px;
+    }
   }
 
   /*
