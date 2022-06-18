@@ -1,4 +1,5 @@
 import { isNil } from 'lodash'
+import { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { useQueryArticles } from '../../scripts/hooks/useQueryArticles'
@@ -24,21 +25,34 @@ export const ArticleDetail = () => {
       : `userId[equals]${article.contents[0].userId}`,
   })
 
+  const isError = useCallback(
+    () =>
+      article?.errCode !== ERROR_CODES.NORMAL_NOOP.errCode ||
+      user?.errCode !== ERROR_CODES.NORMAL_NOOP.errCode,
+    [article, user]
+  )
+
+  const renderError = useCallback(
+    () => (
+      <ErrorMessage>
+        {article?.errMsg
+          ? article.errMsg
+          : user?.errMsg
+          ? user.errMsg
+          : ERROR_CODES.UNKNOWN_ERROR.errMsg}
+      </ErrorMessage>
+    ),
+    [article, user]
+  )
+
   return (
     <SectionLayout sectionName="article-detail">
       {articleIsLoading || userIsLoading ? (
         <Loading />
       ) : (
         <div>
-          {article?.errCode !== ERROR_CODES.NORMAL_NOOP.errCode ||
-          user?.errCode !== ERROR_CODES.NORMAL_NOOP.errCode ? (
-            <ErrorMessage>
-              {article?.errMsg
-                ? article.errMsg
-                : user?.errMsg
-                ? user.errMsg
-                : ERROR_CODES.UNKNOWN_ERROR.errMsg}
-            </ErrorMessage>
+          {isNil(article) || isNil(user) || isError() ? (
+            renderError()
           ) : (
             <>
               <DetailHeader
