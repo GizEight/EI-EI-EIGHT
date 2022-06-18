@@ -12,6 +12,7 @@ import { ErrorMessage } from '../atoms/ErrorMessage'
 import { Loading } from '../atoms/Loading'
 import { SectionTitle } from '../atoms/SectionTitle'
 import { ArticleCard } from '../organisms/ArticleCard'
+import { PagingButtons } from '../organisms/PagingButtons'
 import { SearchForm } from '../organisms/SearchForm'
 import { ArticleContentsWrapper } from '../template/ArticleContentsWrapper'
 import { SectionLayout } from '../template/SectionLayout'
@@ -65,23 +66,30 @@ export const ArticleList = () => {
               <ErrorMessage>List is not defined...</ErrorMessage>
             </div>
           ) : (
-            <ArticleContentsWrapper>
-              <button onClick={goBack}>前へ</button>
-              <button onClick={goNext}>次へ</button>
-              {map(articleList, (content) => (
-                <Tilt key={content.id}>
-                  <ArticleCard
-                    id={content.id}
-                    userId={content.userId}
-                    imgUrl={content.imgUrl || 'noimage.JPG'}
-                    avatarUrl={content.avatarUrl}
-                    name={content.name}
-                    title={content.title}
-                    createdAt={content.createdAt}
-                  />
-                </Tilt>
-              ))}
-            </ArticleContentsWrapper>
+            <>
+              <ArticleContentsWrapper>
+                {map(articleList, (content) => (
+                  <Tilt key={content.id}>
+                    <ArticleCard
+                      id={content.id}
+                      userId={content.userId}
+                      imgUrl={content.imgUrl || 'noimage.JPG'}
+                      avatarUrl={content.avatarUrl}
+                      name={content.name}
+                      title={content.title}
+                      createdAt={content.createdAt}
+                    />
+                  </Tilt>
+                ))}
+              </ArticleContentsWrapper>
+              <PagingButtons
+                next={goNext}
+                prev={goBack}
+                jump={jumpPageBy}
+                currentPage={currentPage}
+                allCountPage={pageCount}
+              />
+            </>
           )}
         </div>
       </SectionLayout>
