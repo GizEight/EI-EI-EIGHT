@@ -3,11 +3,13 @@ import { useParams } from 'react-router-dom'
 
 import { useQueryArticles } from '../../scripts/hooks/useQueryArticles'
 import { useQueryUsers } from '../../scripts/hooks/useQueryUsers'
+import { ERROR_CODES } from '../../scripts/lib/error'
+import { ErrorMessage } from '../atoms/ErrorMessage'
+import { Loading } from '../atoms/Loading'
 import { DetailContentWrapper } from '../molecules/ArticleDetail/DetailContent'
 import { DetailHeader } from '../molecules/ArticleDetail/DetailHeader'
 import { SectionLayout } from '../template/SectionLayout'
 
-// eslint-disable-next-line arrow-body-style
 export const ArticleDetail = () => {
   /*
    * Hooks
@@ -24,8 +26,41 @@ export const ArticleDetail = () => {
 
   return (
     <SectionLayout sectionName="article-detail">
-      <DetailHeader thumbSrc="" thumbAlt="" title="タイトル" />
-      <DetailContentWrapper body="body" side="side" />
+      {articleIsLoading || userIsLoading ? (
+        <Loading />
+      ) : (
+        <div>
+          {article?.errCode !== ERROR_CODES.NORMAL_NOOP.errCode ||
+          user?.errCode !== ERROR_CODES.NORMAL_NOOP.errCode ? (
+            <ErrorMessage>
+              {article?.errMsg
+                ? article.errMsg
+                : user?.errMsg
+                ? user.errMsg
+                : ERROR_CODES.UNKNOWN_ERROR.errMsg}
+            </ErrorMessage>
+          ) : (
+            <>
+              <DetailHeader
+                thumbSrc={article.contents[0].thumbUrl || 'noimage.JPG'}
+                thumbAlt={article.contents[0].title}
+                title={article.contents[0].title}
+              />
+              <DetailContentWrapper
+                body={
+                  <div
+                    // eslint-disable-next-line react/no-danger
+                    dangerouslySetInnerHTML={{
+                      __html: `${article.contents[0].content}`,
+                    }}
+                  />
+                }
+                side="side"
+              />
+            </>
+          )}
+        </div>
+      )}
     </SectionLayout>
   )
 }
