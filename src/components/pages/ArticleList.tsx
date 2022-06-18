@@ -58,49 +58,14 @@ export const ArticleList = () => {
   return (
     <>
       <SectionLayout sectionName="article">
-        <div className="p-section_content">
-          <SearchForm />
-          <SectionTitle>Articles</SectionTitle>
-          {isNil(articleData) ? (
-            <div style={{ marginTop: '30px' }}>
-              <ErrorMessage>List is not defined...</ErrorMessage>
-            </div>
-          ) : (
-            <>
-              <ArticleContentsWrapper>
-                {map(articleList, (content) => (
-                  <Tilt key={content.id}>
-                    <ArticleCard
-                      id={content.id}
-                      userId={content.userId}
-                      imgUrl={content.imgUrl || 'noimage.JPG'}
-                      avatarUrl={content.avatarUrl}
-                      name={content.name}
-                      title={content.title}
-                      createdAt={content.createdAt}
-                    />
-                  </Tilt>
-                ))}
-              </ArticleContentsWrapper>
-              <PagingButtons
-                next={goNext}
-                prev={goBack}
-                jump={jumpPageBy}
-                currentPage={currentPage}
-                allCountPage={pageCount}
-              />
-            </>
-          )}
-        </div>
-      </SectionLayout>
-      <SectionLayout sectionName="article-featured">
-        <div className="p-section_content">
-          <SectionTitle>Featured</SectionTitle>
-          {isNil(articleData) ? (
-            <div style={{ marginTop: '30px' }}>
-              <ErrorMessage>List is not defined...</ErrorMessage>
-            </div>
-          ) : (
+        <SearchForm />
+        <SectionTitle>Articles</SectionTitle>
+        {isNil(articleData) ? (
+          <div style={{ marginTop: '30px' }}>
+            <ErrorMessage>List is not defined...</ErrorMessage>
+          </div>
+        ) : (
+          <>
             <ArticleContentsWrapper>
               {map(articleList, (content) => (
                 <Tilt key={content.id}>
@@ -116,8 +81,48 @@ export const ArticleList = () => {
                 </Tilt>
               ))}
             </ArticleContentsWrapper>
-          )}
-        </div>
+            <PagingButtons
+              next={goNext}
+              prev={goBack}
+              jump={jumpPageBy}
+              currentPage={currentPage}
+              allCountPage={pageCount}
+            />
+          </>
+        )}
+      </SectionLayout>
+      <SectionLayout sectionName="article-featured">
+        <SectionTitle>Featured</SectionTitle>
+        {isNil(articleData) ? (
+          <div style={{ marginTop: '30px' }}>
+            <ErrorMessage>List is not defined...</ErrorMessage>
+          </div>
+        ) : (
+          <>
+            <ArticleContentsWrapper>
+              {map(articleList, (content) => (
+                <Tilt key={content.id}>
+                  <ArticleCard
+                    id={content.id}
+                    userId={content.userId}
+                    imgUrl={content.imgUrl || 'noimage.JPG'}
+                    avatarUrl={content.avatarUrl}
+                    name={content.name}
+                    title={content.title}
+                    createdAt={content.createdAt}
+                  />
+                </Tilt>
+              ))}
+            </ArticleContentsWrapper>
+            <PagingButtons
+              next={goNext}
+              prev={goBack}
+              jump={jumpPageBy}
+              currentPage={currentPage}
+              allCountPage={pageCount}
+            />
+          </>
+        )}
       </SectionLayout>
     </>
   )
