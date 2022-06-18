@@ -20,7 +20,7 @@ export const ArticleList = () => {
   const [articleList, setArticleList] = useState<ListCard[]>([])
   const [pageCount, setPageCount] = useState(1)
 
-  const { currentPage, prevPage, nextPage, jumpPageBy } = usePaging({
+  const { currentPage, goBack, goNext, jumpPageBy } = usePaging({
     allPageCount: pageCount,
   })
   const { data: articleData, status: articleStatus } = useQueryArticles({
@@ -66,8 +66,8 @@ export const ArticleList = () => {
             </div>
           ) : (
             <ArticleContentsWrapper>
-              <button onClick={prevPage}>前へ</button>
-              <button onClick={nextPage}>次へ</button>
+              <button onClick={goBack}>前へ</button>
+              <button onClick={goNext}>次へ</button>
               {map(articleList, (content) => (
                 <Tilt key={content.id}>
                   <ArticleCard

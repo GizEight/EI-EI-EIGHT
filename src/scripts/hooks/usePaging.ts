@@ -7,12 +7,11 @@ type Props = {
 export const usePaging = (props: Props) => {
   const [currentPage, setCurrentPage] = useState(1)
 
-  const prevPage = useCallback(() => {
-    if (currentPage === 1) return
-    setCurrentPage((page) => page - 1)
+  const goBack = useCallback(() => {
+    setCurrentPage((old) => Math.max(old - 1, 1))
   }, [currentPage, setCurrentPage])
 
-  const nextPage = useCallback(() => {
+  const goNext = useCallback(() => {
     if (currentPage === props.allPageCount) return
     setCurrentPage((page) => page + 1)
   }, [setCurrentPage])
@@ -29,5 +28,5 @@ export const usePaging = (props: Props) => {
     [setCurrentPage]
   )
 
-  return { currentPage, prevPage, nextPage, jumpPageBy }
+  return { currentPage, goBack, goNext, jumpPageBy }
 }
