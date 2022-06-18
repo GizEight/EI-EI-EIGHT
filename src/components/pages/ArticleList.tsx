@@ -1,4 +1,4 @@
-import { map, isNil, chunk, size } from 'lodash'
+import { map, isNil } from 'lodash'
 import { useState, useEffect } from 'react'
 import Tilt from 'react-parallax-tilt'
 
@@ -17,28 +17,31 @@ import { ArticleContentsWrapper } from '../template/ArticleContentsWrapper'
 import { SectionLayout } from '../template/SectionLayout'
 
 export const ArticleList = () => {
-  // TODO: microCMSから指定データ数持ってくる
-  // TODO: デザイン来たらそれに合わせて実装する
-  const { data: articleData, status: articleStatus } = useQueryArticles()
+  const [articleList, setArticleList] = useState<ListCard[]>([])
+  const [pageCount, setPageCount] = useState(1)
+
   const { currentPage, prevPage, nextPage, jumpPageBy } = usePaging({
-    allPageCount: isNil(articleData)
-      ? 1
-      : size(articleData.contents) / PER_PAGE,
+    allPageCount: pageCount,
+  })
+  const { data: articleData, status: articleStatus } = useQueryArticles({
+    page: currentPage,
   })
   const { showToast } = useToast()
 
-  const [articleList, setArticleList] = useState<ListCard[][]>([])
-
+  /*
+   * Format Article Data & Set Page Count
+   */
   useEffect(() => {
     let isMounted = true
     if (!isNil(articleData)) {
+      isMounted && setPageCount(Math.ceil(articleData.totalCount / PER_PAGE))
       formatArticleCards(articleData.contents).then((list) => {
         if (isMounted) {
           if ('errCode' in list) {
             showToast('error', list.errMsg)
             return
           }
-          setArticleList(chunk(list, PER_PAGE))
+          setArticleList(list)
         }
       })
     }
@@ -65,7 +68,7 @@ export const ArticleList = () => {
             <ArticleContentsWrapper>
               <button onClick={prevPage}>前へ</button>
               <button onClick={nextPage}>次へ</button>
-              {map(articleList[currentPage - 1], (content) => (
+              {map(articleList, (content) => (
                 <Tilt key={content.id}>
                   <ArticleCard
                     id={content.id}
@@ -91,7 +94,7 @@ export const ArticleList = () => {
             </div>
           ) : (
             <ArticleContentsWrapper>
-              {map(articleList[currentPage - 1], (content) => (
+              {map(articleList, (content) => (
                 <Tilt key={content.id}>
                   <ArticleCard
                     id={content.id}
