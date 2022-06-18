@@ -35,6 +35,7 @@
       & > img {
         width: 2.5rem;
         height: 1.5rem;
+        object-fit: cover;
       }
 
       & > h1 {
@@ -53,7 +54,7 @@
     &_body {
       width: calc(100% - 300px);
       border-radius: 12px;
-      padding: 0.4rem 0;
+      padding: 0.4rem 0.5rem;
       backdrop-filter: blur(7px);
       background-color: va.$Base;
     }
