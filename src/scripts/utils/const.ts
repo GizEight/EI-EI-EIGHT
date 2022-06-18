@@ -28,8 +28,8 @@ export const APP_TITLE = 'EI-EI-EIGHT'
 /*
  * number
  */
-export const USE_QUERY_STALE_TIME = 60000
-export const TOAST_DURATION_TIME = 3000
+export const PER_PAGE = 10
+export const TOAST_DURATION_TIME = 8000
 
 /*
  * useQuery cache key

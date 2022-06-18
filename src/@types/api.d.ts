@@ -1,6 +1,7 @@
 import { User as FirebaseUser } from 'firebase/auth'
 
 import { ResponseArticle } from './article'
+import { GetMicroCmsRequest } from './cms'
 import { ErrorResponse } from './error'
 import { ResponseUser } from './user'
 

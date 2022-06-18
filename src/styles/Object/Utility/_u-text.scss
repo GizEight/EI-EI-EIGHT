@@ -5,6 +5,14 @@
   height: 40px;
 }
 
+// toastにテキストとreact-loader-spinnerがchildrenになっている場合のスタイル
+.u-toast-text-loader {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
 .u-icon-btn {
   display: flex;
   align-items: flex-end;
