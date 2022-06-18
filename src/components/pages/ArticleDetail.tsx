@@ -46,17 +46,17 @@ export const ArticleDetail = () => {
                 thumbAlt={article.contents[0].title}
                 title={article.contents[0].title}
               />
-              <DetailContentWrapper
-                body={
+              <DetailContentWrapper>
+                <div className="p-section-article-detail_body">
                   <div
                     // eslint-disable-next-line react/no-danger
                     dangerouslySetInnerHTML={{
                       __html: `${article.contents[0].content}`,
                     }}
                   />
-                }
-                side="side"
-              />
+                </div>
+                <aside className="p-section-article-detail_side">side</aside>
+              </DetailContentWrapper>
             </>
           )}
         </div>
