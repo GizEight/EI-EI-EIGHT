@@ -5,7 +5,7 @@ import { fetchUsers } from '../lib/api'
 import { USE_QUERY_STALE_TIME, CACHE_KEY_USER } from '../utils/const'
 
 type Props = {
-  filter: string
+  filter?: string
 }
 
 export const useQueryUsers = ({ filter = '' }: Props) =>

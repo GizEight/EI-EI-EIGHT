@@ -25,7 +25,7 @@ export const HeaderLayout = memo(() => {
   const dispatch = useAppDispatch()
   const { user } = useAppSelector(selectUser)
   const { article } = useAppSelector(selectArticle)
-  const { data } = useQueryUsers({ userId: user.userId })
+  const { data } = useQueryUsers({ filter: `userId[equals]${user.userId}` })
   const { createArticleMutation, updateArticleMutation } = useMutateArticles()
 
   /*
