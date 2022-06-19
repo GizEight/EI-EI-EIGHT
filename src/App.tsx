@@ -30,6 +30,8 @@ const App: FC = () => {
           return
         }
 
+        console.log('login user', user)
+
         /*
         ? ユーザーが登録済か確認
         */
@@ -78,19 +80,21 @@ const App: FC = () => {
             isLoading={loadingToast.isShow}
           >
             {toast.message}
-            Loading...
             {loadingToast.isShow && (
-              <Oval
-                height={30}
-                width={30}
-                ariaLabel="loading"
-                color="#cce0f3"
-                secondaryColor="#fff"
-                wrapperStyle={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              />
+              <>
+                Loading...
+                <Oval
+                  height={30}
+                  width={30}
+                  ariaLabel="loading"
+                  color="#cce0f3"
+                  secondaryColor="#fff"
+                  wrapperStyle={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                />
+              </>
             )}
           </Toast>
         )}
