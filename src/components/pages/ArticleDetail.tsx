@@ -65,7 +65,7 @@ export const ArticleDetail = () => {
                 title={article.contents[0].title}
               />
               <DetailContentWrapper>
-                <div className="p-section-article-detail_body">
+                <div className="p-section-article-detail_body u-glass">
                   <div
                     // eslint-disable-next-line react/no-danger
                     dangerouslySetInnerHTML={{
@@ -74,27 +74,44 @@ export const ArticleDetail = () => {
                   />
                 </div>
                 <aside className="p-section-article-detail_side">
-                  <dl className="p-section-article-detail_side description">
-                    <dt>
-                      <FontAwesomeIcon icon={['fas', 'calendar-check']} />
-                      著者
-                    </dt>
-                    <dd>
-                      <img src={user.contents[0].photoURL} alt="" />
-                      <span>{user.contents[0].name}</span>
-                    </dd>
-                    <dt>
-                      <FontAwesomeIcon icon={['fas', 'calendar-check']} />
-                      公開日
-                    </dt>
-                    <dd>{calculateDate(article.contents[0].createdAt)}</dd>
-                    <dt>
-                      <FontAwesomeIcon icon={['fas', 'file-lines']} />
-                      文章量
-                    </dt>
-                    <dd>{stringCountFormatBy(article.contents[0].content)}</dd>
+                  <dl className="p-section-article-detail_side description u-glass">
+                    <div>
+                      <dt>
+                        <FontAwesomeIcon
+                          icon={['fas', 'circle-user']}
+                          size="lg"
+                        />
+                        著者
+                      </dt>
+                      <dd>
+                        <img src={user.contents[0].photoURL} alt="" />
+                        <span>{user.contents[0].name}</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        <FontAwesomeIcon
+                          icon={['fas', 'calendar-check']}
+                          size="lg"
+                        />
+                        公開日
+                      </dt>
+                      <dd>{calculateDate(article.contents[0].createdAt)}</dd>
+                    </div>
+                    <div>
+                      <dt>
+                        <FontAwesomeIcon
+                          icon={['fas', 'file-lines']}
+                          size="lg"
+                        />
+                        文章量
+                      </dt>
+                      <dd>
+                        {stringCountFormatBy(article.contents[0].content)}
+                      </dd>
+                    </div>
                   </dl>
-                  <div className="p-section-article-detail_side follow">
+                  <div className="p-section-article-detail_side follow u-glass">
                     <div>
                       <img src={user.contents[0].photoURL} alt="" />
                       <span>{user.contents[0].name}</span>

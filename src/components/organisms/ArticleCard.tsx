@@ -17,7 +17,7 @@ export const ArticleCard: FC<Props> = memo((props: Props) => {
   const { id, userId, avatarUrl, name, imgUrl, title, createdAt } = props
 
   return (
-    <div className="p-card_article">
+    <div className="p-card_article u-glass">
       <Link to={`/user/${userId}`} className="p-card_article_user">
         <Avatar src={avatarUrl} />
         <span>{name}</span>

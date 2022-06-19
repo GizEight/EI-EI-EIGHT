@@ -16,6 +16,7 @@ import {
   faAnglesRight,
   faCalendarCheck,
   faFileLines,
+  faCircleUser,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -34,5 +35,6 @@ library.add(
   faAnglesLeft,
   faAnglesRight,
   faCalendarCheck,
-  faFileLines
+  faFileLines,
+  faCircleUser
 )

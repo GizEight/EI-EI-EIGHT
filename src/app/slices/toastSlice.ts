@@ -25,7 +25,7 @@ const initialState: InitialState = {
     message: '',
   },
   loadingToast: {
-    isShow: true,
+    isShow: false,
   },
 }
 

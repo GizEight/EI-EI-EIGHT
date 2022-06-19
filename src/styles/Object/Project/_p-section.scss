@@ -53,14 +53,61 @@
 
     &_body {
       width: calc(100% - 330px);
-      border-radius: 12px;
       padding: 0.4rem 0.5rem;
-      backdrop-filter: blur(7px);
-      background-color: va.$Base;
     }
 
     &_side {
       width: 300px;
+
+      &.description {
+        padding: 0.25rem;
+
+        & > div {
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+          padding: 0.145rem 0;
+
+          &:not(&:last-child) {
+            border-bottom: 1px solid va.$Horizon;
+          }
+
+          & > dt {
+            display: flex;
+            gap: 0.15rem;
+          }
+
+          & > dd {
+            display: flex;
+            align-items: center;
+            gap: 0.15rem;
+            & > img {
+              width: 0.35rem;
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+
+      &.follow {
+        margin-top: 0.48rem;
+        padding: 0.15rem;
+
+        & > div {
+          display: flex;
+          align-items: center;
+          gap: 0.18rem;
+          & > img {
+            width: 0.42rem;
+            border-radius: 50%;
+          }
+        }
+
+        & > p {
+          margin-top: 0.11rem;
+          padding-left: 0.099rem;
+        }
+      }
     }
   }
 
