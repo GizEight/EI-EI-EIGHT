@@ -91,6 +91,26 @@
           }
         }
       }
+
+      &.follow {
+        margin-top: 0.48rem;
+        padding: 0.15rem;
+
+        & > div {
+          display: flex;
+          align-items: center;
+          gap: 0.18rem;
+          & > img {
+            width: 0.42rem;
+            border-radius: 50%;
+          }
+        }
+
+        & > p {
+          margin-top: 0.11rem;
+          padding-left: 0.099rem;
+        }
+      }
     }
   }
 
