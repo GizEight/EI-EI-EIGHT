@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { isNil } from 'lodash'
 import { useCallback } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 
 import { useQueryArticles } from '../../scripts/hooks/useQueryArticles'
 import { useQueryUsers } from '../../scripts/hooks/useQueryUsers'
@@ -86,7 +86,7 @@ export const ArticleDetail = () => {
                 </div>
                 <aside className="p-section-article-detail_side">
                   <dl className="p-section-article-detail_side description u-glass">
-                    <div>
+                    <Link to={`/user/${user.contents[0].id}`}>
                       <dt>
                         <FontAwesomeIcon
                           icon={['fas', 'circle-user']}
@@ -98,7 +98,7 @@ export const ArticleDetail = () => {
                         <img src={user.contents[0].photoURL} alt="" />
                         <span>{user.contents[0].name}</span>
                       </dd>
-                    </div>
+                    </Link>
                     <div>
                       <dt>
                         <FontAwesomeIcon
@@ -124,8 +124,13 @@ export const ArticleDetail = () => {
                   </dl>
                   <div className="p-section-article-detail_side follow u-glass">
                     <div>
-                      <img src={user.contents[0].photoURL} alt="" />
-                      <span>{user.contents[0].name}</span>
+                      <Link to={`/user/${user.contents[0].id}`}>
+                        <img
+                          src={user.contents[0].photoURL}
+                          alt={user.contents[0].name}
+                        />
+                        <span>{user.contents[0].name}</span>
+                      </Link>
                       <PrimaryButton>Follow</PrimaryButton>
                     </div>
                     <p>{user.contents[0].description}</p>
