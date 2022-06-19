@@ -106,10 +106,12 @@ export const CreateArticle = () => {
       if (!isNil(name)) {
         switch (name) {
           case 'title':
+            clearErrors('title')
             dispatch(setEditTitle(value.title || ''))
             break
 
           case 'content':
+            clearErrors('content')
             dispatch(setEditContent(value.content || ''))
             break
           default:
