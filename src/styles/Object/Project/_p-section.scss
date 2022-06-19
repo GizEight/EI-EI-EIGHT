@@ -49,6 +49,35 @@
       justify-content: space-between;
       width: 100%;
       margin-top: 0.65rem;
+      position: relative;
+    }
+
+    &_reaction {
+      position: absolute;
+      top: 0;
+      left: -120px;
+      height: 100%;
+      width: 60px;
+      z-index: va.$ZLike;
+
+      &__inner {
+        position: sticky;
+        top: 100px;
+        width: 100%;
+
+        &.like {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 0.09rem;
+          & > button {
+            border-radius: 50%;
+            background: va.$Base;
+            padding: 0.2rem;
+          }
+        }
+      }
     }
 
     &_body {

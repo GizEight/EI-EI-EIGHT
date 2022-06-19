@@ -65,6 +65,17 @@ export const ArticleDetail = () => {
                 title={article.contents[0].title}
               />
               <DetailContentWrapper>
+                <div className="p-section-article-detail_reaction">
+                  <div className="p-section-article-detail_reaction__inner">
+                    <div className="p-section-article-detail_reaction__inner like">
+                      <button>
+                        <FontAwesomeIcon icon={['fas', 'heart']} size="lg" />
+                      </button>
+                      {/* TODO: いいね数 */}
+                      1100
+                    </div>
+                  </div>
+                </div>
                 <div className="p-section-article-detail_body u-glass">
                   <div
                     // eslint-disable-next-line react/no-danger
