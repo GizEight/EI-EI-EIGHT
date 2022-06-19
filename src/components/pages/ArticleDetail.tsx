@@ -117,8 +117,7 @@ export const ArticleDetail = () => {
                       <span>{user.contents[0].name}</span>
                       <PrimaryButton>Follow</PrimaryButton>
                     </div>
-                    {/* <p>{user.contents[0].description}</p> */}
-                    <p>defjkdslfjdlksajf;ld</p>
+                    <p>{user.contents[0].description}</p>
                   </div>
                 </aside>
               </DetailContentWrapper>
