@@ -22,7 +22,7 @@ import { Textarea } from '../atoms/Forms/Textarea'
 import { Form } from '../molecules/Form'
 import { IconButton } from '../molecules/IconButton'
 import { ImageInput } from '../molecules/ImageInput'
-import { PreviewMarkdown } from '../organisms/PreviewMarkdown'
+import { PreviewMarkdown } from '../molecules/PreviewMarkdown'
 import { SectionLayout } from '../template/SectionLayout'
 
 export const CreateArticle = () => {
@@ -168,7 +168,9 @@ export const CreateArticle = () => {
         </Form>
         <div className="p-section_forms_contents">
           {showMarkDown ? (
-            <PreviewMarkdown markdown={watch('content')} />
+            <div className="c-form-form_textarea preview">
+              <PreviewMarkdown markdown={watch('content')} />
+            </div>
           ) : (
             <Form errorMsg={errors.content?.message || ''}>
               <Textarea

@@ -10,11 +10,15 @@ type Props = {
 export const PreviewMarkdown: FC<Props> = memo((props: Props) => {
   const { markdown } = props
   return (
-    <div className="c-form-form_textarea preview">
+    <div>
       {isEmpty(markdown) ? (
         <p className="c-form-form_textarea_message">コンテンツがありません。</p>
       ) : (
-        <ReactMarkdown className='u-markdown' remarkPlugins={[remarkGfm]} unwrapDisallowed={false}>
+        <ReactMarkdown
+          className="u-markdown"
+          remarkPlugins={[remarkGfm]}
+          unwrapDisallowed={false}
+        >
           {markdown}
         </ReactMarkdown>
       )}

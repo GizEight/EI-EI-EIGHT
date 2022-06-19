@@ -13,6 +13,7 @@ import { Loading } from '../atoms/Loading'
 import { PrimaryButton } from '../atoms/PrimaryButton'
 import { DetailContentWrapper } from '../molecules/ArticleDetail/DetailContent'
 import { DetailHeader } from '../molecules/ArticleDetail/DetailHeader'
+import { PreviewMarkdown } from '../molecules/PreviewMarkdown'
 import { SectionLayout } from '../template/SectionLayout'
 
 export const ArticleDetail = () => {
@@ -77,12 +78,7 @@ export const ArticleDetail = () => {
                   </div>
                 </div>
                 <div className="p-section-article-detail_body u-glass">
-                  <div
-                    // eslint-disable-next-line react/no-danger
-                    dangerouslySetInnerHTML={{
-                      __html: `${article.contents[0].content}`,
-                    }}
-                  />
+                  <PreviewMarkdown markdown={article.contents[0].content} />
                 </div>
                 <aside className="p-section-article-detail_side">
                   <dl className="p-section-article-detail_side description u-glass">
