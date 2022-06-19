@@ -1,5 +1,6 @@
 .u-markdown {
   font-size: 16px;
+  overflow-wrap: break-word;
   white-space: pre-wrap;
 
   & > h1,
@@ -45,12 +46,12 @@
     list-style: inside;
 
     & > li {
-      & > ul  {
+      & > ul {
         margin-left: 2em;
         list-style: circle;
 
         & > li {
-          & > ul  {
+          & > ul {
             margin-left: 2em;
             list-style: square;
           }
