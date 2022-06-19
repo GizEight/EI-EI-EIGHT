@@ -65,7 +65,7 @@ export const ArticleDetail = () => {
                 title={article.contents[0].title}
               />
               <DetailContentWrapper>
-                <div className="p-section-article-detail_body">
+                <div className="p-section-article-detail_body u-glass">
                   <div
                     // eslint-disable-next-line react/no-danger
                     dangerouslySetInnerHTML={{

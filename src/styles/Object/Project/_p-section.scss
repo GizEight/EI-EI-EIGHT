@@ -53,10 +53,7 @@
 
     &_body {
       width: calc(100% - 330px);
-      border-radius: 12px;
       padding: 0.4rem 0.5rem;
-      backdrop-filter: blur(7px);
-      background-color: va.$Base;
     }
 
     &_side {
