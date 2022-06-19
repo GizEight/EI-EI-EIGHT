@@ -13,8 +13,8 @@ import { Loading } from '../atoms/Loading'
 import { PrimaryButton } from '../atoms/PrimaryButton'
 import { DetailContentWrapper } from '../molecules/ArticleDetail/DetailContent'
 import { DetailHeader } from '../molecules/ArticleDetail/DetailHeader'
-import { SectionLayout } from '../template/SectionLayout'
 import { PreviewMarkdown } from '../molecules/PreviewMarkdown'
+import { SectionLayout } from '../template/SectionLayout'
 
 export const ArticleDetail = () => {
   /*

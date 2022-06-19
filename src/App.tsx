@@ -30,8 +30,6 @@ const App: FC = () => {
           return
         }
 
-        console.log('login user', user)
-
         /*
         ? ユーザーが登録済か確認
         */
