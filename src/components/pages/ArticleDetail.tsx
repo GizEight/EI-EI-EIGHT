@@ -74,7 +74,7 @@ export const ArticleDetail = () => {
                   />
                 </div>
                 <aside className="p-section-article-detail_side">
-                  <dl className="p-section-article-detail_side description">
+                  <dl className="p-section-article-detail_side description u-glass">
                     <div>
                       <dt>
                         <FontAwesomeIcon
@@ -111,7 +111,7 @@ export const ArticleDetail = () => {
                       </dd>
                     </div>
                   </dl>
-                  <div className="p-section-article-detail_side follow">
+                  <div className="p-section-article-detail_side follow u-glass">
                     <div>
                       <img src={user.contents[0].photoURL} alt="" />
                       <span>{user.contents[0].name}</span>
