@@ -75,24 +75,41 @@ export const ArticleDetail = () => {
                 </div>
                 <aside className="p-section-article-detail_side">
                   <dl className="p-section-article-detail_side description">
-                    <dt>
-                      <FontAwesomeIcon icon={['fas', 'calendar-check']} />
-                      著者
-                    </dt>
-                    <dd>
-                      <img src={user.contents[0].photoURL} alt="" />
-                      <span>{user.contents[0].name}</span>
-                    </dd>
-                    <dt>
-                      <FontAwesomeIcon icon={['fas', 'calendar-check']} />
-                      公開日
-                    </dt>
-                    <dd>{calculateDate(article.contents[0].createdAt)}</dd>
-                    <dt>
-                      <FontAwesomeIcon icon={['fas', 'file-lines']} />
-                      文章量
-                    </dt>
-                    <dd>{stringCountFormatBy(article.contents[0].content)}</dd>
+                    <div>
+                      <dt>
+                        <FontAwesomeIcon
+                          icon={['fas', 'circle-user']}
+                          size="lg"
+                        />
+                        著者
+                      </dt>
+                      <dd>
+                        <img src={user.contents[0].photoURL} alt="" />
+                        <span>{user.contents[0].name}</span>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>
+                        <FontAwesomeIcon
+                          icon={['fas', 'calendar-check']}
+                          size="lg"
+                        />
+                        公開日
+                      </dt>
+                      <dd>{calculateDate(article.contents[0].createdAt)}</dd>
+                    </div>
+                    <div>
+                      <dt>
+                        <FontAwesomeIcon
+                          icon={['fas', 'file-lines']}
+                          size="lg"
+                        />
+                        文章量
+                      </dt>
+                      <dd>
+                        {stringCountFormatBy(article.contents[0].content)}
+                      </dd>
+                    </div>
                   </dl>
                   <div className="p-section-article-detail_side follow">
                     <div>
