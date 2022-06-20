@@ -44,7 +44,8 @@ export const CreateArticle = () => {
   })
   const { loading: contentImageLoading, getContentsImageUrl } =
     useContentsImage()
-  const { onChangedArticleThumbUrl } = useArticleThumbnail()
+  const { loading: thumbnailImageLoading, onChangedArticleThumbUrl } =
+    useArticleThumbnail()
   const { showLoadingToast, handleCloseToast } = useToast()
 
   /*
@@ -148,12 +149,12 @@ export const CreateArticle = () => {
   }, [])
 
   useEffect(() => {
-    if (contentImageLoading) {
+    if (contentImageLoading || thumbnailImageLoading) {
       showLoadingToast()
     } else {
       handleCloseToast()
     }
-  }, [contentImageLoading])
+  }, [contentImageLoading, thumbnailImageLoading])
 
   return (
     <SectionLayout sectionName="create-article">
