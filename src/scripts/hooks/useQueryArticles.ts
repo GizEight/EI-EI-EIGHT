@@ -21,7 +21,7 @@ export const useQueryArticles = ({ page = 1, filter = undefined }: Props) =>
      */
     queryFn: () =>
       fetchArticles({
-        offset: isNil(page) ? 0 : page * 10 - 10,
+        offset: isNil(page) ? 0 : page * 10,
         filters: filter,
       }),
     staleTime: 0,
