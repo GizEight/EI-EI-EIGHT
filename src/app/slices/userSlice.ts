@@ -2,15 +2,21 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { RootState } from '../store'
 
+interface User {
+  userId: string
+  photoUrl: string
+  name: string
+}
+
 interface InitialState {
-  user: {
-    userId: string
-  }
+  user: User
 }
 
 const initialState: InitialState = {
   user: {
     userId: '',
+    photoUrl: '',
+    name: '',
   },
 }
 
@@ -18,11 +24,15 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<string>) => {
-      state.user.userId = action.payload
+    login: (state, action: PayloadAction<User>) => {
+      state.user = action.payload
     },
     logout: (state) => {
-      state.user.userId = initialState.user.userId
+      state.user = {
+        userId: '',
+        photoUrl: '',
+        name: '',
+      }
     },
   },
 })

@@ -16,9 +16,14 @@ export const useMutateUsers = () => {
    * cache & reduxに登録
    */
   const registerUser = (res: GetUsersResponse) => {
-    queryClient.setQueryData<GetUsersResponse>(CACHE_KEY_USER, res)
     const { contents } = res
-    dispatch(login(contents[0].userId))
+    dispatch(
+      login({
+        userId: contents[0].userId,
+        name: contents[0].name,
+        photoUrl: contents[0].photoURL,
+      })
+    )
   }
 
   /*
