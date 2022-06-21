@@ -40,6 +40,25 @@ export const articleSlice = createSlice({
     setIsValid: (state, action: PayloadAction<boolean>) => {
       state.article.form.isValid = action.payload
     },
+    setEditArticle: (
+      state,
+      action: PayloadAction<{
+        id: string
+        thumbUrl: string
+        title: string
+        content: string
+      }>
+    ) => {
+      state.article.id = action.payload.id
+      state.article.thumbUrl = action.payload.thumbUrl
+
+      const { title, content } = action.payload
+      state.article.form = {
+        ...state.article.form,
+        title,
+        content,
+      }
+    },
     setEditTitle: (state, action: PayloadAction<string>) => {
       state.article.form.title = action.payload
     },
@@ -62,6 +81,7 @@ export const articleSlice = createSlice({
 export const {
   toggleEdit,
   setIsValid,
+  setEditArticle,
   setEditTitle,
   setEditContent,
   setThumbUrl,

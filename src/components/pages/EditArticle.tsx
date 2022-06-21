@@ -11,6 +11,7 @@ import {
   selectArticle,
   toggleEdit,
   setIsValid,
+  setEditArticle,
   setEditContent,
   setEditTitle,
 } from '../../app/slices/articleSlice'
@@ -114,9 +115,20 @@ export const EditArticle = () => {
     })
   }
 
+  /*
+   * Set Edit Article
+   */
   useEffect(() => {
     let isMounted = true
     if (isMounted && !isNil(articleData)) {
+      dispatch(
+        setEditArticle({
+          id: articleData.contents[0].id,
+          thumbUrl: articleData.contents[0].thumbUrl,
+          title: articleData.contents[0].title,
+          content: articleData.contents[0].content,
+        })
+      )
       setValue('title', articleData.contents[0].title)
       setValue('content', articleData.contents[0].content)
     }
