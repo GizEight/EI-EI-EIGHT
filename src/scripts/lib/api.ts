@@ -89,7 +89,7 @@ export const updateArticle = async (
 ): Promise<UpdateArticleResponse> => {
   const requestParams: Omit<UpdateArticleRequest, 'id'> = omit(params, 'id')
   try {
-    const res = await apiInstance.post<ExceptingGetMicroCmsResponse>(
+    const res = await apiInstance.patch<ExceptingGetMicroCmsResponse>(
       `articles/${params.id}`,
       requestParams
     )
