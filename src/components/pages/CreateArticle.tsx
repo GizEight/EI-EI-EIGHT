@@ -99,10 +99,19 @@ export const CreateArticle = () => {
   }
 
   /*
-   * Store set form values
+   * Toggle Edit
    */
   useEffect(() => {
     dispatch(toggleEdit(true))
+    return () => {
+      dispatch(toggleEdit(false))
+    }
+  }, [])
+
+  /*
+   * Store set form values
+   */
+  useEffect(() => {
     const subscription = watch((value, { name }) => {
       if (!isNil(name)) {
         switch (name) {
@@ -127,7 +136,6 @@ export const CreateArticle = () => {
     })
 
     return () => {
-      dispatch(toggleEdit(false))
       subscription.unsubscribe()
     }
   }, [watch])
