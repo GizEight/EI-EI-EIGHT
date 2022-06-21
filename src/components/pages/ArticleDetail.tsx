@@ -3,6 +3,8 @@ import { isNil } from 'lodash'
 import { useCallback } from 'react'
 import { useParams, Link } from 'react-router-dom'
 
+import { useAppSelector } from '../../app/hooks'
+import { selectUser } from '../../app/slices/userSlice'
 import { useQueryArticles } from '../../scripts/hooks/useQueryArticles'
 import { useQueryUsers } from '../../scripts/hooks/useQueryUsers'
 import { ERROR_CODES } from '../../scripts/lib/error'
@@ -11,6 +13,7 @@ import { stringCountFormatBy } from '../../scripts/utils/format'
 import { ErrorMessage } from '../atoms/ErrorMessage'
 import { Loading } from '../atoms/Loading'
 import { PrimaryButton } from '../atoms/PrimaryButton'
+import { RouterLink } from '../atoms/RouterLink'
 import { DetailContentWrapper } from '../molecules/ArticleDetail/DetailContent'
 import { DetailHeader } from '../molecules/ArticleDetail/DetailHeader'
 import { PreviewMarkdown } from '../molecules/PreviewMarkdown'
@@ -132,7 +135,16 @@ export const ArticleDetail = () => {
                         />
                         <span>{usersData.contents[0].name}</span>
                       </Link>
-                      <PrimaryButton>Follow</PrimaryButton>
+                      {loginUser.userId === usersData.contents[0].userId ? (
+                        <RouterLink
+                          isBtn
+                          to={`/article/${articlesData.contents[0].id}/edit`}
+                        >
+                          Edit
+                        </RouterLink>
+                      ) : (
+                        <PrimaryButton>Follow</PrimaryButton>
+                      )}
                     </div>
                     <p>{usersData.contents[0].description}</p>
                   </div>
