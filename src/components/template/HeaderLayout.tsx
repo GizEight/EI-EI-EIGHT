@@ -9,7 +9,6 @@ import { selectArticle, resetForm } from '../../app/slices/articleSlice'
 import { selectUser } from '../../app/slices/userSlice'
 import { useAuth } from '../../scripts/hooks/useAuth'
 import { useMutateArticles } from '../../scripts/hooks/useMutateArticles'
-import { useQueryUsers } from '../../scripts/hooks/useQueryUsers'
 import { APP_TITLE } from '../../scripts/utils/const'
 import { Popover } from '../atoms/Popover'
 import { PrimaryButton } from '../atoms/PrimaryButton'
@@ -25,7 +24,6 @@ export const HeaderLayout = memo(() => {
   const dispatch = useAppDispatch()
   const { user } = useAppSelector(selectUser)
   const { article } = useAppSelector(selectArticle)
-  const { data } = useQueryUsers({ filter: `userId[equals]${user.userId}` })
   const { createArticleMutation, updateArticleMutation } = useMutateArticles()
 
   /*
@@ -96,28 +94,25 @@ export const HeaderLayout = memo(() => {
                 </PrimaryButton>
               ) : (
                 <>
-                  <Suspense fallback={<span>Loading...</span>}>
-                    <button onClick={() => setIsShowPop(!isShowPop)}>
-                      <Avatar
-                        src={data?.contents[0].photoURL || ''}
-                        alt={data?.contents[0].name}
-                      />
-                    </button>
-                    {isShowPop && (
-                      <Popover>
-                        <div className="c-popover_item">
-                          <PrimaryButton
-                            onClick={() => {
-                              logout()
-                              setIsShowPop(false)
-                            }}
-                          >
-                            Log out
-                          </PrimaryButton>
-                        </div>
-                      </Popover>
-                    )}
-                  </Suspense>
+                  <button onClick={() => setIsShowPop(!isShowPop)}>
+                    <Suspense fallback={<span>Loading...</span>}>
+                      <Avatar src={user.photoUrl} alt={user.name} />
+                    </Suspense>
+                  </button>
+                  {isShowPop && (
+                    <Popover>
+                      <div className="c-popover_item">
+                        <PrimaryButton
+                          onClick={() => {
+                            logout()
+                            setIsShowPop(false)
+                          }}
+                        >
+                          Log out
+                        </PrimaryButton>
+                      </div>
+                    </Popover>
+                  )}
                   <RouterLink to="/article/create" isBtn>
                     Add new
                   </RouterLink>
