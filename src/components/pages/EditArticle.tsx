@@ -7,13 +7,11 @@ export const EditArticle = () => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    useEffect(() => {
-      dispatch(toggleEdit(true))
+    dispatch(toggleEdit(true))
 
-      return () => {
-        dispatch(toggleEdit(false))
-      }
-    }, [])
+    return () => {
+      dispatch(toggleEdit(false))
+    }
   }, [])
   return <div>EditArticle</div>
 }

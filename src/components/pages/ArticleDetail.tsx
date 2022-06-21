@@ -3,6 +3,8 @@ import { isNil } from 'lodash'
 import { useCallback } from 'react'
 import { useParams, Link } from 'react-router-dom'
 
+import { useAppSelector } from '../../app/hooks'
+import { selectUser } from '../../app/slices/userSlice'
 import { useQueryArticles } from '../../scripts/hooks/useQueryArticles'
 import { useQueryUsers } from '../../scripts/hooks/useQueryUsers'
 import { ERROR_CODES } from '../../scripts/lib/error'
@@ -11,6 +13,7 @@ import { stringCountFormatBy } from '../../scripts/utils/format'
 import { ErrorMessage } from '../atoms/ErrorMessage'
 import { Loading } from '../atoms/Loading'
 import { PrimaryButton } from '../atoms/PrimaryButton'
+import { RouterLink } from '../atoms/RouterLink'
 import { DetailContentWrapper } from '../molecules/ArticleDetail/DetailContent'
 import { DetailHeader } from '../molecules/ArticleDetail/DetailHeader'
 import { PreviewMarkdown } from '../molecules/PreviewMarkdown'
@@ -21,33 +24,34 @@ export const ArticleDetail = () => {
    * Hooks
    */
   const params = useParams<{ id: string }>()
-  const { data: article, isLoading: articleIsLoading } = useQueryArticles({
+  const { user: loginUser } = useAppSelector(selectUser)
+  const { data: articlesData, isLoading: articleIsLoading } = useQueryArticles({
     filter: `id[equals]${params.id}`,
   })
-  const { data: user, isLoading: userIsLoading } = useQueryUsers({
-    filter: isNil(article)
+  const { data: usersData, isLoading: userIsLoading } = useQueryUsers({
+    filter: isNil(articlesData)
       ? undefined
-      : `userId[equals]${article.contents[0].userId}`,
+      : `userId[equals]${articlesData.contents[0].userId}`,
   })
 
   const isError = useCallback(
     () =>
-      article?.errCode !== ERROR_CODES.NORMAL_NOOP.errCode ||
-      user?.errCode !== ERROR_CODES.NORMAL_NOOP.errCode,
-    [article, user]
+      articlesData?.errCode !== ERROR_CODES.NORMAL_NOOP.errCode ||
+      usersData?.errCode !== ERROR_CODES.NORMAL_NOOP.errCode,
+    [articlesData, usersData]
   )
 
   const renderError = useCallback(
     () => (
       <ErrorMessage>
-        {article?.errMsg
-          ? article.errMsg
-          : user?.errMsg
-          ? user.errMsg
+        {articlesData?.errMsg
+          ? articlesData.errMsg
+          : usersData?.errMsg
+          ? usersData.errMsg
           : ERROR_CODES.UNKNOWN_ERROR.errMsg}
       </ErrorMessage>
     ),
-    [article, user]
+    [articlesData, usersData]
   )
 
   return (
@@ -56,14 +60,14 @@ export const ArticleDetail = () => {
         <Loading />
       ) : (
         <div>
-          {isNil(article) || isNil(user) || isError() ? (
+          {isNil(articlesData) || isNil(usersData) || isError() ? (
             renderError()
           ) : (
             <>
               <DetailHeader
-                thumbSrc={article.contents[0].thumbUrl || 'noimage.JPG'}
-                thumbAlt={article.contents[0].title}
-                title={article.contents[0].title}
+                thumbSrc={articlesData.contents[0].thumbUrl || 'noimage.JPG'}
+                thumbAlt={articlesData.contents[0].title}
+                title={articlesData.contents[0].title}
               />
               <DetailContentWrapper>
                 <div className="p-section-article-detail_reaction">
@@ -78,11 +82,13 @@ export const ArticleDetail = () => {
                   </div>
                 </div>
                 <div className="p-section-article-detail_body u-glass">
-                  <PreviewMarkdown markdown={article.contents[0].content} />
+                  <PreviewMarkdown
+                    markdown={articlesData.contents[0].content}
+                  />
                 </div>
                 <aside className="p-section-article-detail_side">
                   <dl className="p-section-article-detail_side description u-glass">
-                    <Link to={`/user/${user.contents[0].id}`}>
+                    <Link to={`/user/${usersData.contents[0].id}`}>
                       <dt>
                         <FontAwesomeIcon
                           icon={['fas', 'circle-user']}
@@ -91,8 +97,8 @@ export const ArticleDetail = () => {
                         著者
                       </dt>
                       <dd>
-                        <img src={user.contents[0].photoURL} alt="" />
-                        <span>{user.contents[0].name}</span>
+                        <img src={usersData.contents[0].photoURL} alt="" />
+                        <span>{usersData.contents[0].name}</span>
                       </dd>
                     </Link>
                     <div>
@@ -103,7 +109,9 @@ export const ArticleDetail = () => {
                         />
                         公開日
                       </dt>
-                      <dd>{calculateDate(article.contents[0].createdAt)}</dd>
+                      <dd>
+                        {calculateDate(articlesData.contents[0].createdAt)}
+                      </dd>
                     </div>
                     <div>
                       <dt>
@@ -114,22 +122,31 @@ export const ArticleDetail = () => {
                         文章量
                       </dt>
                       <dd>
-                        {stringCountFormatBy(article.contents[0].content)}
+                        {stringCountFormatBy(articlesData.contents[0].content)}
                       </dd>
                     </div>
                   </dl>
                   <div className="p-section-article-detail_side follow u-glass">
                     <div>
-                      <Link to={`/user/${user.contents[0].id}`}>
+                      <Link to={`/user/${usersData.contents[0].id}`}>
                         <img
-                          src={user.contents[0].photoURL}
-                          alt={user.contents[0].name}
+                          src={usersData.contents[0].photoURL}
+                          alt={usersData.contents[0].name}
                         />
-                        <span>{user.contents[0].name}</span>
+                        <span>{usersData.contents[0].name}</span>
                       </Link>
-                      <PrimaryButton>Follow</PrimaryButton>
+                      {loginUser.userId === usersData.contents[0].userId ? (
+                        <RouterLink
+                          isBtn
+                          to={`/article/${articlesData.contents[0].id}/edit`}
+                        >
+                          Edit
+                        </RouterLink>
+                      ) : (
+                        <PrimaryButton>Follow</PrimaryButton>
+                      )}
                     </div>
-                    <p>{user.contents[0].description}</p>
+                    <p>{usersData.contents[0].description}</p>
                   </div>
                 </aside>
               </DetailContentWrapper>
