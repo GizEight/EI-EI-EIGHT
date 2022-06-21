@@ -19,6 +19,10 @@ export const PagingButtons: FC<Props> = memo(
       pageRangeDisplayed={5}
       onPageChange={({ selected }) => onPageChange(selected)}
       forcePage={currentPage}
+      containerClassName="p-paging"
+      pageClassName="p-paging_btn"
+      activeClassName="p-paging_btn-current"
+      disabledClassName="p-paging_btn-disabled"
     />
   )
 )
