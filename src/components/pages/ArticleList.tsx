@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 import Tilt from 'react-parallax-tilt'
 
 import { ListCard } from '../../@types/view'
-import { usePaging } from '../../scripts/hooks/usePaging'
 import { useQueryArticles } from '../../scripts/hooks/useQueryArticles'
 import { useToast } from '../../scripts/hooks/useToast'
 import { PER_PAGE } from '../../scripts/utils/const'
@@ -18,12 +17,16 @@ import { ArticleContentsWrapper } from '../template/ArticleContentsWrapper'
 import { SectionLayout } from '../template/SectionLayout'
 
 export const ArticleList = () => {
+  /*
+   * State
+   */
   const [articleList, setArticleList] = useState<ListCard[]>([])
   const [pageCount, setPageCount] = useState(1)
+  const [currentPage, setCurrentPage] = useState(0)
 
-  const { currentPage, goBack, goNext, jumpPageBy } = usePaging({
-    allPageCount: pageCount,
-  })
+  /*
+   * Hooks
+   */
   const { data: articleData, status: articleStatus } = useQueryArticles({
     page: currentPage,
   })
@@ -82,11 +85,9 @@ export const ArticleList = () => {
               ))}
             </ArticleContentsWrapper>
             <PagingButtons
-              next={goNext}
-              prev={goBack}
-              jump={jumpPageBy}
-              currentPage={currentPage}
               allCountPage={pageCount}
+              currentPage={currentPage}
+              onPageChange={(page: number) => setCurrentPage(page)}
             />
           </>
         )}
@@ -115,11 +116,9 @@ export const ArticleList = () => {
               ))}
             </ArticleContentsWrapper>
             <PagingButtons
-              next={goNext}
-              prev={goBack}
-              jump={jumpPageBy}
-              currentPage={currentPage}
               allCountPage={pageCount}
+              currentPage={currentPage}
+              onPageChange={(page: number) => setCurrentPage(page)}
             />
           </>
         )}

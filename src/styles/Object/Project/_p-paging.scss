@@ -18,11 +18,13 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 
-    &:disabled {
+    &-disabled {
       cursor: not-allowed;
       opacity: 0.4;
     }
+
     &-current {
       background-color: va.$Theme;
     }
