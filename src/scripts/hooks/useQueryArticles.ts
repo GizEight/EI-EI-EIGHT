@@ -20,8 +20,6 @@ export const useQueryArticles = ({ page = 1, filter = undefined }: Props) => {
     /*
     ? offset
     - 何件目から取得するか(index)
-    １ページ目 => 1 * 10 - 10 = 0件目（１件目~9件目, 総数はlimitの数によって決まる）
-    ２ページ目 => 2 * 10 - 10 = 10件目
      */
     queryFn: () =>
       fetchArticles({
