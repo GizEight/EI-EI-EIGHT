@@ -3,15 +3,19 @@ import { useQuery } from 'react-query'
 
 import { GetArticlesResponse } from '../../@types/api.d'
 import { fetchArticles } from '../lib/api'
+import { ERROR_CODES } from '../lib/error'
 import { CACHE_KEY_ARTICLE } from '../utils/const'
+import { useToast } from './useToast'
 
 type Props = {
   page?: number
   filter?: string
 }
 
-export const useQueryArticles = ({ page = 1, filter = undefined }: Props) =>
-  useQuery<GetArticlesResponse>({
+export const useQueryArticles = ({ page = 1, filter = undefined }: Props) => {
+  const { showToast } = useToast()
+
+  return useQuery<GetArticlesResponse>({
     queryKey: [CACHE_KEY_ARTICLE, page],
     /*
     ? offset
@@ -26,4 +30,10 @@ export const useQueryArticles = ({ page = 1, filter = undefined }: Props) =>
       }),
     staleTime: 0,
     keepPreviousData: true,
+    onSuccess(data) {
+      if (data.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
+        showToast('error', data.errMsg)
+      }
+    },
   })
+}
