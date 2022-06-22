@@ -13,6 +13,8 @@ import {
   GetUsersResponse,
   CreateUserResponse,
   UpdateUserResponse,
+  GetDetailArticleRequest,
+  GetDetailArticleResponse,
 } from '../../@types/api'
 import { ExceptingGetMicroCmsResponse } from '../../@types/cms.d'
 import apiInstance from './axios'
@@ -22,7 +24,7 @@ import { errorHandler } from './responseErrorHandler'
 /*
 ? catch時に返す
  */
-const CATCH_RESPONSE_GET = {
+const CATCH_LIST_RESPONSE_GET = {
   contents: [],
   totalCount: 0,
   offset: 0,
@@ -56,7 +58,43 @@ export const fetchArticles = async (
       errMsg: ERROR_CODES.NORMAL_NOOP.errMsg,
     }
   } catch (e) {
-    return CATCH_RESPONSE_GET
+    return CATCH_LIST_RESPONSE_GET
+  }
+}
+
+/*
+ * 記事詳細取得
+ */
+export const fetchDetailArticle = async (
+  params: GetDetailArticleRequest
+): Promise<GetDetailArticleResponse> => {
+  try {
+    const res = await apiInstance.get<GetDetailArticleResponse>(
+      `articles/${params.id}`
+    )
+    const validated = errorHandler(res)
+    if (!isNil(validated)) {
+      return validated
+    }
+    return {
+      ...res.data,
+      errCode: ERROR_CODES.NORMAL_NOOP.errCode,
+      errMsg: ERROR_CODES.NORMAL_NOOP.errMsg,
+    }
+  } catch (e) {
+    return {
+      thumbUrl: '',
+      title: '',
+      userId: '',
+      content: '',
+      id: '',
+      createdAt: '',
+      updatedAt: '',
+      publishedAt: '',
+      revisedAt: '',
+      errCode: ERROR_CODES.INTERNAL_SERVER_ERROR.errCode,
+      errMsg: ERROR_CODES.INTERNAL_SERVER_ERROR.errMsg,
+    }
   }
 }
 
@@ -123,7 +161,7 @@ export const fetchUsers = async (
       errMsg: ERROR_CODES.NORMAL_NOOP.errMsg,
     }
   } catch (e) {
-    return CATCH_RESPONSE_GET
+    return CATCH_LIST_RESPONSE_GET
   }
 }
 

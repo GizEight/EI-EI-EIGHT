@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { isNil } from 'lodash'
+import { isEmpty, isNil } from 'lodash'
 import { useCallback } from 'react'
 import { useParams, Link } from 'react-router-dom'
 
@@ -24,14 +24,16 @@ export const ArticleDetail = () => {
    * Hooks
    */
   const params = useParams<{ id: string }>()
+  console.log(params.id)
   const { user: loginUser } = useAppSelector(selectUser)
   const { data: articlesData, isLoading: articleIsLoading } = useQueryArticles({
-    filter: `id[equals]${params.id}`,
+    id: params.id,
   })
   const { data: usersData, isLoading: userIsLoading } = useQueryUsers({
-    filter: isNil(articlesData)
-      ? undefined
-      : `userId[equals]${articlesData.contents[0].userId}`,
+    filter:
+      isNil(articlesData) || isEmpty(articlesData)
+        ? undefined
+        : `userId[equals]${articlesData.userId || ''}`,
   })
 
   const isError = useCallback(
@@ -65,9 +67,9 @@ export const ArticleDetail = () => {
           ) : (
             <>
               <DetailHeader
-                thumbSrc={articlesData.contents[0].thumbUrl || 'noimage.JPG'}
-                thumbAlt={articlesData.contents[0].title}
-                title={articlesData.contents[0].title}
+                thumbSrc={articlesData.thumbUrl || 'noimage.JPG'}
+                thumbAlt={articlesData.title}
+                title={articlesData.title}
               />
               <DetailContentWrapper>
                 <div className="p-section-article-detail_reaction">
@@ -82,9 +84,7 @@ export const ArticleDetail = () => {
                   </div>
                 </div>
                 <div className="p-section-article-detail_body u-glass">
-                  <PreviewMarkdown
-                    markdown={articlesData.contents[0].content}
-                  />
+                  <PreviewMarkdown markdown={articlesData.content} />
                 </div>
                 <aside className="p-section-article-detail_side">
                   <dl className="p-section-article-detail_side description u-glass">
@@ -109,9 +109,7 @@ export const ArticleDetail = () => {
                         />
                         公開日
                       </dt>
-                      <dd>
-                        {calculateDate(articlesData.contents[0].createdAt)}
-                      </dd>
+                      <dd>{calculateDate(articlesData.createdAt)}</dd>
                     </div>
                     <div>
                       <dt>
@@ -121,9 +119,7 @@ export const ArticleDetail = () => {
                         />
                         文章量
                       </dt>
-                      <dd>
-                        {stringCountFormatBy(articlesData.contents[0].content)}
-                      </dd>
+                      <dd>{stringCountFormatBy(articlesData.content)}</dd>
                     </div>
                   </dl>
                   <div className="p-section-article-detail_side follow u-glass">
@@ -138,7 +134,7 @@ export const ArticleDetail = () => {
                       {loginUser.userId === usersData.contents[0].userId ? (
                         <RouterLink
                           isBtn
-                          to={`/article/${articlesData.contents[0].id}/edit`}
+                          to={`/article/${articlesData.id}/edit`}
                         >
                           Edit
                         </RouterLink>

@@ -25,7 +25,7 @@ export interface GetImageUrlResponse extends ErrorResponse {
 }
 
 /*
- * 記事取得
+ * 記事一覧取得
  */
 export interface GetArticlesRequest extends Partial<GetMicroCmsRequest> {}
 export interface GetArticlesResponse extends ErrorResponse {
@@ -34,6 +34,16 @@ export interface GetArticlesResponse extends ErrorResponse {
   offset: number
   limit: number
 }
+
+/*
+ * 記事詳細取得
+ */
+export interface GetDetailArticleRequest {
+  id: string
+}
+export interface GetDetailArticleResponse
+  extends ResponseArticle,
+    ErrorResponse {}
 
 /*
  * 記事投稿
