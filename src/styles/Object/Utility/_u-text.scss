@@ -5,6 +5,11 @@
   height: 40px;
 }
 
+// 記事一覧画面のArticlesタイトルのマージントップ
+.u-title-margin-top {
+  margin-top: 40px;
+}
+
 // toastにテキストとreact-loader-spinnerがchildrenになっている場合のスタイル
 .u-toast-text-loader {
   display: flex;

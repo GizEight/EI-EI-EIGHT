@@ -9,11 +9,15 @@
     * sectionごとのスタイル
     */
   &-article {
-    background-color: va.$Main;
+    // 暫定の背景画像
+    background: url('../images/sun-flower.jpg');
+    background-size: cover;
   }
 
   &-article-featured {
-    background-color: va.$Base;
+    // 暫定の背景画像
+    background: url('../images/sun-flower.jpg');
+    background-size: cover;
   }
 
   &-create-article {
