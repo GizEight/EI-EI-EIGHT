@@ -1,11 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { isEmpty, isNil } from 'lodash'
+import { isNil } from 'lodash'
 import { useCallback } from 'react'
 import { useParams, Link } from 'react-router-dom'
 
 import { useAppSelector } from '../../app/hooks'
 import { selectUser } from '../../app/slices/userSlice'
-import { useQueryArticles } from '../../scripts/hooks/useQueryArticles'
+import { useQueryDetailArticle } from '../../scripts/hooks/useQueryDetailArticle'
 import { useQueryUsers } from '../../scripts/hooks/useQueryUsers'
 import { ERROR_CODES } from '../../scripts/lib/error'
 import { calculateDate } from '../../scripts/utils/dateFormat'
@@ -24,36 +24,33 @@ export const ArticleDetail = () => {
    * Hooks
    */
   const params = useParams<{ id: string }>()
-  console.log(params.id)
   const { user: loginUser } = useAppSelector(selectUser)
-  const { data: articlesData, isLoading: articleIsLoading } = useQueryArticles({
-    id: params.id,
-  })
+  const { data: articleData, isLoading: articleIsLoading } =
+    useQueryDetailArticle({ articleId: params.id || '' })
   const { data: usersData, isLoading: userIsLoading } = useQueryUsers({
-    filter:
-      isNil(articlesData) || isEmpty(articlesData)
-        ? undefined
-        : `userId[equals]${articlesData.userId || ''}`,
+    filter: isNil(articleData)
+      ? undefined
+      : `userId[equals]${articleData.userId || ''}`,
   })
 
   const isError = useCallback(
     () =>
-      articlesData?.errCode !== ERROR_CODES.NORMAL_NOOP.errCode ||
+      articleData?.errCode !== ERROR_CODES.NORMAL_NOOP.errCode ||
       usersData?.errCode !== ERROR_CODES.NORMAL_NOOP.errCode,
-    [articlesData, usersData]
+    [articleData, usersData]
   )
 
   const renderError = useCallback(
     () => (
       <ErrorMessage>
-        {articlesData?.errMsg
-          ? articlesData.errMsg
+        {articleData?.errMsg
+          ? articleData.errMsg
           : usersData?.errMsg
           ? usersData.errMsg
           : ERROR_CODES.UNKNOWN_ERROR.errMsg}
       </ErrorMessage>
     ),
-    [articlesData, usersData]
+    [articleData, usersData]
   )
 
   return (
@@ -62,14 +59,14 @@ export const ArticleDetail = () => {
         <Loading />
       ) : (
         <div>
-          {isNil(articlesData) || isNil(usersData) || isError() ? (
+          {isNil(articleData) || isNil(usersData) || isError() ? (
             renderError()
           ) : (
             <>
               <DetailHeader
-                thumbSrc={articlesData.thumbUrl || 'noimage.JPG'}
-                thumbAlt={articlesData.title}
-                title={articlesData.title}
+                thumbSrc={articleData.thumbUrl || 'noimage.JPG'}
+                thumbAlt={articleData.title}
+                title={articleData.title}
               />
               <DetailContentWrapper>
                 <div className="p-section-article-detail_reaction">
@@ -84,7 +81,7 @@ export const ArticleDetail = () => {
                   </div>
                 </div>
                 <div className="p-section-article-detail_body u-glass">
-                  <PreviewMarkdown markdown={articlesData.content} />
+                  <PreviewMarkdown markdown={articleData.content} />
                 </div>
                 <aside className="p-section-article-detail_side">
                   <dl className="p-section-article-detail_side description u-glass">
@@ -109,7 +106,7 @@ export const ArticleDetail = () => {
                         />
                         公開日
                       </dt>
-                      <dd>{calculateDate(articlesData.createdAt)}</dd>
+                      <dd>{calculateDate(articleData.createdAt)}</dd>
                     </div>
                     <div>
                       <dt>
@@ -119,7 +116,7 @@ export const ArticleDetail = () => {
                         />
                         文章量
                       </dt>
-                      <dd>{stringCountFormatBy(articlesData.content)}</dd>
+                      <dd>{stringCountFormatBy(articleData.content)}</dd>
                     </div>
                   </dl>
                   <div className="p-section-article-detail_side follow u-glass">
@@ -134,7 +131,7 @@ export const ArticleDetail = () => {
                       {loginUser.userId === usersData.contents[0].userId ? (
                         <RouterLink
                           isBtn
-                          to={`/article/${articlesData.id}/edit`}
+                          to={`/article/${articleData.id}/edit`}
                         >
                           Edit
                         </RouterLink>

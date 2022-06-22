@@ -30,9 +30,11 @@ export const APP_TITLE = 'EI-EI-EIGHT'
  */
 export const PER_PAGE = 10
 export const TOAST_DURATION_TIME = 8000
+export const ARTICLE_DETAIL_STILE_TIME = 0
 
 /*
  * useQuery cache key
  */
 export const CACHE_KEY_ARTICLE = 'articles'
+export const CACHE_KEY_ARTICLE_DETAIL = 'article_detail'
 export const CACHE_KEY_USER = 'users'
