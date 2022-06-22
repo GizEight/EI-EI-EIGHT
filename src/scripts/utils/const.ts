@@ -38,3 +38,4 @@ export const ARTICLE_DETAIL_STILE_TIME = 0
 export const CACHE_KEY_ARTICLE = 'articles'
 export const CACHE_KEY_ARTICLE_DETAIL = 'article_detail'
 export const CACHE_KEY_USER = 'users'
+export const CACHE_KEY_USER_DETAIL = 'user_detail'

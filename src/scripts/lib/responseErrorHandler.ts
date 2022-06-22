@@ -3,6 +3,7 @@ import { isEmpty } from 'lodash'
 
 import { ERROR_CODES } from './error'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const errorHandler = (res: AxiosResponse<any>) => {
   if (
     isEmpty(res.data) ||

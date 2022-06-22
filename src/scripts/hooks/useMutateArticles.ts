@@ -48,6 +48,10 @@ export const useMutateArticles = () => {
         queryClient.getQueryData<GetArticlesResponse>(CACHE_KEY_ARTICLE)
       if (!isNil(previousArticles)) {
         fetchArticles({ filters: `id[equals]${data.id}` }).then((res) => {
+          if (data.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
+            showToast('error', data.errMsg)
+            return
+          }
           queryClient.setQueryData<GetArticlesResponse>(CACHE_KEY_ARTICLE, {
             ...previousArticles,
             contents: map(previousArticles.contents, (article) =>
