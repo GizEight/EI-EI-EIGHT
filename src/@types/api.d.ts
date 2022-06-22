@@ -69,7 +69,7 @@ export interface UpdateArticleResponse extends ErrorResponse {
 }
 
 /*
- * ユーザー取得
+ * ユーザー一覧取得
  */
 export interface GetUsersRequest extends Partial<GetMicroCmsRequest> {}
 export interface GetUsersResponse extends ErrorResponse {
@@ -78,6 +78,14 @@ export interface GetUsersResponse extends ErrorResponse {
   offset: number
   limit: number
 }
+
+/*
+ * ユーザー詳細取得
+ */
+export interface GetDetailUserRequest {
+  id: string
+}
+export interface GetDetailUserResponse extends ResponseUser, ErrorResponse {}
 
 /*
  * ユーザー作成

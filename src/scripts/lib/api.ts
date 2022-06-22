@@ -15,6 +15,8 @@ import {
   UpdateUserResponse,
   GetDetailArticleRequest,
   GetDetailArticleResponse,
+  GetDetailUserRequest,
+  GetDetailUserResponse,
 } from '../../@types/api'
 import { ExceptingGetMicroCmsResponse } from '../../@types/cms.d'
 import apiInstance from './axios'
@@ -162,6 +164,44 @@ export const fetchUsers = async (
     }
   } catch (e) {
     return CATCH_LIST_RESPONSE_GET
+  }
+}
+
+/*
+ * ユーザー詳細取得
+ */
+export const fetchDetailUser = async (
+  params: GetDetailUserRequest
+): Promise<GetDetailUserResponse> => {
+  try {
+    const res = await apiInstance.get<GetDetailUserResponse>(
+      `users/${params.id}`
+    )
+    const validated = errorHandler(res)
+    if (!isNil(validated)) {
+      return validated
+    }
+    return {
+      ...res.data,
+      errCode: ERROR_CODES.NORMAL_NOOP.errCode,
+      errMsg: ERROR_CODES.NORMAL_NOOP.errMsg,
+    }
+  } catch (e) {
+    return {
+      name: '',
+      photoURL: '',
+      description: '',
+      twitterUrl: '',
+      facebookUrl: '',
+      userId: '',
+      id: '',
+      createdAt: '',
+      updatedAt: '',
+      publishedAt: '',
+      revisedAt: '',
+      errCode: ERROR_CODES.INTERNAL_SERVER_ERROR.errCode,
+      errMsg: ERROR_CODES.INTERNAL_SERVER_ERROR.errMsg,
+    }
   }
 }
 
