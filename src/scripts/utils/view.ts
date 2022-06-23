@@ -3,6 +3,7 @@ import { find, isNil, size, padEnd } from 'lodash'
 import { ResponseArticle } from '../../@types/article'
 import { ResponseUser } from '../../@types/user'
 import { ArticleCard } from '../../@types/view'
+import { ERROR_CODES } from '../lib/error'
 import { PUBLIC_URL } from './const'
 import { calculateDate } from './dateFormat'
 
@@ -44,4 +45,18 @@ export const formatArticleCards = (
     title: article.title,
     createdAt: calculateDate(article.createdAt),
   }
+}
+
+/* 
+? エラー時トースト
+ */
+export const processErrorHandlerIfNeeded = (
+  errCode: number,
+  toast: () => void
+): boolean => {
+  if (errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
+    toast()
+    return true
+  }
+  return false
 }

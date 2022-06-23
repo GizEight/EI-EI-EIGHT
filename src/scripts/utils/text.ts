@@ -2,7 +2,7 @@ import { join, map } from 'lodash'
 
 /*
 
-ランダムな16文字の文字列を生成
+* ランダムな16文字の文字列を生成
 
 */
 export const getUniqueChar = (): string => {

@@ -43,8 +43,11 @@ export const useMutateUsers = () => {
     onSuccess: (data) => {
       // 初ユーザーログイン時のみ
       fetchUsers({ filters: `id[equals]${data.id}` }).then((res) => {
-        if (data.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
-          showToast('error', data.errMsg)
+        if (
+          processErrorHandlerIfNeeded(data.errCode, () =>
+            showToast('error', data.errMsg)
+          )
+        )
           return
         }
         registerUser(res)
@@ -60,7 +63,13 @@ export const useMutateUsers = () => {
    */
   const updateUserMutation = useMutation(updateUser, {
     onSuccess: (data) => {
-      const previousUser =
+      if (
+        processErrorHandlerIfNeeded(data.errCode, () =>
+          showToast('error', data.errMsg)
+        )
+      )
+        return
+      const previousUsers =
         queryClient.getQueryData<GetUsersResponse>(CACHE_KEY_USER)
       if (!isNil(previousUser)) {
         fetchUsers({ filters: `id[equals]${data.id}` }).then((res) => {

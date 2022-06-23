@@ -13,6 +13,7 @@ import { ERROR_CODES } from '../../scripts/lib/error'
 import { PUBLIC_URL } from '../../scripts/utils/const'
 import { calculateDate } from '../../scripts/utils/dateFormat'
 import { stringCountFormatBy } from '../../scripts/utils/format'
+import { processErrorHandlerIfNeeded } from '../../scripts/utils/view'
 import { ErrorMessage } from '../atoms/ErrorMessage'
 import { Loading } from '../atoms/Loading'
 import { PrimaryButton } from '../atoms/PrimaryButton'
@@ -46,14 +47,15 @@ export const ArticleDetail = () => {
       fetchUsers({
         filters: `userId[equals]${articleData.userId}`,
       }).then((res) => {
-        if (res.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
-          showToast('error', res.errMsg)
-          return undefined
-        }
+        if (
+          processErrorHandlerIfNeeded(res.errCode, () =>
+            showToast('error', res.errMsg)
+          )
+        )
+          return
         if (isMounted) {
           setUserData(res)
         }
-        return undefined
       })
     }
     return () => {

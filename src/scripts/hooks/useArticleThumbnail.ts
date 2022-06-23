@@ -6,6 +6,7 @@ import { setThumbUrl } from '../../app/slices/articleSlice'
 import { ERROR_CODES } from '../lib/error'
 import { getImageUrl } from '../lib/firebase/storage'
 import { getUniqueChar } from '../utils/text'
+import { processErrorHandlerIfNeeded } from '../utils/view'
 import { useToast } from './useToast'
 
 export const useArticleThumbnail = () => {
@@ -40,10 +41,12 @@ export const useArticleThumbnail = () => {
           fileName,
           imageFile: target[0],
         })
-        if (res.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
-          showToast('error', res.errMsg)
+        if (
+          processErrorHandlerIfNeeded(res.errCode, () =>
+            showToast('error', res.errMsg)
+          )
+        )
           return
-        }
         dispatch(setThumbUrl(res.url))
       } finally {
         setLoading(false)
