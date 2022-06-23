@@ -4,6 +4,7 @@ import { useState, ChangeEvent, useCallback } from 'react'
 import { ERROR_CODES } from '../lib/error'
 import { getImageUrl } from '../lib/firebase/storage'
 import { getUniqueChar } from '../utils/text'
+import { processErrorHandlerIfNeeded } from '../utils/view'
 import { useToast } from './useToast'
 
 export const useContentsImage = () => {
@@ -27,10 +28,12 @@ export const useContentsImage = () => {
           fileName,
           imageFile: target[0],
         })
-        if (res.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
-          showToast('error', res.errMsg)
+        if (
+          processErrorHandlerIfNeeded(res.errCode, () =>
+            showToast('error', res.errMsg)
+          )
+        )
           return ''
-        }
         return res.url
       } finally {
         setLoading(false)

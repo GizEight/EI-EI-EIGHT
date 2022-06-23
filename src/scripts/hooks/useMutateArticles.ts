@@ -5,6 +5,7 @@ import { GetArticlesResponse } from '../../@types/api.d'
 import { postArticle, updateArticle, fetchArticles } from '../lib/api'
 import { ERROR_CODES } from '../lib/error'
 import { CACHE_KEY_ARTICLE, POST_SUCCESS_MESSAGE } from '../utils/const'
+import { processErrorHandlerIfNeeded } from '../utils/view'
 import { useToast } from './useToast'
 
 export const useMutateArticles = () => {
@@ -16,10 +17,12 @@ export const useMutateArticles = () => {
    */
   const createArticleMutation = useMutation(postArticle, {
     onSuccess: (data) => {
-      if (data.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
-        showToast('error', data.errMsg)
+      if (
+        processErrorHandlerIfNeeded(data.errCode, () =>
+          showToast('error', data.errMsg)
+        )
+      )
         return
-      }
       showToast('success', POST_SUCCESS_MESSAGE)
       const previousArticles =
         queryClient.getQueryData<GetArticlesResponse>(CACHE_KEY_ARTICLE)
@@ -39,19 +42,23 @@ export const useMutateArticles = () => {
    */
   const updateArticleMutation = useMutation(updateArticle, {
     onSuccess: (data) => {
-      if (data.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
-        showToast('error', data.errMsg)
+      if (
+        processErrorHandlerIfNeeded(data.errCode, () =>
+          showToast('error', data.errMsg)
+        )
+      )
         return
-      }
       showToast('success', POST_SUCCESS_MESSAGE)
       const previousArticles =
         queryClient.getQueryData<GetArticlesResponse>(CACHE_KEY_ARTICLE)
       if (!isNil(previousArticles)) {
         fetchArticles({ filters: `id[equals]${data.id}` }).then((res) => {
-          if (data.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
-            showToast('error', data.errMsg)
+          if (
+            processErrorHandlerIfNeeded(res.errCode, () =>
+              showToast('error', res.errMsg)
+            )
+          )
             return
-          }
           queryClient.setQueryData<GetArticlesResponse>(CACHE_KEY_ARTICLE, {
             ...previousArticles,
             contents: map(previousArticles.contents, (article) =>
