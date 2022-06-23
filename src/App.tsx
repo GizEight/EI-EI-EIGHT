@@ -6,6 +6,8 @@ import { ReactQueryDevtools } from 'react-query/devtools'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
 
+import { useAppDispatch } from './app/hooks'
+import { login, logout } from './app/slices/userSlice'
 import { Toast } from './components/molecules/Toast'
 import { LayoutsWrapper } from './components/template/LayoutsWrapper'
 import { auth } from './firebase'
@@ -16,7 +18,8 @@ import { fetchUsers } from './scripts/lib/api'
 
 const App: FC = () => {
   const { toast, loadingToast, handleCloseToast } = useToast()
-  const { registerUser, deleteUser, createUserMutation } = useMutateUsers()
+  const { createUserMutation } = useMutateUsers()
+  const dispatch = useAppDispatch()
 
   /*
    * ログイン状況監視
@@ -26,7 +29,7 @@ const App: FC = () => {
       auth,
       (user: FirebaseUser | null) => {
         if (isNil(user)) {
-          deleteUser()
+          dispatch(logout())
           return
         }
 
@@ -45,9 +48,21 @@ const App: FC = () => {
               instagramUrl: '',
               userId: user.uid,
             }
+            /*
+             * 新規ログイン
+             */
             createUserMutation.mutate(signInNewUser)
           } else {
-            registerUser(res)
+            /*
+             * 登録済み
+             */
+            dispatch(
+              login({
+                userId: res.contents[0].userId,
+                name: res.contents[0].name,
+                photoUrl: res.contents[0].photoURL,
+              })
+            )
           }
         })
       }

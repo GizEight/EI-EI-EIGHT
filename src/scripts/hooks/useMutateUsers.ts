@@ -1,12 +1,13 @@
-import { isNil } from 'lodash'
+import { isNil, map } from 'lodash'
 import { useQueryClient, useMutation } from 'react-query'
 
 import { GetUsersResponse } from '../../@types/api.d'
 import { useAppDispatch } from '../../app/hooks'
-import { login, logout } from '../../app/slices/userSlice'
-import { fetchUsers, updateUser, createUser } from '../lib/api'
+import { login } from '../../app/slices/userSlice'
+import { fetchUsers, updateUser, createUser, fetchDetailUser } from '../lib/api'
 import { ERROR_CODES } from '../lib/error'
 import { CACHE_KEY_USER } from '../utils/const'
+import { processErrorHandlerIfNeeded } from '../utils/view'
 import { useToast } from './useToast'
 
 export const useMutateUsers = () => {
@@ -15,33 +16,10 @@ export const useMutateUsers = () => {
   const { showToast } = useToast()
 
   /*
-   * cache & reduxに登録
-   */
-  const registerUser = (res: GetUsersResponse) => {
-    const { contents } = res
-    dispatch(
-      login({
-        userId: contents[0].userId,
-        name: contents[0].name,
-        photoUrl: contents[0].photoURL,
-      })
-    )
-  }
-
-  /*
-   * cache & reduxから削除
-   */
-  const deleteUser = () => {
-    dispatch(logout())
-    queryClient.removeQueries(CACHE_KEY_USER)
-  }
-
-  /*
-   * ユーザー作成後キャッシュに登録
+    ? 初回ログイン時
    */
   const createUserMutation = useMutation(createUser, {
     onSuccess: (data) => {
-      // 初ユーザーログイン時のみ
       fetchUsers({ filters: `id[equals]${data.id}` }).then((res) => {
         if (
           processErrorHandlerIfNeeded(data.errCode, () =>
@@ -49,8 +27,13 @@ export const useMutateUsers = () => {
           )
         )
           return
-        }
-        registerUser(res)
+        dispatch(
+          login({
+            userId: res.contents[0].userId,
+            name: res.contents[0].name,
+            photoUrl: res.contents[0].photoURL,
+          })
+        )
       })
     },
     onError: () => {
@@ -59,7 +42,7 @@ export const useMutateUsers = () => {
   })
 
   /*
-   * ユーザー編集後キャッシュに登録
+   ? ユーザー情報を更新後キャッシュを更新
    */
   const updateUserMutation = useMutation(updateUser, {
     onSuccess: (data) => {
@@ -77,7 +60,6 @@ export const useMutateUsers = () => {
             showToast('error', data.errMsg)
             return
           }
-          registerUser(res)
         })
       }
     },
@@ -87,8 +69,6 @@ export const useMutateUsers = () => {
   })
 
   return {
-    registerUser,
-    deleteUser,
     createUserMutation,
     updateUserMutation,
   }
