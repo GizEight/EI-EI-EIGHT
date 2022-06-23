@@ -64,7 +64,7 @@ export const UserDetail: FC = () => {
         </div>
       ) : (
         <SectionLayout sectionName="user-detail">
-          <div>
+          <div className='p-section-user-detail_inner'>
             <figure>
               <img
                 src={userData.contents[0].photoURL}
