@@ -3,7 +3,7 @@ export interface User {
   photoURL: string
   description?: string
   twitterUrl?: string
-  facebookUrl?: string
+  instagramUrl?: string
   userId: string
 }
 
@@ -12,7 +12,7 @@ export interface ResponseUser {
   photoURL: string
   description?: string
   twitterUrl?: string
-  facebookUrl?: string
+  instagramUrl?: string
   userId: string
   id: string
   createdAt: string
