@@ -1,5 +1,9 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+import {
+  faGoogle,
+  faTwitter,
+  faInstagram,
+} from '@fortawesome/free-brands-svg-icons'
 import { faImages } from '@fortawesome/free-regular-svg-icons'
 import {
   faCircleCheck,
@@ -38,5 +42,7 @@ library.add(
   faCalendarCheck,
   faFileLines,
   faCircleUser,
-  faHeart
+  faHeart,
+  faTwitter,
+  faInstagram
 )

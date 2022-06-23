@@ -3,6 +3,7 @@ import { find, isNil, size, padEnd } from 'lodash'
 import { ResponseArticle } from '../../@types/article'
 import { ResponseUser } from '../../@types/user'
 import { ArticleCard } from '../../@types/view'
+import { PUBLIC_URL } from './const'
 import { calculateDate } from './dateFormat'
 
 /*
@@ -18,7 +19,6 @@ export const overflowTextFormatter = (text: string) => {
 /*
  * 記事一覧に表示する内容をフォーマット
  */
-
 export const formatArticleCards = (
   article: ResponseArticle,
   users: ResponseUser[]
@@ -29,7 +29,7 @@ export const formatArticleCards = (
       id: article.id,
       userId: '',
       thumbUrl: article.thumbUrl,
-      avatarUrl: 'noimage.JPG',
+      avatarUrl: `${PUBLIC_URL}noimage.jpg`,
       username: 'ユーザーが存在しません。',
       title: article.title,
       createdAt: calculateDate(article.createdAt),
@@ -38,7 +38,7 @@ export const formatArticleCards = (
   return {
     id: article.id,
     userId: author.userId,
-    thumbUrl: article.thumbUrl || 'noimage.JPG',
+    thumbUrl: article.thumbUrl || `${PUBLIC_URL}noimage.jpg`,
     avatarUrl: author.photoURL,
     username: author.name,
     title: article.title,

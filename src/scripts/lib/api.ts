@@ -192,7 +192,7 @@ export const fetchDetailUser = async (
       photoURL: '',
       description: '',
       twitterUrl: '',
-      facebookUrl: '',
+      instagramUrl: '',
       userId: '',
       id: '',
       createdAt: '',

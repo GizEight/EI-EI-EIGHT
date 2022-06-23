@@ -10,13 +10,14 @@
     */
   &-article {
     // 暫定の背景画像
-    background: url('../images/sun-flower.jpg');
+    background: url(va.$BgSunFlowerPath);
     background-size: cover;
+    min-height: 100vh;
   }
 
   &-article-featured {
     // 暫定の背景画像
-    background: url('../images/sun-flower.jpg');
+    background: url(va.$BgSunFlowerPath);
     background-size: cover;
   }
 
@@ -150,6 +151,10 @@
         }
       }
     }
+  }
+
+  &-user-detail {
+    background-color: va.$Base;
   }
 
   /*

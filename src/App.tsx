@@ -42,7 +42,7 @@ const App: FC = () => {
               photoURL: user.photoURL || '',
               description: '',
               twitterUrl: '',
-              facebookUrl: '',
+              instagramUrl: '',
               userId: user.uid,
             }
             createUserMutation.mutate(signInNewUser)

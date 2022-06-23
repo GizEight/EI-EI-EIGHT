@@ -10,6 +10,7 @@ import { useQueryDetailArticle } from '../../scripts/hooks/useQueryDetailArticle
 import { useToast } from '../../scripts/hooks/useToast'
 import { fetchUsers } from '../../scripts/lib/api'
 import { ERROR_CODES } from '../../scripts/lib/error'
+import { PUBLIC_URL } from '../../scripts/utils/const'
 import { calculateDate } from '../../scripts/utils/dateFormat'
 import { stringCountFormatBy } from '../../scripts/utils/format'
 import { ErrorMessage } from '../atoms/ErrorMessage'
@@ -91,7 +92,7 @@ export const ArticleDetail = () => {
           ) : (
             <>
               <DetailHeader
-                thumbSrc={articleData.thumbUrl || 'noimage.JPG'}
+                thumbSrc={articleData.thumbUrl || `${PUBLIC_URL}noimage.jpg`}
                 thumbAlt={articleData.title}
                 title={articleData.title}
               />

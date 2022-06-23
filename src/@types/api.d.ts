@@ -95,7 +95,7 @@ export interface CreateUserRequest {
   photoURL: string
   description?: string
   twitterUrl?: string
-  facebookUrl?: string
+  instagramUrl?: string
   userId: string
 }
 export interface CreateUserResponse extends ErrorResponse {

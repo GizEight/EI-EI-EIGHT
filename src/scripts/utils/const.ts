@@ -39,3 +39,8 @@ export const CACHE_KEY_ARTICLE = 'articles'
 export const CACHE_KEY_ARTICLE_DETAIL = 'article_detail'
 export const CACHE_KEY_USER = 'users'
 export const CACHE_KEY_USER_DETAIL = 'user_detail'
+
+/*
+ * URL
+ */
+export const PUBLIC_URL = import.meta.env.VITE_PUBLIC_URL
