@@ -4,7 +4,7 @@ import { isNil, isEmpty, size } from 'lodash'
 import { useEffect, useState, useCallback, ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { Forms } from '../../@types/view'
+import { ArticleForms } from '../../@types/view'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import {
   selectArticle,
@@ -39,7 +39,7 @@ export const CreateArticle = () => {
     setError,
     clearErrors,
     formState: { errors },
-  } = useForm<Forms>({
+  } = useForm<ArticleForms>({
     criteriaMode: 'all',
   })
   const { loading: contentImageLoading, getContentsImageUrl } =

@@ -5,7 +5,7 @@ import { useEffect, useState, useCallback, ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
-import { Forms } from '../../@types/view'
+import { ArticleForms } from '../../@types/view'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import {
   selectArticle,
@@ -56,7 +56,7 @@ export const EditArticle = () => {
     setError,
     clearErrors,
     formState: { errors },
-  } = useForm<Forms>({
+  } = useForm<ArticleForms>({
     criteriaMode: 'all',
   })
   const { loading: contentImageLoading, getContentsImageUrl } =
