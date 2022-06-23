@@ -12,6 +12,7 @@
     // 暫定の背景画像
     background: url('../images/sun-flower.jpg');
     background-size: cover;
+    min-height: 100vh;
   }
 
   &-article-featured {
@@ -150,6 +151,10 @@
         }
       }
     }
+  }
+
+  &-user-detail {
+    background-color: va.$Base;
   }
 
   /*
