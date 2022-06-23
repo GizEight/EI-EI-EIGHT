@@ -5,6 +5,13 @@ export type ArticleForms = {
   content: string
 }
 
+export type UserForms = {
+  username: string
+  description: string
+  twitterUrl: string
+  instagramUrl: string
+}
+
 export type ArticleCard = {
   id: string
   userId: string
