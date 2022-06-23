@@ -4,12 +4,13 @@ export type Forms = {
   title: string
   content: string
 }
-export interface ListCard {
+
+export type ArticleCard = {
   id: string
   userId: string
+  thumbUrl: string
   avatarUrl: string
-  name: string
-  imgUrl: string
+  username: string
   title: string
   createdAt: string
 }

@@ -1,10 +1,8 @@
-import { reduce, find, isNil, size, padEnd } from 'lodash'
+import { find, isNil, size, padEnd } from 'lodash'
 
-import { GetUsersResponse } from '../../@types/api.d'
 import { ResponseArticle } from '../../@types/article'
-import { ListCard } from '../../@types/view'
-import { fetchUsers } from '../lib/api'
-import { ERROR_CODES } from '../lib/error'
+import { ResponseUser } from '../../@types/user'
+import { ArticleCard } from '../../@types/view'
 import { calculateDate } from './dateFormat'
 
 /*
@@ -20,30 +18,30 @@ export const overflowTextFormatter = (text: string) => {
 /*
  * 記事一覧に表示する内容をフォーマット
  */
-export const formatArticleCards = async (
-  listContents: ResponseArticle[]
-): Promise<ListCard[] | GetUsersResponse> => {
-  const res = await fetchUsers()
-  if (res.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
-    return res
+
+export const formatArticleCards = (
+  article: ResponseArticle,
+  users: ResponseUser[]
+): ArticleCard => {
+  const author = find(users, { userId: article.userId })
+  if (isNil(author)) {
+    return {
+      id: article.id,
+      userId: '',
+      thumbUrl: article.thumbUrl,
+      avatarUrl: 'noimage.JPG',
+      username: 'ユーザーが存在しません。',
+      title: article.title,
+      createdAt: calculateDate(article.createdAt),
+    }
   }
-  return reduce(
-    listContents,
-    (result: ListCard[], currentValue) => {
-      const target = find(res.contents, { userId: currentValue.userId })
-      if (!isNil(target)) {
-        result.push({
-          id: currentValue.id,
-          userId: currentValue.userId,
-          avatarUrl: target.photoURL,
-          name: target.name,
-          imgUrl: currentValue.imageUrl,
-          title: overflowTextFormatter(currentValue.title),
-          createdAt: calculateDate(currentValue.createdAt),
-        })
-      }
-      return result
-    },
-    []
-  )
+  return {
+    id: article.id,
+    userId: author.userId,
+    thumbUrl: article.thumbUrl || 'noimage.JPG',
+    avatarUrl: author.photoURL,
+    username: author.name,
+    title: article.title,
+    createdAt: calculateDate(article.createdAt),
+  }
 }
