@@ -2,11 +2,9 @@ import { map, isNil } from 'lodash'
 import { useState, useEffect } from 'react'
 import Tilt from 'react-parallax-tilt'
 
-import { ListCard } from '../../@types/view'
 import { useQueryArticles } from '../../scripts/hooks/useQueryArticles'
-import { useToast } from '../../scripts/hooks/useToast'
+import { useQueryUsers } from '../../scripts/hooks/useQueryUsers'
 import { PER_PAGE } from '../../scripts/utils/const'
-import { formatArticleCards } from '../../scripts/utils/view'
 import { ErrorMessage } from '../atoms/ErrorMessage'
 import { Loading } from '../atoms/Loading'
 import { SectionTitle } from '../atoms/SectionTitle'
@@ -20,7 +18,6 @@ export const ArticleList = () => {
   /*
    * State
    */
-  const [articleList, setArticleList] = useState<ListCard[]>([])
   const [pageCount, setPageCount] = useState(1)
   const [currentPage, setCurrentPage] = useState(0)
 
@@ -30,31 +27,22 @@ export const ArticleList = () => {
   const { data: articleData, status: articleStatus } = useQueryArticles({
     page: currentPage,
   })
-  const { showToast } = useToast()
+  const { data: userData, status: userStatus } = useQueryUsers({})
 
   /*
-   * Format Article Data & Set Page Count
-   */
+  ? 記事一覧取得後
+  */
   useEffect(() => {
     let isMounted = true
-    if (!isNil(articleData)) {
-      isMounted && setPageCount(Math.ceil(articleData.totalCount / PER_PAGE))
-      formatArticleCards(articleData.contents).then((list) => {
-        if (isMounted) {
-          if ('errCode' in list) {
-            showToast('error', list.errMsg)
-            return
-          }
-          setArticleList(list)
-        }
-      })
+    if (!isNil(articleData) && isMounted) {
+      setPageCount(Math.ceil(articleData.totalCount / PER_PAGE))
     }
     return () => {
       isMounted = false
     }
   }, [articleData])
 
-  if (articleStatus === 'loading') {
+  if (articleStatus === 'loading' || userStatus === 'loading') {
     return <Loading />
   }
 
@@ -63,24 +51,16 @@ export const ArticleList = () => {
       <SectionLayout sectionName="article">
         <SearchForm />
         <SectionTitle>Articles</SectionTitle>
-        {isNil(articleData) ? (
+        {isNil(articleData) || isNil(userData) ? (
           <div style={{ marginTop: '30px' }}>
             <ErrorMessage>List is not defined...</ErrorMessage>
           </div>
         ) : (
           <>
             <ArticleContentsWrapper>
-              {map(articleList, (content) => (
+              {map(articleData.contents, (content) => (
                 <Tilt key={content.id}>
-                  <ArticleCard
-                    id={content.id}
-                    userId={content.userId}
-                    imgUrl={content.imgUrl || 'noimage.JPG'}
-                    avatarUrl={content.avatarUrl}
-                    name={content.name}
-                    title={content.title}
-                    createdAt={content.createdAt}
-                  />
+                  <ArticleCard users={userData.contents} article={content} />
                 </Tilt>
               ))}
             </ArticleContentsWrapper>
@@ -94,24 +74,16 @@ export const ArticleList = () => {
       </SectionLayout>
       <SectionLayout sectionName="article-featured">
         <SectionTitle>Featured</SectionTitle>
-        {isNil(articleData) ? (
+        {isNil(articleData) || isNil(userData) ? (
           <div style={{ marginTop: '30px' }}>
             <ErrorMessage>List is not defined...</ErrorMessage>
           </div>
         ) : (
           <>
             <ArticleContentsWrapper>
-              {map(articleList, (content) => (
+              {map(articleData.contents, (content) => (
                 <Tilt key={content.id}>
-                  <ArticleCard
-                    id={content.id}
-                    userId={content.userId}
-                    imgUrl={content.imgUrl || 'noimage.JPG'}
-                    avatarUrl={content.avatarUrl}
-                    name={content.name}
-                    title={content.title}
-                    createdAt={content.createdAt}
-                  />
+                  <ArticleCard users={userData.contents} article={content} />
                 </Tilt>
               ))}
             </ArticleContentsWrapper>
