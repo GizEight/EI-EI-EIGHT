@@ -1,8 +1,14 @@
+import { isNil } from 'lodash'
 import { useForm } from 'react-hook-form'
 
 import { UserForms } from '../../@types/view'
+import { useMutateUsers } from '../../scripts/hooks/useMutateUsers'
+import { useQueryUsers } from '../../scripts/hooks/useQueryUsers'
+import { ErrorMessage } from '../atoms/ErrorMessage'
 import { Input } from '../atoms/Forms/Input'
 import { Textarea } from '../atoms/Forms/Textarea'
+import { Loading } from '../atoms/Loading'
+import { PrimaryButton } from '../atoms/PrimaryButton'
 import { SectionTitle } from '../atoms/SectionTitle'
 import { Form } from '../molecules/Form'
 import { SectionLayout } from '../template/SectionLayout'
@@ -19,6 +25,14 @@ export const EditUser = () => {
   } = useForm<UserForms>({
     criteriaMode: 'all',
   })
+  const { updateUserMutation } = useMutateUsers()
+  const { data: userData, status: userStatus } = useQueryUsers({
+    filter: `userId[equals]${params.id}`,
+  })
+
+  if (userStatus === 'loading') {
+    return <Loading />
+  }
 
   return (
     <SectionLayout sectionName="edit-user">
