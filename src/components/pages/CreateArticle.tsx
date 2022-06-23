@@ -188,6 +188,7 @@ export const CreateArticle = () => {
                 placeholder="write in Markdown..."
                 {...register('content', { required: true })}
                 onBlur={validateContent}
+                isBg={false}
               />
             </Form>
           )}
