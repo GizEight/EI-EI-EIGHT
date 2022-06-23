@@ -1,5 +1,6 @@
 import { isNil } from 'lodash'
 import { useForm } from 'react-hook-form'
+import { useParams } from 'react-router-dom'
 
 import { UserForms } from '../../@types/view'
 import { useMutateUsers } from '../../scripts/hooks/useMutateUsers'
@@ -14,15 +15,11 @@ import { Form } from '../molecules/Form'
 import { SectionLayout } from '../template/SectionLayout'
 
 export const EditUser = () => {
-  const {
-    register,
-    watch,
-    setValue,
-    getValues,
-    setError,
-    clearErrors,
-    formState: { errors },
-  } = useForm<UserForms>({
+  /*
+   * Hooks
+   */
+  const params = useParams<{ id: string }>()
+  const { register, handleSubmit } = useForm<UserForms>({
     criteriaMode: 'all',
   })
   const { updateUserMutation } = useMutateUsers()
