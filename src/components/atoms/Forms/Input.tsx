@@ -13,7 +13,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     <input
       type="text"
       {...props}
-      className={clsx('c-form-form_input', isBg && 'c-form-form_input-igBg')}
+      className={clsx('c-form-form_input', isBg && 'c-form-form_input-isBg')}
       ref={ref}
     />
   )
