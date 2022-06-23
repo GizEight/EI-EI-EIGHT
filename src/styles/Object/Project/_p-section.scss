@@ -157,6 +157,11 @@
     background-color: va.$Base;
   }
 
+  &-edit-user {
+    background-color: va.$Main;
+    min-height: 100vh;
+  }
+
   /*
     * ネスト
     */
