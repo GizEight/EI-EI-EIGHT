@@ -173,6 +173,7 @@ export const CreateArticle = () => {
             placeholder="Title..."
             {...register('title', { maxLength: 256, required: true })}
             onBlur={validateTitle}
+            isBg={false}
           />
         </Form>
         <div className="p-section_forms_contents">
