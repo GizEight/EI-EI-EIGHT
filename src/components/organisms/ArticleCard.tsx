@@ -1,38 +1,64 @@
-import { FC, memo } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
+import { ResponseArticle } from '../../@types/article'
+import { ResponseUser } from '../../@types/user'
+import { ArticleCard as ArticleCardType } from '../../@types/view'
+import { formatArticleCards } from '../../scripts/utils/view'
 import { Avatar } from '../molecules/Avatar'
 
 type Props = {
-  id: string
-  userId: string
-  avatarUrl: string
-  name: string
-  imgUrl: string
-  title: string
-  createdAt: string
+  users: ResponseUser[]
+  article: ResponseArticle
 }
 
 export const ArticleCard: FC<Props> = memo((props: Props) => {
-  const { id, userId, avatarUrl, name, imgUrl, title, createdAt } = props
+  const { users, article } = props
+
+  const [articleCard, setArticleCard] = useState<ArticleCardType>({
+    id: '',
+    userId: '',
+    thumbUrl: '',
+    avatarUrl: '',
+    username: '',
+    title: '',
+    createdAt: '',
+  })
+
+  /*
+  ? 表示用にフォーマット後
+  */
+  useEffect(() => {
+    let isMounted = true
+    if (isMounted) {
+      setArticleCard(formatArticleCards(article, users))
+    }
+    return () => {
+      isMounted = false
+    }
+  }, [users, article])
 
   return (
     <div className="p-card_article u-glass">
-      <Link to={`/user/${userId}`} className="p-card_article_user">
-        <Avatar src={avatarUrl} />
-        <span>{name}</span>
+      <Link to={`/user/${articleCard.userId}`} className="p-card_article_user">
+        <Avatar src={articleCard.avatarUrl} />
+        <span>{articleCard.username}</span>
       </Link>
-      <Link to={`/article/${id}`}>
+      <Link to={`/article/${articleCard.id}`}>
         <figure className="p-card_article_content">
-          <img src={imgUrl} alt="" className="p-card_article_content_img" />
+          <img
+            src={articleCard.thumbUrl}
+            alt=""
+            className="p-card_article_content_img"
+          />
           <figcaption className="p-card_article_content_title">
-            {title}
+            {articleCard.title}
           </figcaption>
         </figure>
       </Link>
-      <Link to={`/user/${userId}`}>
+      <Link to={`/user/${articleCard.userId}`}>
         <div className="p-card_article_status">
-          <span>{createdAt}</span>
+          <span>{articleCard.createdAt}</span>
         </div>
       </Link>
     </div>
