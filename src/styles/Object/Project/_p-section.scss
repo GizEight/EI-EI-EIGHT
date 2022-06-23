@@ -161,6 +161,11 @@
     max-width: va.$SectionMaxWidth;
   }
 
+  &_title {
+    font-size: 0.3745rem;
+    margin-top: 0.37rem;
+  }
+
   &_forms {
     margin: 0.4rem auto 0;
     display: flex;
@@ -188,11 +193,6 @@
         height: 150px;
         object-fit: cover;
       }
-    }
-
-    &_title {
-      font-size: 0.3745rem;
-      margin-top: 0.37rem;
     }
   }
 }
