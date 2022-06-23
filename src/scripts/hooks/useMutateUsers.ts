@@ -54,12 +54,33 @@ export const useMutateUsers = () => {
         return
       const previousUsers =
         queryClient.getQueryData<GetUsersResponse>(CACHE_KEY_USER)
-      if (!isNil(previousUser)) {
-        fetchUsers({ filters: `id[equals]${data.id}` }).then((res) => {
-          if (data.errCode !== ERROR_CODES.NORMAL_NOOP.errCode) {
-            showToast('error', data.errMsg)
+      if (!isNil(previousUsers)) {
+        fetchDetailUser({ id: data.id }).then((res) => {
+          if (
+            processErrorHandlerIfNeeded(data.errCode, () =>
+              showToast('error', data.errMsg)
+            )
+          )
             return
+          const updatedUser = {
+            name: res.name,
+            photoURL: res.photoURL,
+            description: res.description,
+            twitterUrl: res.twitterUrl,
+            instagramUrl: res.instagramUrl,
+            userId: res.userId,
+            id: res.id,
+            createdAt: res.createdAt,
+            updatedAt: res.updatedAt,
+            publishedAt: res.publishedAt,
+            revisedAt: res.revisedAt,
           }
+          queryClient.setQueryData(
+            CACHE_KEY_USER,
+            map(previousUsers.contents, (user) =>
+              user.id === res.id ? updatedUser : user
+            )
+          )
         })
       }
     },
