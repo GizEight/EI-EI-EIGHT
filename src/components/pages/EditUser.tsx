@@ -1,5 +1,5 @@
 import { isNil } from 'lodash'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
@@ -34,6 +34,25 @@ export const EditUser = () => {
   })
   const { loading, onChangedImageUrl } = useGetImageUrl()
 
+  /*
+   * Submit Form Event
+   */
+  const onSubmit = useCallback(
+    (data: UserForms) => {
+      if (!isNil(userData)) {
+        updateUserMutation.mutate({
+          id: userData.contents[0].id,
+          name: data.username,
+          photoURL: loginUser.photoUrl,
+          description: data.description,
+          twitterUrl: data.twitterUrl,
+          instagramUrl: data.instagramUrl,
+        })
+      }
+    },
+    [userData, loginUser]
+  )
+
   if (userStatus === 'loading') {
     return <Loading />
   }
@@ -66,19 +85,7 @@ export const EditUser = () => {
               </figcaption>
             </figure>
           </aside>
-          <form
-            className="p-section_forms"
-            onSubmit={handleSubmit((data) =>
-              updateUserMutation.mutate({
-                id: userData.contents[0].id,
-                username: data.username,
-                photoURL: loginUser.photoUrl,
-                description: data.description,
-                twitterUrl: data.twitterUrl,
-                instagramUrl: data.instagramUrl,
-              })
-            )}
-          >
+          <form className="p-section_forms" onSubmit={handleSubmit(onSubmit)}>
             <Form id="username-form" label="お名前">
               <Input
                 id="username-form"
