@@ -53,6 +53,23 @@ export const EditUser = () => {
     [userData, loginUser]
   )
 
+  /*
+   * 取得データからフォームに反映
+   */
+  useEffect(() => {
+    let isMounted = true
+    if (isMounted && !isNil(userData) && !isEmpty(userData.contents)) {
+      const data = userData.contents[0]
+      setValue('username', data.name)
+      setValue('description', data.description || '')
+      setValue('twitterUrl', data.twitterUrl || '')
+      setValue('instagramUrl', data.instagramUrl || '')
+    }
+    return () => {
+      isMounted = false
+    }
+  }, [userData])
+
   if (userStatus === 'loading') {
     return <Loading />
   }
