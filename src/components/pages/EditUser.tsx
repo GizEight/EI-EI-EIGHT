@@ -12,7 +12,7 @@ import { useMutateUsers } from '../../scripts/hooks/useMutateUsers'
 import { useQueryUsers } from '../../scripts/hooks/useQueryUsers'
 import { useToast } from '../../scripts/hooks/useToast'
 import { ERROR_CODES } from '../../scripts/lib/error'
-import { URL_VALID } from '../../scripts/utils/const'
+import { UPDATE_SUCCESS_MESSAGE, URL_VALID } from '../../scripts/utils/const'
 import { ErrorMessage as MyErrorMessage } from '../atoms/ErrorMessage'
 import { Input } from '../atoms/Forms/Input'
 import { Textarea } from '../atoms/Forms/Textarea'
@@ -38,11 +38,16 @@ export const EditUser = () => {
     criteriaMode: 'all',
   })
   const { updateUserMutation } = useMutateUsers()
+  const {
+    mutate: updateUserMutate,
+    isLoading: updateUserIsLoading,
+    isSuccess: updateUserIsSuccess,
+  } = updateUserMutation
   const { data: userData, status: userStatus } = useQueryUsers({
     filter: `userId[equals]${params.id}`,
   })
-  const { loading: imageLoading, onChangedImageUrl } = useGetImageUrl()
-  const { showLoadingToast, handleCloseToast } = useToast()
+  const { onChangedImageUrl } = useGetImageUrl()
+  const { showToast } = useToast()
 
   /*
    * Submit Form Event
@@ -50,7 +55,7 @@ export const EditUser = () => {
   const onSubmit = useCallback(
     (data: UserForms) => {
       if (!isNil(userData)) {
-        updateUserMutation.mutate({
+        updateUserMutate({
           id: userData.contents[0].id,
           name: data.username,
           photoURL: loginUser.photoUrl,
@@ -200,7 +205,13 @@ export const EditUser = () => {
                 )}
               />
             </Form>
-            <PrimaryButton type="submit">Update</PrimaryButton>
+            <PrimaryButton
+              type="submit"
+              disabled={updateUserIsLoading}
+              isLoading={updateUserIsLoading}
+            >
+              Update
+            </PrimaryButton>
           </form>
         </div>
       )}
