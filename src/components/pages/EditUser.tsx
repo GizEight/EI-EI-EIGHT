@@ -27,7 +27,12 @@ export const EditUser = () => {
   const params = useParams<{ id: string }>()
   const dispatch = useAppDispatch()
   const { user: loginUser } = useAppSelector(selectUser)
-  const { register, handleSubmit } = useForm<UserForms>({
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserForms>({
     criteriaMode: 'all',
   })
   const { updateUserMutation } = useMutateUsers()
@@ -73,6 +78,9 @@ export const EditUser = () => {
     }
   }, [userData])
 
+  /*
+   * Loading for Image
+   */
   useEffect(() => {
     if (imageLoading) {
       showLoadingToast()
