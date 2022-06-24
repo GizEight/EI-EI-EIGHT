@@ -9,6 +9,7 @@ import { selectUser, setPhotoUrl } from '../../app/slices/userSlice'
 import { useGetImageUrl } from '../../scripts/hooks/useGetImageUrl'
 import { useMutateUsers } from '../../scripts/hooks/useMutateUsers'
 import { useQueryUsers } from '../../scripts/hooks/useQueryUsers'
+import { useToast } from '../../scripts/hooks/useToast'
 import { ErrorMessage } from '../atoms/ErrorMessage'
 import { Input } from '../atoms/Forms/Input'
 import { Textarea } from '../atoms/Forms/Textarea'
@@ -32,7 +33,8 @@ export const EditUser = () => {
   const { data: userData, status: userStatus } = useQueryUsers({
     filter: `userId[equals]${params.id}`,
   })
-  const { loading, onChangedImageUrl } = useGetImageUrl()
+  const { loading: imageLoading, onChangedImageUrl } = useGetImageUrl()
+  const { showLoadingToast, handleCloseToast } = useToast()
 
   /*
    * Submit Form Event
@@ -69,6 +71,14 @@ export const EditUser = () => {
       isMounted = false
     }
   }, [userData])
+
+  useEffect(() => {
+    if (imageLoading) {
+      showLoadingToast()
+    } else {
+      handleCloseToast()
+    }
+  }, [imageLoading])
 
   if (userStatus === 'loading') {
     return <Loading />
