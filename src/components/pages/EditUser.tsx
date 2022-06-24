@@ -81,15 +81,13 @@ export const EditUser = () => {
   }, [userData])
 
   /*
-   * Loading for Image
+   * 更新完了後
    */
   useEffect(() => {
-    if (imageLoading) {
-      showLoadingToast()
-    } else {
-      handleCloseToast()
+    if (updateUserIsSuccess) {
+      showToast('success', UPDATE_SUCCESS_MESSAGE)
     }
-  }, [imageLoading])
+  }, [updateUserIsSuccess])
 
   if (userStatus === 'loading') {
     return <Loading />

@@ -1,5 +1,5 @@
 import { isNil } from 'lodash'
-import { useCallback, ChangeEvent, useState } from 'react'
+import { useCallback, ChangeEvent, useState, useEffect } from 'react'
 
 import { ERROR_CODES } from '../lib/error'
 import { getImageUrl } from '../lib/firebase/storage'
@@ -11,12 +11,23 @@ export const useGetImageUrl = () => {
   /*
    * Hooks
    */
-  const { showToast } = useToast()
+  const { showLoadingToast, handleCloseToast, showToast } = useToast()
 
   /*
    * State
    */
   const [loading, setLoading] = useState(false)
+
+  /*
+   * Toast
+   */
+  useEffect(() => {
+    if (loading) {
+      showLoadingToast()
+    } else {
+      handleCloseToast()
+    }
+  }, [loading])
 
   /*
    * Store set article image url
@@ -55,5 +66,5 @@ export const useGetImageUrl = () => {
     },
     []
   )
-  return { loading, onChangedImageUrl }
+  return { onChangedImageUrl }
 }
