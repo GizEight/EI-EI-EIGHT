@@ -11,6 +11,8 @@ import { useGetImageUrl } from '../../scripts/hooks/useGetImageUrl'
 import { useMutateUsers } from '../../scripts/hooks/useMutateUsers'
 import { useQueryUsers } from '../../scripts/hooks/useQueryUsers'
 import { useToast } from '../../scripts/hooks/useToast'
+import { ERROR_CODES } from '../../scripts/lib/error'
+import { URL_VALID } from '../../scripts/utils/const'
 import { ErrorMessage as MyErrorMessage } from '../atoms/ErrorMessage'
 import { Input } from '../atoms/Forms/Input'
 import { Textarea } from '../atoms/Forms/Textarea'
@@ -129,9 +131,9 @@ export const EditUser = () => {
                 {...register('username', {
                   maxLength: {
                     value: 256,
-                    message: '256文字以内で入力してください。',
+                    message: ERROR_CODES.VALIDATE_TEXT_256.errMsg,
                   },
-                  required: '必須入力項目です。',
+                  required: ERROR_CODES.REQUIRED_TEXT.errMsg,
                 })}
                 isBg
               />
@@ -162,7 +164,13 @@ export const EditUser = () => {
               <Input
                 id="twitter-form"
                 placeholder="Twitter プロフィールURLを入力してください。"
-                {...register('twitterUrl')}
+                {...register('twitterUrl', {
+                  required: false,
+                  pattern: {
+                    value: URL_VALID,
+                    message: ERROR_CODES.VALIDATE_URL.errMsg,
+                  },
+                })}
                 isBg
               />
               <RhfErrorMessage
@@ -177,7 +185,13 @@ export const EditUser = () => {
               <Input
                 id="instagram-form"
                 placeholder="Instagram プロフィールURLを入力してください。"
-                {...register('instagramUrl')}
+                {...register('instagramUrl', {
+                  required: false,
+                  pattern: {
+                    value: URL_VALID,
+                    message: ERROR_CODES.VALIDATE_URL.errMsg,
+                  },
+                })}
                 isBg
               />
               <RhfErrorMessage

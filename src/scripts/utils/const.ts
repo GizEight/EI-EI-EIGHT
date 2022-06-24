@@ -44,3 +44,6 @@ export const CACHE_KEY_USER_DETAIL = 'user_detail'
  * URL
  */
 export const PUBLIC_URL = import.meta.env.VITE_PUBLIC_URL
+export const URL_VALID =
+  // eslint-disable-next-line no-useless-escape
+  /^(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/
