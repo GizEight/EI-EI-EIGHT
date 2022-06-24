@@ -160,6 +160,16 @@
   &-edit-user {
     background-color: va.$Main;
     min-height: 100vh;
+
+    &_contents {
+      display: flex;
+    }
+
+    &_icon {
+      & > img {
+        width: 1.5rem;
+      }
+    }
   }
 
   /*
