@@ -1,8 +1,12 @@
 import { isNil } from 'lodash'
+import { ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
 import { UserForms } from '../../@types/view'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { selectUser, setPhotoUrl } from '../../app/slices/userSlice'
+import { useGetImageUrl } from '../../scripts/hooks/useGetImageUrl'
 import { useMutateUsers } from '../../scripts/hooks/useMutateUsers'
 import { useQueryUsers } from '../../scripts/hooks/useQueryUsers'
 import { ErrorMessage } from '../atoms/ErrorMessage'
@@ -19,6 +23,8 @@ export const EditUser = () => {
    * Hooks
    */
   const params = useParams<{ id: string }>()
+  const dispatch = useAppDispatch()
+  const { user: loginUser } = useAppSelector(selectUser)
   const { register, handleSubmit } = useForm<UserForms>({
     criteriaMode: 'all',
   })
@@ -26,6 +32,7 @@ export const EditUser = () => {
   const { data: userData, status: userStatus } = useQueryUsers({
     filter: `userId[equals]${params.id}`,
   })
+  const { loading, onChangedImageUrl } = useGetImageUrl()
 
   if (userStatus === 'loading') {
     return <Loading />
@@ -33,59 +40,83 @@ export const EditUser = () => {
 
   return (
     <SectionLayout sectionName="edit-user">
-      <SectionTitle>Settings</SectionTitle>
       {isNil(userData) ? (
         <div style={{ marginTop: '30px' }}>
           <ErrorMessage>ユーザーが存在しません。</ErrorMessage>
         </div>
       ) : (
-        <form
-          className="p-section_forms"
-          onSubmit={handleSubmit((data) =>
-            updateUserMutation.mutate({
-              id: userData.contents[0].id,
-              username: data.username,
-              photoURL: '',
-              description: data.description,
-              twitterUrl: data.twitterUrl,
-              instagramUrl: data.instagramUrl,
-            })
-          )}
-        >
-          <Form id="username-form" label="お名前">
-            <Input
-              id="username-form"
-              placeholder="ユーザー名を入力してください。"
-              {...register('username', { maxLength: 256, required: true })}
-              isBg
-            />
-          </Form>
-          <Form id="description-form" label="自己紹介">
-            <Textarea
-              id="description-form"
-              placeholder="自己紹介を入力してください。"
-              {...register('description', { maxLength: 1000 })}
-              isBg
-            />
-          </Form>
-          <Form id="twitter-form" label="twitterリンク">
-            <Input
-              id="twitter-form"
-              placeholder="Twitter URLを入力してください。"
-              {...register('twitterUrl')}
-              isBg
-            />
-          </Form>
-          <Form id="instagram-form" label="instagramリンク">
-            <Input
-              id="instagram-form"
-              placeholder="ユーザー名を入力してください。"
-              {...register('instagramUrl', { maxLength: 256, required: true })}
-              isBg
-            />
-          </Form>
-          <PrimaryButton type="submit">Update</PrimaryButton>
-        </form>
+        <div className="p-section-edit-user_contents">
+          <aside className="p-section-edit-user_side">
+            <SectionTitle>Settings</SectionTitle>
+            <figure className="p-section-edit-user_icon">
+              <img src={loginUser.photoUrl} alt={userData.contents[0].name} />
+              <figcaption>
+                <label htmlFor="user-image-setting">
+                  変更
+                  <input
+                    id="user-image-setting"
+                    type="file"
+                    onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                      onChangedImageUrl(e, 'user', (url) =>
+                        dispatch(setPhotoUrl(url))
+                      )
+                    }
+                  />
+                </label>
+              </figcaption>
+            </figure>
+          </aside>
+          <form
+            className="p-section_forms"
+            onSubmit={handleSubmit((data) =>
+              updateUserMutation.mutate({
+                id: userData.contents[0].id,
+                username: data.username,
+                photoURL: loginUser.photoUrl,
+                description: data.description,
+                twitterUrl: data.twitterUrl,
+                instagramUrl: data.instagramUrl,
+              })
+            )}
+          >
+            <Form id="username-form" label="お名前">
+              <Input
+                id="username-form"
+                placeholder="ユーザー名を入力してください。"
+                {...register('username', { maxLength: 256, required: true })}
+                isBg
+              />
+            </Form>
+            <Form id="description-form" label="自己紹介">
+              <Textarea
+                id="description-form"
+                placeholder="自己紹介を入力してください。"
+                {...register('description', { maxLength: 1000 })}
+                isBg
+              />
+            </Form>
+            <Form id="twitter-form" label="twitterリンク">
+              <Input
+                id="twitter-form"
+                placeholder="Twitter プロフィールURLを入力してください。"
+                {...register('twitterUrl')}
+                isBg
+              />
+            </Form>
+            <Form id="instagram-form" label="instagramリンク">
+              <Input
+                id="instagram-form"
+                placeholder="Instagram プロフィールURLを入力してください。"
+                {...register('instagramUrl', {
+                  maxLength: 256,
+                  required: true,
+                })}
+                isBg
+              />
+            </Form>
+            <PrimaryButton type="submit">Update</PrimaryButton>
+          </form>
+        </div>
       )}
     </SectionLayout>
   )

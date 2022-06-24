@@ -34,10 +34,13 @@ export const userSlice = createSlice({
         name: '',
       }
     },
+    setPhotoUrl: (state, action: PayloadAction<string>) => {
+      state.user.photoUrl = action.payload
+    },
   },
 })
 
-export const { login, logout } = userSlice.actions
+export const { login, logout, setPhotoUrl } = userSlice.actions
 
 export const selectUser = (state: RootState) => state.user
 
