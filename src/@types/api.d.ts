@@ -107,7 +107,7 @@ export interface CreateUserResponse extends ErrorResponse {
  */
 export interface UpdateUserRequest {
   id: string
-  username: string
+  name: string
   photoURL?: string
   description?: string
   twitterUrl?: string
