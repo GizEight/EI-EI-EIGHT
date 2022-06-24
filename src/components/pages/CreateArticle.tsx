@@ -13,8 +13,8 @@ import {
   setEditContent,
   setEditTitle,
 } from '../../app/slices/articleSlice'
-import { useArticleThumbnail } from '../../scripts/hooks/useArticleThumbnail'
 import { useContentsImage } from '../../scripts/hooks/useContentsImage'
+import { useGetImageUrl } from '../../scripts/hooks/useGetImageUrl'
 import { useToast } from '../../scripts/hooks/useToast'
 import { ERROR_CODES } from '../../scripts/lib/error'
 import { Input } from '../atoms/Forms/Input'
@@ -44,8 +44,7 @@ export const CreateArticle = () => {
   })
   const { loading: contentImageLoading, getContentsImageUrl } =
     useContentsImage()
-  const { loading: thumbnailImageLoading, onChangedArticleThumbUrl } =
-    useArticleThumbnail()
+  const { loading: thumbnailImageLoading, onChangedImageUrl } = useGetImageUrl()
   const { showLoadingToast, handleCloseToast } = useToast()
 
   /*
@@ -199,7 +198,9 @@ export const CreateArticle = () => {
             <ImageInput
               id="articleThumb"
               icon={['far', 'images']}
-              onChange={onChangedArticleThumbUrl}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                onChangedImageUrl(e, 'article')
+              }
             />
             <div className="c-icon-btn-double">
               <IconButton

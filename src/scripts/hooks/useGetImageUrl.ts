@@ -9,7 +9,7 @@ import { getUniqueChar } from '../utils/text'
 import { processErrorHandlerIfNeeded } from '../utils/view'
 import { useToast } from './useToast'
 
-export const useArticleThumbnail = () => {
+export const useGetImageUrl = () => {
   /*
    * Hooks
    */
@@ -24,8 +24,8 @@ export const useArticleThumbnail = () => {
   /*
    * Store set article image url
    */
-  const onChangedArticleThumbUrl = useCallback(
-    async (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangedImageUrl = useCallback(
+    async (e: ChangeEvent<HTMLInputElement>, dirName: string) => {
       setLoading(true)
       try {
         const target = e.target.files
@@ -37,7 +37,7 @@ export const useArticleThumbnail = () => {
         const randomChar = getUniqueChar()
         const fileName = `${randomChar}_${target[0].name}`
         const res = await getImageUrl({
-          dirName: 'article',
+          dirName,
           fileName,
           imageFile: target[0],
         })
@@ -54,5 +54,5 @@ export const useArticleThumbnail = () => {
     },
     []
   )
-  return { loading, onChangedArticleThumbUrl }
+  return { loading, onChangedImageUrl }
 }
