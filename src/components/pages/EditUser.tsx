@@ -1,4 +1,5 @@
-import { isNil } from 'lodash'
+import { ErrorMessage as RhfErrorMessage } from '@hookform/error-message'
+import { isEmpty, isNil } from 'lodash'
 import { ChangeEvent, useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
@@ -10,7 +11,7 @@ import { useGetImageUrl } from '../../scripts/hooks/useGetImageUrl'
 import { useMutateUsers } from '../../scripts/hooks/useMutateUsers'
 import { useQueryUsers } from '../../scripts/hooks/useQueryUsers'
 import { useToast } from '../../scripts/hooks/useToast'
-import { ErrorMessage } from '../atoms/ErrorMessage'
+import { ErrorMessage as MyErrorMessage } from '../atoms/ErrorMessage'
 import { Input } from '../atoms/Forms/Input'
 import { Textarea } from '../atoms/Forms/Textarea'
 import { Loading } from '../atoms/Loading'
@@ -86,9 +87,9 @@ export const EditUser = () => {
 
   return (
     <SectionLayout sectionName="edit-user">
-      {isNil(userData) ? (
+      {isNil(userData) || isEmpty(userData.contents) ? (
         <div style={{ marginTop: '30px' }}>
-          <ErrorMessage>ユーザーが存在しません。</ErrorMessage>
+          <MyErrorMessage>ユーザーが存在しません。</MyErrorMessage>
         </div>
       ) : (
         <div className="p-section-edit-user_contents">
@@ -117,8 +118,21 @@ export const EditUser = () => {
               <Input
                 id="username-form"
                 placeholder="ユーザー名を入力してください。"
-                {...register('username', { maxLength: 256, required: true })}
+                {...register('username', {
+                  maxLength: {
+                    value: 256,
+                    message: '256文字以内で入力してください。',
+                  },
+                  required: '必須入力項目です。',
+                })}
                 isBg
+              />
+              <RhfErrorMessage
+                name="username"
+                errors={errors}
+                render={({ message }) => (
+                  <MyErrorMessage>{message}</MyErrorMessage>
+                )}
               />
             </Form>
             <Form id="description-form" label="自己紹介">
@@ -128,6 +142,13 @@ export const EditUser = () => {
                 {...register('description', { maxLength: 1000 })}
                 isBg
               />
+              <RhfErrorMessage
+                name="description"
+                errors={errors}
+                render={({ message }) => (
+                  <MyErrorMessage>{message}</MyErrorMessage>
+                )}
+              />
             </Form>
             <Form id="twitter-form" label="twitterリンク">
               <Input
@@ -136,16 +157,27 @@ export const EditUser = () => {
                 {...register('twitterUrl')}
                 isBg
               />
+              <RhfErrorMessage
+                name="twitterUrl"
+                errors={errors}
+                render={({ message }) => (
+                  <MyErrorMessage>{message}</MyErrorMessage>
+                )}
+              />
             </Form>
             <Form id="instagram-form" label="instagramリンク">
               <Input
                 id="instagram-form"
                 placeholder="Instagram プロフィールURLを入力してください。"
-                {...register('instagramUrl', {
-                  maxLength: 256,
-                  required: true,
-                })}
+                {...register('instagramUrl')}
                 isBg
+              />
+              <RhfErrorMessage
+                name="instagramUrl"
+                errors={errors}
+                render={({ message }) => (
+                  <MyErrorMessage>{message}</MyErrorMessage>
+                )}
               />
             </Form>
             <PrimaryButton type="submit">Update</PrimaryButton>
