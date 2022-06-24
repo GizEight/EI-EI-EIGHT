@@ -14,9 +14,7 @@ import {
   setEditTitle,
   setThumbUrl,
 } from '../../app/slices/articleSlice'
-import { useContentsImage } from '../../scripts/hooks/useContentsImage'
 import { useGetImageUrl } from '../../scripts/hooks/useGetImageUrl'
-import { useToast } from '../../scripts/hooks/useToast'
 import { ERROR_CODES } from '../../scripts/lib/error'
 import { Input } from '../atoms/Forms/Input'
 import { Textarea } from '../atoms/Forms/Textarea'
@@ -43,10 +41,7 @@ export const CreateArticle = () => {
   } = useForm<ArticleForms>({
     criteriaMode: 'all',
   })
-  const { loading: contentImageLoading, getContentsImageUrl } =
-    useContentsImage()
-  const { loading: thumbnailImageLoading, onChangedImageUrl } = useGetImageUrl()
-  const { showLoadingToast, handleCloseToast } = useToast()
+  const { onChangedImageUrl } = useGetImageUrl()
 
   /*
    * State
@@ -90,7 +85,7 @@ export const CreateArticle = () => {
    * GET contents image url
    */
   const onChangedContentImage = (e: ChangeEvent<HTMLInputElement>) => {
-    getContentsImageUrl(e).then((url) => {
+    onChangedImageUrl(e, 'content', (url) => {
       if (isEmpty(url)) {
         return
       }
@@ -155,14 +150,6 @@ export const CreateArticle = () => {
       dispatch(setIsValid(false))
     }
   }, [])
-
-  useEffect(() => {
-    if (contentImageLoading || thumbnailImageLoading) {
-      showLoadingToast()
-    } else {
-      handleCloseToast()
-    }
-  }, [contentImageLoading, thumbnailImageLoading])
 
   return (
     <SectionLayout sectionName="create-article">

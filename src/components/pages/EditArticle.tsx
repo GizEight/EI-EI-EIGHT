@@ -16,10 +16,8 @@ import {
   setEditTitle,
   setThumbUrl,
 } from '../../app/slices/articleSlice'
-import { useContentsImage } from '../../scripts/hooks/useContentsImage'
 import { useGetImageUrl } from '../../scripts/hooks/useGetImageUrl'
 import { useQueryArticles } from '../../scripts/hooks/useQueryArticles'
-import { useToast } from '../../scripts/hooks/useToast'
 import { ERROR_CODES } from '../../scripts/lib/error'
 import { ErrorMessage } from '../atoms/ErrorMessage'
 import { Input } from '../atoms/Forms/Input'
@@ -61,10 +59,7 @@ export const EditArticle = () => {
   } = useForm<ArticleForms>({
     criteriaMode: 'all',
   })
-  const { loading: contentImageLoading, getContentsImageUrl } =
-    useContentsImage()
-  const { loading: thumbnailImageLoading, onChangedImageUrl } = useGetImageUrl()
-  const { showLoadingToast, handleCloseToast } = useToast()
+  const { onChangedImageUrl } = useGetImageUrl()
 
   /*
    * State
@@ -108,7 +103,7 @@ export const EditArticle = () => {
    * GET contents image url
    */
   const onChangedContentImage = (e: ChangeEvent<HTMLInputElement>) => {
-    getContentsImageUrl(e).then((url) => {
+    onChangedImageUrl(e, 'content', (url) => {
       if (isEmpty(url)) {
         return
       }
@@ -139,7 +134,7 @@ export const EditArticle = () => {
   }, [articleData])
 
   /*
-   * Toggle Edit
+   ? Headerの状態を変えたい
    */
   useEffect(() => {
     dispatch(toggleEdit(true))
@@ -195,17 +190,6 @@ export const EditArticle = () => {
       dispatch(setIsValid(false))
     }
   }, [])
-
-  /*
-   * Loading
-   */
-  useEffect(() => {
-    if (contentImageLoading || thumbnailImageLoading) {
-      showLoadingToast()
-    } else {
-      handleCloseToast()
-    }
-  }, [contentImageLoading, thumbnailImageLoading])
 
   return (
     <SectionLayout sectionName="create-article">
