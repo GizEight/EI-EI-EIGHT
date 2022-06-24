@@ -4,7 +4,7 @@ import { isNil, isEmpty, size } from 'lodash'
 import { useEffect, useState, useCallback, ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { Forms } from '../../@types/view'
+import { ArticleForms } from '../../@types/view'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import {
   selectArticle,
@@ -12,10 +12,9 @@ import {
   setIsValid,
   setEditContent,
   setEditTitle,
+  setThumbUrl,
 } from '../../app/slices/articleSlice'
-import { useArticleThumbnail } from '../../scripts/hooks/useArticleThumbnail'
-import { useContentsImage } from '../../scripts/hooks/useContentsImage'
-import { useToast } from '../../scripts/hooks/useToast'
+import { useGetImageUrl } from '../../scripts/hooks/useGetImageUrl'
 import { ERROR_CODES } from '../../scripts/lib/error'
 import { Input } from '../atoms/Forms/Input'
 import { Textarea } from '../atoms/Forms/Textarea'
@@ -39,14 +38,10 @@ export const CreateArticle = () => {
     setError,
     clearErrors,
     formState: { errors },
-  } = useForm<Forms>({
+  } = useForm<ArticleForms>({
     criteriaMode: 'all',
   })
-  const { loading: contentImageLoading, getContentsImageUrl } =
-    useContentsImage()
-  const { loading: thumbnailImageLoading, onChangedArticleThumbUrl } =
-    useArticleThumbnail()
-  const { showLoadingToast, handleCloseToast } = useToast()
+  const { onChangedImageUrl } = useGetImageUrl()
 
   /*
    * State
@@ -90,7 +85,7 @@ export const CreateArticle = () => {
    * GET contents image url
    */
   const onChangedContentImage = (e: ChangeEvent<HTMLInputElement>) => {
-    getContentsImageUrl(e).then((url) => {
+    onChangedImageUrl(e, 'content', (url) => {
       if (isEmpty(url)) {
         return
       }
@@ -156,14 +151,6 @@ export const CreateArticle = () => {
     }
   }, [])
 
-  useEffect(() => {
-    if (contentImageLoading || thumbnailImageLoading) {
-      showLoadingToast()
-    } else {
-      handleCloseToast()
-    }
-  }, [contentImageLoading, thumbnailImageLoading])
-
   return (
     <SectionLayout sectionName="create-article">
       <div className="p-section_forms">
@@ -173,6 +160,7 @@ export const CreateArticle = () => {
             placeholder="Title..."
             {...register('title', { maxLength: 256, required: true })}
             onBlur={validateTitle}
+            isBg={false}
           />
         </Form>
         <div className="p-section_forms_contents">
@@ -187,6 +175,7 @@ export const CreateArticle = () => {
                 placeholder="write in Markdown..."
                 {...register('content', { required: true })}
                 onBlur={validateContent}
+                isBg={false}
               />
             </Form>
           )}
@@ -197,7 +186,11 @@ export const CreateArticle = () => {
             <ImageInput
               id="articleThumb"
               icon={['far', 'images']}
-              onChange={onChangedArticleThumbUrl}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                onChangedImageUrl(e, 'article', (url) =>
+                  dispatch(setThumbUrl(url))
+                )
+              }
             />
             <div className="c-icon-btn-double">
               <IconButton

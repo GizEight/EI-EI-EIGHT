@@ -105,8 +105,13 @@ export interface CreateUserResponse extends ErrorResponse {
 /*
  * ユーザー更新
  */
-export interface UpdateUserRequest extends Partial<CreateUserRequest> {
+export interface UpdateUserRequest {
   id: string
+  name: string
+  photoURL?: string
+  description?: string
+  twitterUrl?: string
+  instagramUrl?: string
 }
 export interface UpdateUserResponse extends ErrorResponse {
   id: string

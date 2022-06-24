@@ -75,12 +75,12 @@ export const useMutateUsers = () => {
             publishedAt: res.publishedAt,
             revisedAt: res.revisedAt,
           }
-          queryClient.setQueryData(
-            CACHE_KEY_USER,
-            map(previousUsers.contents, (user) =>
+          queryClient.setQueryData(CACHE_KEY_USER, {
+            ...previousUsers,
+            contents: map(previousUsers.contents, (user) =>
               user.id === res.id ? updatedUser : user
-            )
-          )
+            ),
+          })
         })
       }
     },

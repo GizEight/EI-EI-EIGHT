@@ -24,10 +24,18 @@ export const ERROR_CODES = {
   },
 
   /*
+   * バリデーション: URL
+   */
+  VALIDATE_URL: {
+    errCode: 3001,
+    errMsg: '正しい形式で入力してください。',
+  },
+
+  /*
    * バリデーション: Image
    */
   VALIDATE_IMAGE: {
-    errCode: 3001,
+    errCode: 3002,
     errMsg: '画像のURLが取得できませんでした。再度お試しください。',
   },
 

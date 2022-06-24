@@ -23,6 +23,7 @@ export const X_MICROCMS_API_KEY = import.meta.env.VITE_X_MICROCMS_API_KEY
  */
 export const LOGIN_SUCCESS_MESSAGE = 'Login Success!'
 export const POST_SUCCESS_MESSAGE = 'Post Success!'
+export const UPDATE_SUCCESS_MESSAGE = 'Update Success!'
 export const APP_TITLE = 'EI-EI-EIGHT'
 
 /*
@@ -44,3 +45,6 @@ export const CACHE_KEY_USER_DETAIL = 'user_detail'
  * URL
  */
 export const PUBLIC_URL = import.meta.env.VITE_PUBLIC_URL
+export const URL_VALID =
+  // eslint-disable-next-line no-useless-escape
+  /^(https?|ftp)(:\/\/[-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]+)$/

@@ -1,8 +1,15 @@
 export type ToastType = 'success' | 'warning' | 'error' | 'info'
 
-export type Forms = {
+export type ArticleForms = {
   title: string
   content: string
+}
+
+export type UserForms = {
+  username: string
+  description: string
+  twitterUrl: string
+  instagramUrl: string
 }
 
 export type ArticleCard = {

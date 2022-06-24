@@ -164,9 +164,24 @@
     &_user {
       display: flex;
       gap: 0.4rem;
-    
+
       & > img {
         border-radius: 50%;
+        width: 1.5rem;
+      }
+    }
+  }
+
+  &-edit-user {
+    background-color: va.$Main;
+    min-height: 100vh;
+
+    &_contents {
+      display: flex;
+    }
+
+    &_icon {
+      & > img {
         width: 1.5rem;
       }
     }

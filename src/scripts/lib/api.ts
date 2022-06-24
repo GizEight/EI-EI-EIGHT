@@ -234,7 +234,7 @@ export const updateUser = async (
 ): Promise<UpdateUserResponse> => {
   const requestParams: Omit<UpdateUserRequest, 'id'> = omit(params, 'id')
   try {
-    const res = await apiInstance.post<ExceptingGetMicroCmsResponse>(
+    const res = await apiInstance.patch<ExceptingGetMicroCmsResponse>(
       `users/${params.id}`,
       requestParams
     )

@@ -1,9 +1,22 @@
-import { memo, forwardRef } from 'react'
+import clsx from 'clsx'
+import PropTypes from 'prop-types'
+import { forwardRef } from 'react'
 
-type InputProps = JSX.IntrinsicElements['input']
+type Props = JSX.IntrinsicElements['input'] & {
+  isBg: boolean
+}
 
-export const Input = memo(
-  forwardRef<HTMLInputElement, InputProps>((props, ref) => (
-    <input type="text" className="c-form-form_input" ref={ref} {...props} />
-  ))
+export const Input = forwardRef<HTMLInputElement, Props>(
+  ({ isBg, ...props }, ref) => (
+    <input
+      type="text"
+      {...props}
+      className={clsx('c-form-form_input', isBg && 'c-form-form-isBg')}
+      ref={ref}
+    />
+  )
 )
+
+Input.propTypes = {
+  isBg: PropTypes.bool.isRequired,
+}

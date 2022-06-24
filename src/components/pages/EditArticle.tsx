@@ -5,7 +5,7 @@ import { useEffect, useState, useCallback, ChangeEvent } from 'react'
 import { useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
 
-import { Forms } from '../../@types/view'
+import { ArticleForms } from '../../@types/view'
 import { useAppDispatch, useAppSelector } from '../../app/hooks'
 import {
   selectArticle,
@@ -14,11 +14,10 @@ import {
   setEditArticle,
   setEditContent,
   setEditTitle,
+  setThumbUrl,
 } from '../../app/slices/articleSlice'
-import { useArticleThumbnail } from '../../scripts/hooks/useArticleThumbnail'
-import { useContentsImage } from '../../scripts/hooks/useContentsImage'
+import { useGetImageUrl } from '../../scripts/hooks/useGetImageUrl'
 import { useQueryArticles } from '../../scripts/hooks/useQueryArticles'
-import { useToast } from '../../scripts/hooks/useToast'
 import { ERROR_CODES } from '../../scripts/lib/error'
 import { ErrorMessage } from '../atoms/ErrorMessage'
 import { Input } from '../atoms/Forms/Input'
@@ -40,6 +39,7 @@ export const EditArticle = () => {
     isLoading,
     isError,
   } = useQueryArticles({
+    page: 0,
     filter: `id[equals]${params.id}`,
   })
 
@@ -56,14 +56,10 @@ export const EditArticle = () => {
     setError,
     clearErrors,
     formState: { errors },
-  } = useForm<Forms>({
+  } = useForm<ArticleForms>({
     criteriaMode: 'all',
   })
-  const { loading: contentImageLoading, getContentsImageUrl } =
-    useContentsImage()
-  const { loading: thumbnailImageLoading, onChangedArticleThumbUrl } =
-    useArticleThumbnail()
-  const { showLoadingToast, handleCloseToast } = useToast()
+  const { onChangedImageUrl } = useGetImageUrl()
 
   /*
    * State
@@ -107,7 +103,7 @@ export const EditArticle = () => {
    * GET contents image url
    */
   const onChangedContentImage = (e: ChangeEvent<HTMLInputElement>) => {
-    getContentsImageUrl(e).then((url) => {
+    onChangedImageUrl(e, 'content', (url) => {
       if (isEmpty(url)) {
         return
       }
@@ -120,7 +116,7 @@ export const EditArticle = () => {
    */
   useEffect(() => {
     let isMounted = true
-    if (isMounted && !isNil(articleData)) {
+    if (isMounted && !isNil(articleData) && !isEmpty(articleData.contents)) {
       dispatch(
         setEditArticle({
           id: articleData.contents[0].id,
@@ -138,7 +134,7 @@ export const EditArticle = () => {
   }, [articleData])
 
   /*
-   * Toggle Edit
+   ? Headerの状態を変えたい
    */
   useEffect(() => {
     dispatch(toggleEdit(true))
@@ -195,80 +191,85 @@ export const EditArticle = () => {
     }
   }, [])
 
-  /*
-   * Loading
-   */
-  useEffect(() => {
-    if (contentImageLoading || thumbnailImageLoading) {
-      showLoadingToast()
-    } else {
-      handleCloseToast()
-    }
-  }, [contentImageLoading, thumbnailImageLoading])
-
   return (
     <SectionLayout sectionName="create-article">
       {isLoading && <Loading />}
       {!isLoading && isError && (
         <ErrorMessage>{ERROR_CODES.INTERNAL_SERVER_ERROR.errMsg}</ErrorMessage>
       )}
-      {!isLoading && !isError && (
-        <div className="p-section_forms">
-          <Form errorMsg={errors.title?.message || ''}>
-            <Input
-              value={article.form.title}
-              placeholder="Title..."
-              {...register('title', { maxLength: 256, required: true })}
-              onBlur={validateTitle}
-            />
-          </Form>
-          <div className="p-section_forms_contents">
-            {showMarkDown ? (
-              <div className="c-form-form_textarea preview">
-                <PreviewMarkdown markdown={watch('content')} />
-              </div>
-            ) : (
-              <Form errorMsg={errors.content?.message || ''}>
-                <Textarea
-                  value={article.form.content}
-                  placeholder="write in Markdown..."
-                  {...register('content', { required: true })}
-                  onBlur={validateContent}
-                />
-              </Form>
-            )}
-            <div className="p-section_forms-buttons">
-              {!isEmpty(article.thumbUrl) && (
-                <img src={article.thumbUrl} alt={article.form.title} />
+      {!isNil(articleData) &&
+        articleData.errCode !== ERROR_CODES.NORMAL_NOOP.errCode && (
+          <ErrorMessage>{articleData.errMsg}</ErrorMessage>
+        )}
+      {!isLoading &&
+        !isError &&
+        !isNil(articleData) &&
+        articleData.errCode === ERROR_CODES.NORMAL_NOOP.errCode && (
+          <div className="p-section_forms">
+            <Form errorMsg={errors.title?.message || ''}>
+              <Input
+                value={article.form.title}
+                placeholder="Title..."
+                {...register('title', { maxLength: 256, required: true })}
+                onBlur={validateTitle}
+                isBg={false}
+              />
+            </Form>
+            <div className="p-section_forms_contents">
+              {showMarkDown ? (
+                <div className="c-form-form_textarea preview">
+                  <PreviewMarkdown markdown={watch('content')} />
+                </div>
+              ) : (
+                <Form errorMsg={errors.content?.message || ''}>
+                  <Textarea
+                    value={article.form.content}
+                    placeholder="write in Markdown..."
+                    {...register('content', { required: true })}
+                    onBlur={validateContent}
+                    isBg={false}
+                  />
+                </Form>
               )}
-              <ImageInput
-                id="articleThumb"
-                icon={['far', 'images']}
-                onChange={onChangedArticleThumbUrl}
-              />
-              <div className="c-icon-btn-double">
-                <IconButton
-                  className={clsx(!showMarkDown && 'is-bg')}
-                  onClick={() => setShowMarkDown(false)}
-                >
-                  <FontAwesomeIcon icon={['fas', 'pen-to-square']} size="lg" />
-                </IconButton>
-                <IconButton
-                  className={clsx(showMarkDown && 'is-bg')}
-                  onClick={() => setShowMarkDown(true)}
-                >
-                  <FontAwesomeIcon icon={['fas', 'caret-right']} size="lg" />
-                </IconButton>
+              <div className="p-section_forms-buttons">
+                {!isEmpty(article.thumbUrl) && (
+                  <img src={article.thumbUrl} alt={article.form.title} />
+                )}
+                <ImageInput
+                  id="articleThumb"
+                  icon={['far', 'images']}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    onChangedImageUrl(e, 'article', (url) =>
+                      dispatch(setThumbUrl(url))
+                    )
+                  }
+                />
+                <div className="c-icon-btn-double">
+                  <IconButton
+                    className={clsx(!showMarkDown && 'is-bg')}
+                    onClick={() => setShowMarkDown(false)}
+                  >
+                    <FontAwesomeIcon
+                      icon={['fas', 'pen-to-square']}
+                      size="lg"
+                    />
+                  </IconButton>
+                  <IconButton
+                    className={clsx(showMarkDown && 'is-bg')}
+                    onClick={() => setShowMarkDown(true)}
+                  >
+                    <FontAwesomeIcon icon={['fas', 'caret-right']} size="lg" />
+                  </IconButton>
+                </div>
+                <ImageInput
+                  id="contentImage"
+                  icon={['fas', 'image']}
+                  onChange={onChangedContentImage}
+                />
               </div>
-              <ImageInput
-                id="contentImage"
-                icon={['fas', 'image']}
-                onChange={onChangedContentImage}
-              />
             </div>
           </div>
-        </div>
-      )}
+        )}
     </SectionLayout>
   )
 }
