@@ -155,6 +155,21 @@
 
   &-user-detail {
     background-color: va.$Base;
+
+    &_inner {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &_user {
+      display: flex;
+      gap: 0.4rem;
+    
+      & > img {
+        border-radius: 50%;
+        width: 1.5rem;
+      }
+    }
   }
 
   &-edit-user {
