@@ -1,8 +1,6 @@
 import { isNil } from 'lodash'
 import { useCallback, ChangeEvent, useState } from 'react'
 
-import { useAppDispatch } from '../../app/hooks'
-import { setThumbUrl } from '../../app/slices/articleSlice'
 import { ERROR_CODES } from '../lib/error'
 import { getImageUrl } from '../lib/firebase/storage'
 import { getUniqueChar } from '../utils/text'
@@ -13,7 +11,6 @@ export const useGetImageUrl = () => {
   /*
    * Hooks
    */
-  const dispatch = useAppDispatch()
   const { showToast } = useToast()
 
   /*
@@ -25,7 +22,11 @@ export const useGetImageUrl = () => {
    * Store set article image url
    */
   const onChangedImageUrl = useCallback(
-    async (e: ChangeEvent<HTMLInputElement>, dirName: string) => {
+    async (
+      e: ChangeEvent<HTMLInputElement>,
+      dirName: string,
+      cb: (url: string) => void
+    ) => {
       setLoading(true)
       try {
         const target = e.target.files
@@ -47,7 +48,7 @@ export const useGetImageUrl = () => {
           )
         )
           return
-        dispatch(setThumbUrl(res.url))
+        cb(res.url)
       } finally {
         setLoading(false)
       }

@@ -14,6 +14,7 @@ import {
   setEditArticle,
   setEditContent,
   setEditTitle,
+  setThumbUrl,
 } from '../../app/slices/articleSlice'
 import { useContentsImage } from '../../scripts/hooks/useContentsImage'
 import { useGetImageUrl } from '../../scripts/hooks/useGetImageUrl'
@@ -254,7 +255,9 @@ export const EditArticle = () => {
                   id="articleThumb"
                   icon={['far', 'images']}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    onChangedImageUrl(e, 'article')
+                    onChangedImageUrl(e, 'article', (url) =>
+                      dispatch(setThumbUrl(url))
+                    )
                   }
                 />
                 <div className="c-icon-btn-double">
