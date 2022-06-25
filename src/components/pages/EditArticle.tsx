@@ -67,7 +67,7 @@ export const EditArticle = () => {
   const [showMarkDown, setShowMarkDown] = useState(false)
 
   /*
-   * Validation Title
+   * タイトル
    */
   const validateTitle = useCallback(() => {
     if (size(getValues('title')) > 256) {
@@ -86,7 +86,7 @@ export const EditArticle = () => {
   }, [])
 
   /*
-   * Validation Content
+   * 本文
    */
   const validateContent = useCallback(() => {
     if (isEmpty(getValues('content'))) {
@@ -100,19 +100,22 @@ export const EditArticle = () => {
   }, [])
 
   /*
-   * GET contents image url
+   * イメージを保存->保存先URL取得
    */
-  const onChangedContentImage = (e: ChangeEvent<HTMLInputElement>) => {
-    onChangedImageUrl(e, 'content', (url) => {
-      if (isEmpty(url)) {
-        return
-      }
-      setValue('content', `${getValues('content')}\n![Image](${url}\n)`)
-    })
-  }
+  const onChangedContentImage = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      onChangedImageUrl(e, 'content', (url) => {
+        if (isEmpty(url)) {
+          return
+        }
+        setValue('content', `${getValues('content')}\n![Image](${url}\n)`)
+      })
+    },
+    []
+  )
 
   /*
-   * Set Edit Article
+   ? 初期表示でフォームに反映させるため
    */
   useEffect(() => {
     let isMounted = true
@@ -144,7 +147,7 @@ export const EditArticle = () => {
   }, [])
 
   /*
-   * Store set form values
+   ? post時にstoreから参照するため
    */
   useEffect(() => {
     const subscription = watch((value, { name }) => {
@@ -176,7 +179,7 @@ export const EditArticle = () => {
   }, [watch])
 
   /*
-   * Init Page validate
+   ? 初期表示
    */
   useEffect(() => {
     if (

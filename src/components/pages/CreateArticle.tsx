@@ -49,7 +49,7 @@ export const CreateArticle = () => {
   const [showMarkDown, setShowMarkDown] = useState(false)
 
   /*
-   * Validation Title
+   * タイトル
    */
   const validateTitle = useCallback(() => {
     if (size(getValues('title')) > 256) {
@@ -68,7 +68,7 @@ export const CreateArticle = () => {
   }, [])
 
   /*
-   * Validation Content
+   * 本文
    */
   const validateContent = useCallback(() => {
     if (isEmpty(getValues('content'))) {
@@ -82,7 +82,7 @@ export const CreateArticle = () => {
   }, [])
 
   /*
-   * GET contents image url
+   * イメージを保存->保存先URL取得
    */
   const onChangedContentImage = (e: ChangeEvent<HTMLInputElement>) => {
     onChangedImageUrl(e, 'content', (url) => {
@@ -94,7 +94,7 @@ export const CreateArticle = () => {
   }
 
   /*
-   * Toggle Edit
+   ? Headerの状態を変えたい
    */
   useEffect(() => {
     dispatch(toggleEdit(true))
@@ -104,7 +104,7 @@ export const CreateArticle = () => {
   }, [])
 
   /*
-   * Store set form values
+   ? POST時にstoreの値を参照したい
    */
   useEffect(() => {
     const subscription = watch((value, { name }) => {
@@ -136,7 +136,7 @@ export const CreateArticle = () => {
   }, [watch])
 
   /*
-   * Init Page validate
+   * 初期表示
    */
   useEffect(() => {
     if (

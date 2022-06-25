@@ -49,9 +49,6 @@ export const EditUser = () => {
   const { onChangedImageUrl } = useGetImageUrl()
   const { showToast } = useToast()
 
-  /*
-   * Submit Form Event
-   */
   const onSubmit = useCallback(
     (data: UserForms) => {
       if (!isNil(userData)) {
@@ -69,7 +66,7 @@ export const EditUser = () => {
   )
 
   /*
-   * 取得データからフォームに反映
+   * 初期表示フォームに反映
    */
   useEffect(() => {
     let isMounted = true
