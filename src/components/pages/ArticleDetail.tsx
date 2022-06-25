@@ -39,7 +39,7 @@ export const ArticleDetail = () => {
   const [userData, setUserData] = useState<GetUsersResponse>()
 
   /*
-   * Get User Data
+   ? 著者を取得するため
    */
   useEffect(() => {
     let isMounted = true
