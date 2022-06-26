@@ -76,12 +76,24 @@ export const UserDetail: FC = () => {
                   <p>{userData.contents[0].description}</p>
                 )}
                 <div>
-                  <FontAwesomeIcon icon={['fab', 'twitter']} />
-                  {/* {!isEmpty(userData.contents[0].twitterUrl) && (
-                    )} */}
-                  <FontAwesomeIcon icon={['fab', 'instagram']} />
-                  {/* {!isEmpty(userData.contents[0].instagramUrl) && (
-                    )} */}
+                  {!isEmpty(userData.contents[0].twitterUrl) && (
+                    <a
+                      href={userData.contents[0].twitterUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <FontAwesomeIcon icon={['fab', 'twitter']} />
+                    </a>
+                  )}
+                  {!isEmpty(userData.contents[0].instagramUrl) && (
+                    <a
+                      href={userData.contents[0].instagramUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <FontAwesomeIcon icon={['fab', 'instagram']} />
+                    </a>
+                  )}
                 </div>
               </figcaption>
             </figure>
