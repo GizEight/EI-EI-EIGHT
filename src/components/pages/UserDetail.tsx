@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { isEmpty, isNil, map } from 'lodash'
+import { isEmpty, isEqual, isNil, map } from 'lodash'
 import { FC, useEffect, useState } from 'react'
 import Tilt from 'react-parallax-tilt'
 import { useParams } from 'react-router-dom'
@@ -30,7 +30,7 @@ export const UserDetail: FC = () => {
    * Hooks
    */
   const params = useParams<{ id: string }>()
-  const { user } = useAppSelector(selectUser)
+  const { user: loginUser } = useAppSelector(selectUser)
   const { data: userData, status: userStatus } = useQueryUsers({
     filter: `userId[equals]${params.id}`,
   })
@@ -98,12 +98,12 @@ export const UserDetail: FC = () => {
               </figcaption>
             </figure>
             <div>
-              {isEmpty(user.userId) ? (
-                <PrimaryButton>Follow</PrimaryButton>
-              ) : (
+              {isEqual(loginUser.userId, userData.contents[0].userId) ? (
                 <RouterLink to={`/user/${params.id}/edit`} isBtn>
                   Edit
                 </RouterLink>
+              ) : (
+                <PrimaryButton>Follow</PrimaryButton>
               )}
             </div>
           </div>
