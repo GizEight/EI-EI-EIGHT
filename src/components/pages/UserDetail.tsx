@@ -58,7 +58,7 @@ export const UserDetail: FC = () => {
 
   return (
     <>
-      {isNil(userData) ? (
+      {isNil(userData) || isEmpty(userData.contents) ? (
         <div style={{ marginTop: '30px' }}>
           <ErrorMessage>User is not defined...</ErrorMessage>
         </div>

@@ -151,7 +151,7 @@ export const ArticleDetail = () => {
                   </dl>
                   <div className="p-section-article-detail_side follow u-glass">
                     <div>
-                      <Link to={`/user/${userData.contents[0].id}`}>
+                      <Link to={`/user/${userData.contents[0].userId}`}>
                         <img
                           src={userData.contents[0].photoURL}
                           alt={userData.contents[0].name}
