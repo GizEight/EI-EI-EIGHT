@@ -70,12 +70,12 @@ export const UserDetail: FC = () => {
                 src={userData.contents[0].photoURL}
                 alt={userData.contents[0].name}
               />
-              <figcaption>
+              <figcaption className='p-section-user-detail_user-desc'>
                 <h2>{userData.contents[0].name}</h2>
                 {!isEmpty(userData.contents[0].description) && (
                   <p>{userData.contents[0].description}</p>
                 )}
-                <div>
+                <div className='p-section-user-detail_user-desc_sns'>
                   {!isEmpty(userData.contents[0].twitterUrl) && (
                     <a
                       href={userData.contents[0].twitterUrl}
