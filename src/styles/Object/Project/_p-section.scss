@@ -159,6 +159,7 @@
     &_inner {
       display: flex;
       justify-content: space-between;
+      padding: .4rem 0;
     }
 
     &_user {
@@ -167,7 +168,21 @@
 
       & > img {
         border-radius: 50%;
-        width: 1.5rem;
+        width: 1rem;
+        height: 1rem;
+      }
+
+      &-desc {
+        & > p {
+          margin-top: .08rem;
+          width: 3.5rem;
+        }
+
+        &_sns {
+          padding-top: .08rem;
+          display: flex;
+          gap: .08rem;
+        }
       }
     }
   }
