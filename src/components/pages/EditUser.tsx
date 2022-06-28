@@ -107,7 +107,7 @@ export const EditUser = () => {
             <SectionTitle>Settings</SectionTitle>
             <figure className="p-section-edit-user_icon">
               <img src={loginUser.photoUrl} alt={userData.contents[0].name} />
-              <figcaption>
+              <figcaption className="p-section-edit-user_caption">
                 <label htmlFor="user-image-setting">
                   変更
                   <input
