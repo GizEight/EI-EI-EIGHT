@@ -123,7 +123,10 @@ export const EditUser = () => {
               </figcaption>
             </figure>
           </aside>
-          <form className="p-section_forms" onSubmit={handleSubmit(onSubmit)}>
+          <form
+            className="p-section_forms-user"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <Form id="username-form" label="お名前">
               <Input
                 id="username-form"

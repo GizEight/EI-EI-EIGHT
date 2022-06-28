@@ -195,6 +195,12 @@
       display: flex;
     }
 
+    &_side {
+      & > h2 {
+        margin-top: 0 !important;
+      }
+    }
+
     &_icon {
       margin-top: 0.5rem;
       text-align: center;
@@ -246,6 +252,14 @@
     justify-content: center;
     flex-direction: column;
     max-width: 8rem;
+
+    &-user {
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
 
     &_contents {
       display: flex;
