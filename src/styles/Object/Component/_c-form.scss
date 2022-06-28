@@ -28,10 +28,9 @@
 
 .c-form {
   @extend .flex-column;
-
-  &.search-label {
-    position: relative;
-    transition: 0.2s;
+  &_label {
+    font-size: 0.16rem !important;
+    margin-bottom: 0.2rem;
   }
 
   & > label {
@@ -40,6 +39,9 @@
 
   & > input {
     @extend .base-form-style;
+    &:focus {
+      box-shadow: none !important;
+    }
   }
 
   & > textarea {
@@ -47,23 +49,31 @@
     resize: none;
   }
 
+  &.search-label {
+    position: relative;
+    transition: 0.2s;
+  }
+
   &-hidden {
     visibility: hidden;
   }
 
   &-form {
+    // 緑背景付きinput
     &-isBg {
+      border-radius: 0.45rem;
+      border: 1px solid va.$Horizon;
       background-color: va.$FormBackground !important;
-    }
+      padding: 0.15rem 0.1rem;
+      color: va.$Base;
 
-    &_input {
-      font-size: 32px;
-      padding: 0 !important;
-
-      &:focus {
-        box-shadow: none !important;
+      &::placeholder {
+        color: va.$Base;
+        opacity: 0.5;
+        font-size: 0.16rem;
       }
     }
+
     &_textarea {
       width: 600px;
       padding: 30px;
