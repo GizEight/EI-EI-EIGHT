@@ -159,7 +159,7 @@
     &_inner {
       display: flex;
       justify-content: space-between;
-      padding: .4rem 0;
+      padding: 0.4rem 0;
     }
 
     &_user {
@@ -174,14 +174,14 @@
 
       &-desc {
         & > p {
-          margin-top: .08rem;
+          margin-top: 0.08rem;
           width: 3.5rem;
         }
 
         &_sns {
-          padding-top: .08rem;
+          padding-top: 0.08rem;
           display: flex;
-          gap: .08rem;
+          gap: 0.08rem;
         }
       }
     }
@@ -195,9 +195,39 @@
       display: flex;
     }
 
+    &_side {
+      & > h2 {
+        margin-top: 0 !important;
+      }
+    }
+
     &_icon {
+      margin-top: 0.5rem;
+      text-align: center;
       & > img {
-        width: 1.5rem;
+        width: 1.3rem;
+        height: 1.3rem;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    }
+
+    &_caption {
+      margin-top: 0.2rem;
+
+      & > label {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        &:hover {
+          color: va.$FocusForm;
+        }
+
+        & > input {
+          display: none;
+        }
       }
     }
   }
@@ -222,6 +252,14 @@
     justify-content: center;
     flex-direction: column;
     max-width: 8rem;
+
+    &-user {
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
+    }
 
     &_contents {
       display: flex;

@@ -19,7 +19,11 @@ export const Form: FC<Props> = memo((props: Props) => {
   return (
     <div className="c-form">
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-      {!isNil(label) && <label htmlFor={id}>{label}</label>}
+      {!isNil(label) && (
+        <label className="c-form_label" htmlFor={id}>
+          {label}
+        </label>
+      )}
       {children}
       <ErrorMessage>{errorMsg}</ErrorMessage>
     </div>
